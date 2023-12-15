@@ -1,0 +1,28 @@
+.c-menuButton {
+  color: #FFFFFF;
+  font: inherit;
+  font-family: ForcedSquareRegular;
+  font-weight: 400;
+  letter-spacing: inherit;
+  line-height: inherit;
+  padding: 0.5em 0.75em;
+}
+.c-menuButton:active,
+.c-menuButton:focus {
+  animation: c-menuButton 1s linear 0s infinite alternate both;
+  outline-color: hsl(0, 100%, 75%);
+}
+.c-menuButton[aria-disabled="true"],
+.c-menuButton[disabled] {
+  opacity: 0.25;
+  outline-color: #FFFFFF;
+}
+
+@keyframes c-menuButton {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(-360deg);
+  }
+}

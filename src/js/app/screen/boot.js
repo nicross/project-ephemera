@@ -1,11 +1,11 @@
-app.screen.splash = app.screenManager.invent({
+app.screen.boot = app.screenManager.invent({
   // Attributes
   id: 'boot',
   parentSelector: '.a-app--boot',
   rootSelector: '.a-boot',
   transitions: {
     done: function () {
-      this.change('game')
+      this.change('mainMenu')
     },
   },
   // Hooks
