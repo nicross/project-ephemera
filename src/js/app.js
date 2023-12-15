@@ -9,12 +9,21 @@ const app = (() => {
   let isActive = false,
     root
 
+  function onResize() {
+    // Constrain to 4:3 aspect ratio
+    root.style.width = (4/3 * root.clientHeight) + 'px'
+  }
+
   return {
     activate: function () {
       isActive = true
 
       root = document.querySelector('.a-app')
       root.classList.add('a-app-active')
+
+      window.addEventListener('orientationchange', onResize)
+      window.addEventListener('resize', onResize)
+      onResize()
 
       readyContext.resolve()
 
