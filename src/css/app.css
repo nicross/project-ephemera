@@ -2,7 +2,6 @@
   background-color: #000000;
   height: 100%;
   left: 50%;
-  letter-spacing: 0.125em;
   position: absolute;
   opacity: 0;
   top: 50%;
@@ -10,6 +9,20 @@
   transition: opacity 1s linear;
   width: 100%;
 }
+  .a-app--grain {
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.125s ease;
+    top: 0;
+    width: 100%;
+    z-index: 667;
+  }
+  .a-app--grain-active {
+    opacity: 1;
+  }
   .a-app--overlaySupport {
     height: 100%;
     left: 0;

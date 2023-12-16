@@ -52,6 +52,10 @@ app.screen.demos = app.screenManager.invent({
     const root = this.rootElement,
       ui = app.controls.ui()
 
+    if (ui.back) {
+      return app.screenManager.dispatch('back')
+    }
+
     if (ui.confirm) {
       const focused = app.utility.focus.get(root)
 
