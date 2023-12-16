@@ -29,6 +29,7 @@ const app = (() => {
 
       return this
     },
+    component: {},
     height: () => root.clientHeight,
     isActive: () => isActive,
     isElectron: () => typeof ElectronApi != 'undefined',

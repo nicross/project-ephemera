@@ -1,5 +1,4 @@
 # TODO
-- System Settings
 - Boot audio
 - Menu audio
 - Minigame GDDs
