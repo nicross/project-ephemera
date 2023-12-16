@@ -9,16 +9,16 @@
     font-family: FiraCodeRegular, monospace;
     font-size: 0.75em;
     font-weight: 400;
-    left: 2rem;
     letter-spacing: 0;
     position: absolute;
-    text-align: left;
+    text-align: center;
+    width: 100%;
   }
   .a-splash--instruction {
     animation: a-splash--instruction 1s ease-in-out 0s infinite alternate both;
     color: rgba(255, 255, 255, 0.5);
     font-family: RobotoLight, sans-serif;
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: 300;
     left: 50%;
     position: absolute;
