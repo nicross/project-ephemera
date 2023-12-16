@@ -1,21 +1,37 @@
 .c-menuButton {
+  animation: c-menuButton 1s linear 0s infinite alternate both;
   color: #FFFFFF;
   font: inherit;
   font-family: ForcedSquareRegular;
   font-weight: 400;
   letter-spacing: inherit;
-  line-height: inherit;
+  line-height: 1;
   padding: 0.5em 0.75em;
+  text-align: left;
+}
+.c-menuButton:hover {
+  outline: 2px solid hsl(0, 100%, 25%);
 }
 .c-menuButton:active,
 .c-menuButton:focus {
-  animation: c-menuButton 1s linear 0s infinite alternate both;
   outline-color: hsl(0, 100%, 75%);
 }
 .c-menuButton[aria-disabled="true"],
 .c-menuButton[disabled] {
   opacity: 0.25;
   outline-color: #FFFFFF;
+}
+
+.c-menuButton-demo h2 {
+  font-size: 2em;
+  margin: 0;
+}
+.c-menuButton-demo p {
+  opacity: 0.5;
+}
+.c-menuButton-demo:active p,
+.c-menuButton-demo:focus p {
+  opacity: 1;
 }
 
 @keyframes c-menuButton {
