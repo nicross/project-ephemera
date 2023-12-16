@@ -58,4 +58,12 @@ app.screen.mainMenu = app.screenManager.invent({
       return app.utility.focus.setNextFocusable(root)
     }
   },
+  // Custom methods
+  focusWithin: function () {
+    app.utility.focus.set(
+      this.rootElement.querySelector('.a-mainMenu--demos')
+    )
+
+    return this
+  },
 })
