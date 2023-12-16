@@ -48,6 +48,6 @@ app.screen.boot = app.screenManager.invent({
     await engine.fn.promise(1 * 1000)
     this.statusElement.innerHTML = text
 
-    await engine.fn.promise(4 * 1000)
+    await engine.fn.promise(3 * 1000)
   },
 })
