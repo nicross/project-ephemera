@@ -29,6 +29,7 @@ const app = (() => {
 
       return this
     },
+    height: () => root.clientHeight,
     isActive: () => isActive,
     isElectron: () => typeof ElectronApi != 'undefined',
     name: () => 'syngen-template',
@@ -46,6 +47,7 @@ const app = (() => {
     },
     screen: {},
     utility: {},
+    width: () => root.clientWidth,
     version: () => '0.0.0', // Replaced via Gulpfile.js
   }
 })()

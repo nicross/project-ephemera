@@ -1,0 +1,29 @@
+.a-information {}
+  .a-information--table {
+    border-collapse: collapse;
+    display: block;
+    font-family: ForcedSquareRegular;
+    max-width: 75%;
+  }
+  .a-information--table tr + tr td,
+  .a-information--table tr + tr th {
+    border-top: 1px solid var(--color-accent-half);
+  }
+  .a-information--table td {
+    padding: 0.5em 0.75em;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .a-information--table th {
+    padding: 0.5em 0.75em;
+    text-align: left;
+    width: 100%;
+  }
+  .a-information--table tr {
+    transition: all 0.25s ease;
+    transition-property: background-color;
+  }
+  .a-information--table:focus-within tr:focus,
+  .a-information--table:hover tr:hover {
+    background-color: rgba(255, 255, 255, 0.0625);
+  }

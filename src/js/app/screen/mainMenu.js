@@ -7,6 +7,9 @@ app.screen.mainMenu = app.screenManager.invent({
     demos: function () {
       this.change('demos')
     },
+    information: function () {
+      this.change('information')
+    },
     quit: function () {
       app.quit()
     },
@@ -19,6 +22,7 @@ app.screen.mainMenu = app.screenManager.invent({
 
     Object.entries({
       demos: root.querySelector('.a-mainMenu--demos'),
+      information: root.querySelector('.a-mainMenu--information'),
       quit: root.querySelector('.a-mainMenu--quit'),
     }).forEach(([event, element]) => {
       element.addEventListener('click', () => app.screenManager.dispatch(event))

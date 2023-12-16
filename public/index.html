@@ -29,6 +29,49 @@
         </section>
       </div>
 
+      <div class="a-app--screen a-app--screen-os a-app--information">
+        <section class="c-screen a-information" aria-label="System Information">
+          <h1 class="c-screen--title">System Information</h1>
+          <div class="a-information--data">
+            <table class="a-information--table">
+              <tr tabindex="0">
+                <th>System Date</th>
+                <td><span class="a-information--metric-date">01/01/1994</span></td>
+              </tr>
+              <tr tabindex="0">
+                <th>System Time</th>
+                <td><span class="a-information--metric-time">00:00:00</span></td>
+              </tr>
+              <tr tabindex="0">
+                <th>APU Sample Rate</th>
+                <td><span class="a-information--metric-sampleRate">44.1</span> kHz</td>
+              </tr>
+              <tr tabindex="0">
+                <th>GPU Color Depth</th>
+                <td><span class="a-information--metric-colorDepth">24</span>-bit</td>
+              </tr>
+              <tr tabindex="0">
+                <th>Display Resolution</th>
+                <td><span class="a-information--metric-resolution"></span></td>
+              </tr>
+              <tr tabindex="0">
+                <th>Firmware Version</th>
+                <td><span class="a-information--metric-version">v0.0.0</span></td>
+              </tr>
+              <tr tabindex="0">
+                <th>Test Subject</th>
+                <td>Nominal</td>
+              </tr>
+            </table>
+          </div>
+          <ul class="c-screen--actions">
+            <li class="c-screen--action">
+              <button class="c-menuButton a-information--back" type="button">Back</button>
+            </li>
+          </ul>
+        </section>
+      </div>
+
       <div class="a-app--screen a-app--game">
         <section class="c-screen a-game" tabindex="-1" aria-label=""></section>
       </div>
@@ -47,7 +90,7 @@
               <button class="c-menuButton a-mainMenu--settings" type="button" aria-disabled="true">System Settings</button>
             </li>
             <li class="c-screen--action">
-              <button class="c-menuButton a-mainMenu--information" type="button" aria-disabled="true">System Information</button>
+              <button class="c-menuButton a-mainMenu--information" type="button">System Information</button>
             </li>
             <li class="c-screen--action a-mainMenu--action-quit">
               <button class="c-menuButton a-mainMenu--quit" type="button">Power Off</button>
