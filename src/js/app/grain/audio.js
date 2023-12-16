@@ -13,6 +13,9 @@ app.grain.audio = (() => {
 
       return this
     },
+    touch: function (value) {
+      
+    },
     update: function (value) {
       updateSynth(value)
 

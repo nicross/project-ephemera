@@ -59,7 +59,7 @@
 
 @keyframes a-boot--disclaimer {
   0% {
-    filter: blur(0.5rem);
+    filter: blur(1rem);
     opacity: 0;
   }
   100% {
@@ -70,12 +70,12 @@
 
 @keyframes a-boot--logoLetter {
   0% {
-    filter: blur(0.5rem);
+    filter: blur(1rem) brightness(200%);
     opacity: 0;
     transform: translateY(-50%);
   }
   100% {
-    filter: blur(0);
+    filter: blur(0) brightness(100%);
     opacity: 1;
     transform: translateY(0%);
   }

@@ -20,6 +20,7 @@ app.grain = (() => {
     touch: function (amount = 1) {
       if (isActive) {
         value = engine.fn.clamp(value + amount)
+        this.audio.touch(value)
       }
 
       return this
@@ -43,6 +44,6 @@ app.grain = (() => {
 engine.loop.on('frame', () => app.grain.update())
 
 engine.ready(() => {
-  app.screenManager.on('enter', () => app.grain.touch(engine.fn.randomFloat(0.5, 0.75)))
+  app.screenManager.on('enter', () => app.grain.touch(engine.fn.randomFloat(0.333, 0.666)))
   app.screenManager.on('enter-boot', () => app.grain.activate())
 })
