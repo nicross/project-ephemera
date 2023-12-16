@@ -41,7 +41,7 @@ const app = (() => {
     },
     ready: async (callback) => {
       return typeof callback == 'function'
-        ? readyContext.then(callback)
+        ? ready.then(callback)
         : readyContext
     },
     screen: {},

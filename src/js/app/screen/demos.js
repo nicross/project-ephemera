@@ -25,13 +25,11 @@ app.screen.demos = app.screenManager.invent({
       item.classList.add('a-demos--demo')
 
       const button = document.createElement('button')
-      button.type = 'button'
-      button.classList.add('c-menuButton')
-      button.classList.add('c-menuButton-demo')
-
+      button.classList.add('c-menuButton', 'c-menuButton-demo')
+      button.innerHTML = `<h2>${demo.name}</h2><p>${demo.description}</p>`
       button.setAttribute('aria-description', demo.description)
       button.setAttribute('aria-label', demo.name)
-      button.innerHTML = `<h2>${demo.name}</h2><p>${demo.description}</p>`
+      button.type = 'button'
 
       button.addEventListener('click', () => {
         app.screenManager.dispatch('play', demo)

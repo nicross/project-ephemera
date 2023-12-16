@@ -17,7 +17,7 @@ app.screen.boot = app.screenManager.invent({
 
     app.screenManager.dispatch('done')
   },
-  // Methods
+  // Sequence Steps
   doDisclaimer: async function () {
     await engine.fn.promise(1 * 1000)
 
@@ -29,6 +29,8 @@ app.screen.boot = app.screenManager.invent({
 
     this.rootElement.appendChild(disclaimer)
     this.statusElement.innerHTML = text
+
+    this.playDisclaimer()
   },
   doLogo: async function () {
     await engine.fn.promise(1 * 1000)
@@ -48,6 +50,19 @@ app.screen.boot = app.screenManager.invent({
     await engine.fn.promise(1 * 1000)
     this.statusElement.innerHTML = text
 
+    this.playLogo()
+
     await engine.fn.promise(3 * 1000)
   },
+  // Sounds
+  playDisclaimer: function () {
+    const bus = app.audio.bus()
+
+    // TODO: synths
+  },
+  playLogo: function () {
+    const bus = app.audio.bus()
+
+    // TODO: synths
+  }
 })
