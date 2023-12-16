@@ -14,7 +14,7 @@
   }
   .a-boot--logo {
     font-family: BlockedRegular, sans-serif;
-    font-size: 6em;
+    font-size: 8em;
   }
   .a-boot--logoLetter {
     animation: a-boot--logoLetter 0.5s ease-out 0s 1 both;
