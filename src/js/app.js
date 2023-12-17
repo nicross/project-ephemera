@@ -11,7 +11,13 @@ const app = (() => {
 
   function onResize() {
     // Constrain to 4:3 aspect ratio
-    root.style.width = (4/3 * root.clientHeight) + 'px'
+    if (window.innerHeight > window.innerWidth * 3/4) {
+      root.style.height = (3/4 * window.innerWidth) + 'px'
+      root.style.width = '100%'
+    } else {
+      root.style.height = '100%'
+      root.style.width = (4/3 * window.innerHeight) + 'px'
+    }
   }
 
   return {
