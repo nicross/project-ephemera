@@ -1,6 +1,6 @@
 # TODO
 - Boot audio
-- Menu audio
+- Grain audio
 - Minigame GDDs
 - Minigame 1
 - Minigame 2
