@@ -3,7 +3,11 @@ app.screen.game = app.screenManager.invent({
   id: 'game',
   parentSelector: '.a-app--game',
   rootSelector: '.a-game',
-  transitions: {},
+  transitions: {
+    back: function () {
+      this.change('demos')
+    },
+  },
   // State
   state: {},
   // Hooks
@@ -14,6 +18,10 @@ app.screen.game = app.screenManager.invent({
 
   },
   onFrame: function () {
+    const ui = app.controls.ui()
 
+    if (ui.back) {
+      return app.screenManager.dispatch('back')
+    }
   },
 })

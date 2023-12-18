@@ -11,8 +11,8 @@ app.grain = (() => {
       isActive = true
       value = 1
 
-      this.audio.activate()
-      this.video.activate()
+      this.audio.activate(value)
+      this.video.activate(value)
 
       return this
     },
@@ -20,7 +20,6 @@ app.grain = (() => {
     touch: function (amount = 1) {
       if (isActive) {
         value = engine.fn.clamp(value + amount)
-        this.audio.touch(value)
       }
 
       return this
@@ -46,4 +45,6 @@ engine.loop.on('frame', () => app.grain.update())
 engine.ready(() => {
   app.screenManager.on('enter', () => app.grain.touch(engine.fn.randomFloat(0.333, 0.666)))
   app.screenManager.on('enter-boot', () => app.grain.activate())
+  app.screenManager.on('enter-game', () => app.grain.audio.duck())
+  app.screenManager.on('exit-game', () => app.grain.audio.unduck())
 })

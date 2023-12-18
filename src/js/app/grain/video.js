@@ -123,8 +123,9 @@ void main(void) {
   }
 
   return {
-    activate: function () {
+    activate: function (value) {
       canvas.classList.add('a-app--grain-active')
+      draw(value)
 
       return this
     },
