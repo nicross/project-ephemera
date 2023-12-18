@@ -8,6 +8,9 @@
     transition: all 0.25s ease;
     transition-property: color;
   }
+  .c-toggle--button[aria-disabled] {
+    opacity: 0.5;
+  }
   .c-toggle--button:focus,
   .c-toggle--button:hover {
     border-color: #FFFFFF;
