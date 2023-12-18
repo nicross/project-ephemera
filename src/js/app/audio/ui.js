@@ -86,7 +86,7 @@ app.audio.ui.value = ({
 
 // Clicking
 document.addEventListener('click', (e) => {
-  if (!e.target.matches('.c-menuButton, .c-toggle, .c-toggle *')) {
+  if (!e.target.matches('.c-menuButton, .c-menuButton *, .c-toggle, .c-toggle *')) {
     return
   }
 
@@ -99,13 +99,11 @@ document.addEventListener('click', (e) => {
     })
   }
 
-  if (!e.target.matches('.a-app--screen-os .c-menuButton')) {
-    return
-  }
+  const button = e.target.closest('.c-menuButton')
 
   app.audio.ui.click({
-    enabled: !e.target.hasAttribute('aria-disabled'),
-    strength: e.target.hasAttribute('aria-disabled') ? 0 : 1,
+    enabled: !button.hasAttribute('aria-disabled'),
+    strength: button.hasAttribute('aria-disabled') ? 0 : 1,
   })
 })
 

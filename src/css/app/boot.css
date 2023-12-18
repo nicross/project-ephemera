@@ -15,41 +15,42 @@
   .a-boot--logo {
     font-family: BlockedRegular, sans-serif;
     font-size: 8em;
+    transform: translateY(-25%);
   }
   .a-boot--logoLetter {
     animation: a-boot--logoLetter 0.5s ease-out 0s 1 both;
     display: inline-block;
   }
   .a-boot--logoLetter:nth-child(1) {
-    animation-delay: calc(0 * 0.125s);
+    animation-delay: calc(0 * 0.0625s);
     color: hsl(calc(0 / 8 * 360), 100%, 75%);
   }
   .a-boot--logoLetter:nth-child(2) {
-    animation-delay: calc(1 * 0.125s);
+    animation-delay: calc(1 * 0.0625s);
     color: hsl(calc(1 / 8 * 360), 100%, 75%);
   }
   .a-boot--logoLetter:nth-child(3) {
-    animation-delay: calc(2 * 0.125s);
+    animation-delay: calc(2 * 0.0625s);
     color: hsl(calc(2 / 8 * 360), 100%, 75%);
   }
   .a-boot--logoLetter:nth-child(4) {
-    animation-delay: calc(3 * 0.125s);
+    animation-delay: calc(3 * 0.0625s);
     color: hsl(calc(3 / 8 * 360), 100%, 75%);
   }
   .a-boot--logoLetter:nth-child(5) {
-    animation-delay: calc(4 * 0.125s);
+    animation-delay: calc(4 * 0.0625s);
     color: hsl(calc(4 / 8 * 360), 100%, 75%);
   }
   .a-boot--logoLetter:nth-child(6) {
-    animation-delay: calc(5 * 0.125s);
+    animation-delay: calc(5 * 0.0625s);
     color: hsl(calc(5 / 8 * 360), 100%, 75%);
   }
   .a-boot--logoLetter:nth-child(7) {
-    animation-delay: calc(6 * 0.125s);
+    animation-delay: calc(6 * 0.0625s);
     color: hsl(calc(6 / 8 * 360), 100%, 75%);
   }
   .a-boot--logoLetter:nth-child(8) {
-    animation-delay: calc(7 * 0.125s);
+    animation-delay: calc(7 * 0.0625s);
     color: hsl(calc(7 / 8 * 360), 100%, 75%);
   }
   .a-boot--logoLetterInner {

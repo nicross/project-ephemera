@@ -62,7 +62,7 @@ app.grain.audio = (() => {
     parameters.color = engine.fn.lerp(parameters.color, 32, value)
     parameters.fmodDepth = engine.fn.lerp(parameters.fmodDepth, rootFrequency, value)
     parameters.fmodDetune = engine.fn.lerp(parameters.fmodDetune, 0, value)
-    parameters.gain = engine.fn.lerp(parameters.gain, engine.fn.fromDb(-18), value)
+    parameters.gain = engine.fn.lerp(parameters.gain, engine.fn.fromDb(-21), value)
     parameters.width = engine.fn.lerp(parameters.width, 0.5, value)
 
     return parameters
@@ -159,7 +159,7 @@ app.grain.audio = (() => {
       return this
     },
     duck: function (value) {
-      destroySynth(1/8)
+      destroySynth(1/2)
 
       return this
     },
