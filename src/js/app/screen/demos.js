@@ -32,7 +32,7 @@ app.screen.demos = app.screenManager.invent({
       button.type = 'button'
 
       button.addEventListener('click', () => {
-        app.screenManager.dispatch('play', demo)
+        app.screenManager.dispatch('play', {demo})
       })
 
       item.appendChild(button)

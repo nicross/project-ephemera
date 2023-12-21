@@ -9,13 +9,17 @@ app.screen.game = app.screenManager.invent({
     },
   },
   // State
-  state: {},
+  state: {
+    demo: undefined,
+  },
   // Hooks
-  onEnter: function () {
-
+  onEnter: function ({demo}) {
+    this.state.demo = demo
+    demo.load()
   },
   onExit: function () {
-
+    this.state.demo.unload()
+    this.state.demo = undefined
   },
   onFrame: function () {
     const ui = app.controls.ui()
@@ -23,5 +27,7 @@ app.screen.game = app.screenManager.invent({
     if (ui.back) {
       return app.screenManager.dispatch('back')
     }
+
+    this.state.demo.update()
   },
 })
