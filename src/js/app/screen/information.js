@@ -40,6 +40,10 @@ app.screen.information = app.screenManager.invent({
         engine.fn.round(engine.context().sampleRate / 1000, 2),
       ],
       [
+        '.a-information--metric-subjectStatus',
+        app.subjectStatus.state,
+      ],
+      [
         '.a-information--metric-time',
         this.getSystemTime(),
       ],
@@ -62,6 +66,10 @@ app.screen.information = app.screenManager.invent({
       [
         '.a-information--metric-resolution',
         `${app.width()}x${app.height()}`,
+      ],
+      [
+        '.a-information--metric-subjectStatus',
+        app.subjectStatus.state,
       ],
       [
         '.a-information--metric-time',
