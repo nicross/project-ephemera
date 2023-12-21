@@ -82,8 +82,9 @@ app.screen.boot = app.screenManager.invent({
       }).connect(bus)
 
       synth.filter.detune.setValueAtTime(-1200, when)
-      synth.filter.detune.linearRampToValueAtTime(color * 1200, when + duration*3/4)
-      synth.filter.detune.linearRampToValueAtTime(0, when + duration)
+      synth.filter.detune.linearRampToValueAtTime(color * 1200, when + duration*1/4)
+      synth.filter.detune.linearRampToValueAtTime(0, when + duration/2)
+      synth.filter.detune.linearRampToValueAtTime(color * 1200 / 2, when + duration)
 
       synth.param.gain.setValueAtTime(engine.const.zeroGain, when)
       synth.param.gain.exponentialRampToValueAtTime(gain, when + 1/32)

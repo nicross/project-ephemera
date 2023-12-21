@@ -1,6 +1,6 @@
 content.demo.falls = content.demo.register({
   id: 'falls',
   enabled: true,
-  description: 'Patent pending.',
+  description: 'Under construction.',
   name: 'Harmony Falls',
 })
