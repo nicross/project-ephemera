@@ -94,7 +94,7 @@ document.addEventListener('click', (e) => {
     const button = e.target.closest('.c-toggle').querySelector('.c-toggle--button')
 
     return app.audio.ui.value({
-      enabled: !button.hasAttribute('aria-disabled'),
+      enabled: button.getAttribute('aria-disabled') != 'true',
       strength: button.getAttribute('aria-checked') == 'true' ? 1 : 0,
     })
   }
@@ -102,7 +102,7 @@ document.addEventListener('click', (e) => {
   const button = e.target.closest('.c-menuButton')
 
   app.audio.ui.click({
-    enabled: !button.hasAttribute('aria-disabled'),
+    enabled: button.getAttribute('aria-disabled') != 'true',
     strength: button.hasAttribute('aria-disabled') ? 0 : 1,
   })
 })
@@ -114,7 +114,7 @@ document.addEventListener('focusin', (e) => {
   }
 
   app.audio.ui.focus({
-    enabled: e.target.matches('.c-menuButton, .c-slider, .c-slider *, .c-toggle, .c-toggle *') && !e.target.hasAttribute('aria-disabled'),
+    enabled: e.target.matches('.c-menuButton, .c-slider, .c-slider *, .c-toggle, .c-toggle *') && e.target.getAttribute('aria-disabled') != 'true',
     strength: e.target.matches('.c-menuButton') ? 1 : 0,
   })
 })
