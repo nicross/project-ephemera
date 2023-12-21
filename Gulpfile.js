@@ -161,6 +161,15 @@ function getAppJs() {
     'src/js/app/**/*.js',
   ]
 
+  // Hide debug code
+  if (!isDebug) {
+    srcs.push(
+      '!src/js/debug.js',
+      '!src/js/debug/*.js',
+      '!src/js/debug/**/*.js',
+    )
+  }
+
   return srcs
 }
 
