@@ -44,7 +44,7 @@ engine.loop.on('frame', () => app.grain.update())
 
 engine.ready(() => {
   app.screenManager.on('enter', () => app.grain.touch(engine.fn.randomFloat(0.333, 0.666)))
-  app.screenManager.on('enter-boot', () => app.grain.activate())
+  app.screenManager.on('exit-splash', () => app.grain.activate())
   app.screenManager.on('enter-game', () => app.grain.audio.duck())
   app.screenManager.on('exit-game', () => app.grain.audio.unduck())
 })
