@@ -28,11 +28,14 @@ app.screen.demos = app.screenManager.invent({
       button.classList.add('c-menuButton', 'c-menuButton-demo')
       button.innerHTML = `<h2>${demo.name}</h2><p>${demo.description}</p>`
       button.setAttribute('aria-description', demo.description)
+      button.setAttribute('aria-disabled', demo.enabled ? 'false' : 'true')
       button.setAttribute('aria-label', demo.name)
       button.type = 'button'
 
       button.addEventListener('click', () => {
-        app.screenManager.dispatch('play', {demo})
+        if (button.getAttribute('aria-disabled') != 'true') {
+          app.screenManager.dispatch('play', {demo})
+        }
       })
 
       item.appendChild(button)

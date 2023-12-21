@@ -1,6 +1,7 @@
 content.demo.base = {
   // Information
   id: undefined,
+  enabled: false,
   name: '',
   description: '',
   // Methods
