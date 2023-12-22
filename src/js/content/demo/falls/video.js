@@ -25,7 +25,7 @@ content.demo.falls.video = (() => {
       }
 
       context.clearRect(0, 0, context.canvas.width, context.canvas.height)
-      // TODO: background
+      this.player.draw()
       this.enemies.draw()
       this.projectiles.draw()
       // TODO: particles

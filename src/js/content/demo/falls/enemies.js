@@ -38,7 +38,7 @@ content.demo.falls.enemies = (() => {
     }
 
     // Apply damage
-    enemy.damage += 1/4
+    enemy.damage += 1/6
 
     // Emit event
     const type = enemy.damage + enemy.y > 1
