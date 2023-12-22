@@ -107,6 +107,10 @@ content.demo.falls.input = (() => {
       return this
     },
     update: function () {
+      if (content.demo.falls.time.get() < 1/4) {
+        return this
+      }
+
       move()
       shoot()
 

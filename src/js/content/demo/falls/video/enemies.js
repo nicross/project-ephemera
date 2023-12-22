@@ -9,7 +9,7 @@ content.demo.falls.video.enemies = (() => {
     )
 
     const hue = content.demo.falls.video.color.hue(enemy.x),
-      lightness = engine.fn.clamp(0.5 + (enemy.damageAccelerated * 2)),
+      lightness = engine.fn.clamp(0.5 + enemy.damageAccelerated),
       saturation = content.demo.falls.video.color.saturation()
 
     context.fillStyle = `hsl(${hue}deg, ${saturation * 100}%, ${lightness * 100}%)`

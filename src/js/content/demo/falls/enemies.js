@@ -5,6 +5,29 @@ content.demo.falls.enemies = (() => {
   const defaults = {
     damage: 0,
     damageAccelerated: 0,
+    x: 0,
+    y: 1,
+  }
+
+  function calculateMoveRate() {
+    const time = content.demo.falls.time.get()
+
+    return engine.fn.lerp(
+      1/64,
+      1,
+      engine.fn.clamp(time / 5 / 60)
+    )
+  }
+
+  function calculateSpawnChance() {
+    const fps = engine.performance.fps(),
+      time = content.demo.falls.time.get()
+
+    return engine.fn.lerp(
+      1,
+      fps,
+      engine.fn.clamp(time / 5 / 60)
+    ) / fps
   }
 
   function hit(projetile) {
@@ -15,7 +38,7 @@ content.demo.falls.enemies = (() => {
     }
 
     // Apply damage
-    enemy.damage += 1/8
+    enemy.damage += 1/4
 
     // Emit event
     const type = enemy.damage + enemy.y > 1
@@ -47,7 +70,7 @@ content.demo.falls.enemies = (() => {
 
       enemies.set(x, {
         ...defaults,
-        height: engine.fn.randomFloat(1, 2),
+        height: engine.fn.randomFloat(1, 3),
         x,
         y: 1 - (((value - 0.5) * 2) * 0.75),
       })
@@ -55,14 +78,28 @@ content.demo.falls.enemies = (() => {
   }
 
   function spawn() {
-    // TODO
+    if (Math.random() > calculateSpawnChance()) {
+      return
+    }
+
+    const x = engine.fn.randomInt(0, content.demo.falls.const.stageSize)
+
+    if (enemies.has(x)) {
+      return
+    }
+
+    enemies.set(x, {
+      ...defaults,
+      height: engine.fn.randomFloat(1, 3),
+      x,
+    })
   }
 
   function update() {
     const delta = engine.loop.delta()
 
     const damageRate = 1 * delta,
-      moveRate = 1/30 * delta
+      moveRate = calculateMoveRate() * delta
 
     for (const [x, enemy] of enemies) {
       // Apply damage toward top of screen
