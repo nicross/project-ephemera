@@ -8,6 +8,8 @@ content.demo.base = {
   extend: function (definition) {
     return engine.fn.extend(this, definition)
   },
+  // Constants
+  const: {},
   // Lifecycle
   load: () => {},
   unload: () => {},

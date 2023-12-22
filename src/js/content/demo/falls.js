@@ -3,6 +3,10 @@ content.demo.falls = content.demo.register({
   enabled: true,
   description: 'Under construction.',
   name: 'Harmony Falls',
+  // Constants
+  const: {
+    stageSize: 64,
+  },
   // Lifecycle
   load: function () {
     engine.seed.set(Math.random())

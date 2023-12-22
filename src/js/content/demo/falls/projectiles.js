@@ -1,20 +1,43 @@
 content.demo.falls.projectiles = (() => {
-  const baseRate = 1 / 4,
+  const pubsub = engine.tool.pubsub.create()
+
+  const baseRate = 1 / 2,
     projectiles = new Set()
 
-  function spawn() {
-    // TODO
+  function shoot() {
+    if (!content.demo.falls.input.isShoot()) {
+      return
+    }
+
+    projectiles.add({
+      x: content.demo.falls.player.x(),
+      y: 0,
+    })
+
+    pubsub.emit('shoot')
   }
 
   function update() {
     const rate = engine.loop.delta() * baseRate
 
     for (const projectile of projectiles) {
-      // TODO
+      projectile.y += rate
+
+      const enemy = content.demo.falls.enemies.get(projectile.x),
+        isDespawn = projectile.y > 1,
+        isHit = enemy && projectile.y >= enemy.y
+
+      if (isDespawn || isHit) {
+        projectiles.delete(projectile)
+      }
+
+      if (isHit) {
+        content.demo.falls.enemies.hit(projectile)
+      }
     }
   }
 
-  return {
+  return pubsub.decorate({
     all: () => [...projectiles],
     load: function () {
       return this
@@ -25,10 +48,10 @@ content.demo.falls.projectiles = (() => {
       return this
     },
     update: function () {
-      spawn()
+      shoot()
       update()
 
       return this
     },
-  }
+  })
 })()

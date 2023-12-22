@@ -2,19 +2,27 @@ content.demo.falls.player = (() => {
   const pubsub = engine.tool.pubsub.create()
 
   let isDead = false,
-    position = 0
+    x = 0
 
   function checkDeath() {
-    const enemy = content.demo.falls.enemies.get(position)
+    const enemy = content.demo.falls.enemies.get(x)
 
-    if (false) {
+    if (enemy && enemy.y <= 0) {
       isDead = true
       pubsub.emit('kill')
     }
   }
 
   function handleInput() {
-    // TODO
+    const movement = content.demo.falls.input.moveDirection()
+
+    if (!movement) {
+      return
+    }
+
+    x = engine.fn.wrap(x + movement, 0, content.demo.falls.const.stageSize)
+
+    pubsub.emit('move')
   }
 
   return pubsub.decorate({
@@ -24,16 +32,16 @@ content.demo.falls.player = (() => {
     },
     unload: function () {
       isDead = false
-      position = 0
+      x = 0
 
       return this
     },
-    position: () => position,
     update: function () {
       checkDeath()
       handleInput()
 
       return this
     },
+    x: () => x,
   })
 })()
