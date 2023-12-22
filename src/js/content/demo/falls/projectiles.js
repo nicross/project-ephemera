@@ -1,7 +1,7 @@
 content.demo.falls.projectiles = (() => {
   const pubsub = engine.tool.pubsub.create()
 
-  const baseRate = 1 / 2,
+  const baseRate = 2,
     projectiles = new Set()
 
   function shoot() {

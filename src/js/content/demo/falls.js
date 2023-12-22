@@ -35,8 +35,8 @@ content.demo.falls = content.demo.register({
       this.time.update()
       this.input.update()
 
-      this.enemies.update()
       this.player.update()
+      this.enemies.update()
       this.projectiles.update()
     }
 

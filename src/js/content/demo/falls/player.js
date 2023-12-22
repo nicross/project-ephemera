@@ -30,6 +30,16 @@ content.demo.falls.player = (() => {
     load: function () {
       return this
     },
+    toRelativeX: (value) => {
+      const size = content.demo.falls.const.stageSize,
+        size2 = size / 2
+
+      const distance = value - x
+
+      return Math.abs(distance) < size2
+        ? distance
+        : -(size - Math.abs(distance)) * Math.sign(distance)
+    },
     unload: function () {
       isDead = false
       x = 0
