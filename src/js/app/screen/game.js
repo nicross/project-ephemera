@@ -13,7 +13,18 @@ app.screen.game = app.screenManager.invent({
     demo: undefined,
   },
   // Hooks
+  onReady: function () {
+    this.canvasElement = this.rootElement.querySelector('.a-game--canvas')
+
+    window.addEventListener('orientationchange', () => this.recalculateCanvas())
+    window.addEventListener('resize', () => this.recalculateCanvas())
+    this.recalculateCanvas()
+
+    content.video.setCanvas(this.canvasElement)
+  },
   onEnter: function ({demo}) {
+    this.recalculateCanvas()
+    
     this.state.demo = demo
     demo.load()
   },
@@ -29,5 +40,10 @@ app.screen.game = app.screenManager.invent({
     }
 
     this.state.demo.update()
+  },
+  // Methods
+  recalculateCanvas: function () {
+    this.canvasElement.height = this.canvasElement.clientHeight
+    this.canvasElement.width = this.canvasElement.clientWidth
   },
 })

@@ -9,7 +9,7 @@ app.settings.register('graphicsOn', {
   compute: (rawValue) => Boolean(rawValue),
   default: true,
   update: function (computedValue) {
-    // TODO: Toggle graphics
+    content.video.setActive(computedValue)
   },
 })
 
