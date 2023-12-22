@@ -31,14 +31,14 @@ content.demo.falls = content.demo.register({
     this.video.unload()
   },
   update: function () {
-    // TODO: Stop updating on death
+    if (!this.player.isDead()) {
+      this.time.update()
+      this.input.update()
 
-    this.time.update()
-    this.input.update()
-
-    this.enemies.update()
-    this.player.update()
-    this.projectiles.update()
+      this.enemies.update()
+      this.player.update()
+      this.projectiles.update()
+    }
 
     this.audio.update()
     this.video.update()

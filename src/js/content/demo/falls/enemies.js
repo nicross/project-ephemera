@@ -23,7 +23,32 @@ content.demo.falls.enemies = (() => {
   }
 
   function initialize() {
-    // TODO
+    const size = content.demo.falls.const.stageSize
+
+    const noise = engine.fn.createNoise({
+      octaves: size / 8,
+      seed: ['falls', 'enemies', 'initialize'],
+      type: '1d',
+    })
+
+    for (let x = 0; x < size; x += 1) {
+      const value = engine.fn.lerp(
+        noise.value(x / size * 2),
+        noise.value((x - size) / size * 2),
+        x / content.demo.falls.const.stageSize
+      )
+
+      if (value < 0.5) {
+        continue
+      }
+
+      enemies.set(x, {
+        damage: 0,
+        height: value - 0.5,
+        y: 1,
+        x,
+      })
+    }
   }
 
   function spawn() {
