@@ -8,10 +8,14 @@ content.demo.falls.video = (() => {
         context = content.video.canvas()?.getContext('2d')
       }
 
+      this.color.load()
+
       return this
     },
     unload: function () {
       context = undefined
+
+      this.color.unload()
 
       return this
     },

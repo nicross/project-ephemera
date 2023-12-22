@@ -38,7 +38,7 @@ content.demo.falls.enemies = (() => {
       const value = engine.fn.lerp(
         noise.value(x / size * 16),
         noise.value((x - size) / size * 16),
-        x / content.demo.falls.const.stageSize
+        x / size
       )
 
       if (value < 0.5) {

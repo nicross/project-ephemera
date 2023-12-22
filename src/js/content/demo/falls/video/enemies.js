@@ -8,8 +8,11 @@ content.demo.falls.video.enemies = (() => {
       0, 16
     )
 
-    // TODO: color generation
-    context.fillStyle = `rgba(255, 255, 255, ${engine.fn.clamp(0.5 + enemy.damageAccelerated)})`
+    const hue = content.demo.falls.video.color.hue(enemy.x),
+      lightness = engine.fn.clamp(0.5 + (enemy.damageAccelerated * 2)),
+      saturation = content.demo.falls.video.color.saturation()
+
+    context.fillStyle = `hsl(${hue}deg, ${saturation * 100}%, ${lightness * 100}%)`
 
     context.fillRect(
       Math.floor(context.canvas.width / 17 * index),
