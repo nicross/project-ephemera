@@ -6,15 +6,21 @@ content.demo.falls.audio = (() => {
     load: function () {
       bus = engine.mixer.createBus()
 
+      this.frequencies.load()
+
       return this
     },
     unload: function () {
       bus.disconnect()
       bus = undefined
 
+      this.frequencies.unload()
+
       return this
     },
     update: function () {
+      this.frequencies.update()
+
       return this
     },
   }
