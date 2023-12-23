@@ -9,6 +9,7 @@ content.demo.falls.input = (() => {
         'KeyA',
         'Numpad4',
       ],
+      mouse: [],
     },
     right: {
       gamepadDigital: [
@@ -19,6 +20,7 @@ content.demo.falls.input = (() => {
         'KeyD',
         'Numpad6',
       ],
+      mouse: [],
     },
     shoot: {
       gamepadDigital: [
@@ -33,6 +35,10 @@ content.demo.falls.input = (() => {
         'KeyW',
         'Space',
         'Numpad8',
+      ],
+      mouse: [
+        0, // Primary click
+        2, // Secondary click
       ],
     },
   }
@@ -49,11 +55,13 @@ content.demo.falls.input = (() => {
 
   function checkAnalogControls(isPositive) {
     return [0, 2].reduce((value, axis) => value || (isPositive ? 1 : -1) * engine.input.gamepad.getAxis(axis) > 0.5, false)
+      || false
   }
 
   function checkDigitalControls(mappings) {
     return mappings.keyboard.reduce((value, key) => value || engine.input.keyboard.is(key) > 0, false)
       || mappings.gamepadDigital.reduce((value, key) => value || engine.input.gamepad.isDigital(key), false)
+      || mappings.mouse.reduce((value, key) => value || engine.input.mouse.isButton(key), false)
       || false
   }
 
