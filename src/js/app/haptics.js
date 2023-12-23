@@ -93,3 +93,9 @@ app.haptics = (() => {
     },
   }
 })()
+
+engine.ready(() => {
+  content.haptics.setAdapter(app.haptics)
+})
+
+engine.loop.on('frame', ({delta}) => app.haptics.update(delta * 1000))
