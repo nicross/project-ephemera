@@ -5,7 +5,7 @@ content.demo.falls = content.demo.register({
   name: 'Harmony Falls',
   // Constants
   const: {
-    stageSize: 64,
+    stageSize: 36,
   },
   // Lifecycle
   load: function () {

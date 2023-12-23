@@ -1,12 +1,24 @@
 content.demo.falls.enemies = (() => {
-  const pubsub = engine.tool.pubsub.create()
-  const enemies = new Map()
+  const cooldowns = new Map(),
+    enemies = new Map(),
+    pubsub = engine.tool.pubsub.create()
 
   const defaults = {
     damage: 0,
     damageAccelerated: 0,
     x: 0,
     y: 1,
+  }
+
+  function calculateCooldownTime() {
+    const time = content.demo.falls.time.get()
+
+    return engine.fn.lerpExp(
+      16,
+      1,
+      engine.fn.clamp(time / 10 / 60),
+      0.5
+    )
   }
 
   function calculateMoveRate() {
@@ -81,7 +93,7 @@ content.demo.falls.enemies = (() => {
 
     const x = engine.fn.randomInt(0, content.demo.falls.const.stageSize)
 
-    if (enemies.has(x)) {
+    if (cooldowns.has(x) || enemies.has(x)) {
       return
     }
 
@@ -95,7 +107,18 @@ content.demo.falls.enemies = (() => {
   function update() {
     const delta = engine.loop.delta()
 
-    const damageRate = 1 * delta,
+    // Cooldowns
+    for (const [x, cooldown] of cooldowns) {
+      if (cooldown > delta) {
+        cooldowns.set(x, cooldown - delta)
+      } else {
+        cooldowns.delete(x)
+      }
+    }
+
+    // Enemies
+    const cooldownTime = calculateCooldownTime(),
+      damageRate = 1 * delta,
       moveRate = calculateMoveRate() * delta
 
     for (const [x, enemy] of enemies) {
@@ -109,11 +132,13 @@ content.demo.falls.enemies = (() => {
 
       // Despawn past bottom of screen
       if (enemy.y < -enemy.height) {
+        cooldowns.set(x, cooldownTime)
         enemies.delete(x)
       }
 
       // Kills
       if (enemy.y > 1) {
+        cooldowns.set(x, cooldownTime)
         pubsub.emit('kill', {enemy})
         enemies.delete(x)
       }
