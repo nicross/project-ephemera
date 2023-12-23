@@ -15,8 +15,8 @@ content.demo.falls.enemies = (() => {
 
     return engine.fn.lerpExp(
       16,
-      1,
-      engine.fn.clamp(time / 10 / 60),
+      0,
+      engine.fn.clamp(time / 5 / 60),
       0.5
     )
   }
@@ -30,17 +30,6 @@ content.demo.falls.enemies = (() => {
       engine.fn.clamp(time / 5 / 60),
       2
     )
-  }
-
-  function calculateSpawnChance() {
-    const fps = engine.performance.fps(),
-      time = content.demo.falls.time.get()
-
-    return engine.fn.lerp(
-      1,
-      fps,
-      engine.fn.clamp(time / 10 / 60)
-    ) / fps
   }
 
   function hit(projetile) {
@@ -58,7 +47,8 @@ content.demo.falls.enemies = (() => {
   }
 
   function initialize() {
-    const size = content.demo.falls.const.stageSize
+    const cooldownTime = calculateCooldownTime(),
+      size = content.demo.falls.const.stageSize
 
     const noise = engine.fn.createNoise({
       octaves: 4,
@@ -74,12 +64,13 @@ content.demo.falls.enemies = (() => {
       )
 
       if (value < 0.5) {
+        cooldowns.set(x, engine.fn.randomFloat(0.5, 1.5) * cooldownTime)
         continue
       }
 
       enemies.set(x, {
         ...defaults,
-        height: engine.fn.randomFloat(0.25, 1.25),
+        height: engine.fn.randomFloat(0.5, 1.5),
         x,
         y: 1 - (((value - 0.5) * 2) * 0.5),
       })
@@ -87,19 +78,26 @@ content.demo.falls.enemies = (() => {
   }
 
   function spawn() {
-    if (Math.random() > calculateSpawnChance()) {
+    const available = [],
+      size = content.demo.falls.const.stageSize
+
+    for (let x = 0; x < size; x += 1) {
+      if (cooldowns.has(x) || enemies.has(x)) {
+        continue
+      }
+
+      available.push(x)
+    }
+
+    if (!available.length) {
       return
     }
 
-    const x = engine.fn.randomInt(0, content.demo.falls.const.stageSize)
-
-    if (cooldowns.has(x) || enemies.has(x)) {
-      return
-    }
+    const x = engine.fn.choose(available, Math.random())
 
     enemies.set(x, {
       ...defaults,
-      height: engine.fn.randomFloat(0.25, 1.25),
+      height: engine.fn.randomFloat(0.5, 1.5),
       x,
     })
   }
@@ -132,13 +130,13 @@ content.demo.falls.enemies = (() => {
 
       // Despawn past bottom of screen
       if (enemy.y < -enemy.height) {
-        cooldowns.set(x, cooldownTime)
+        cooldowns.set(x, engine.fn.randomFloat(0.5, 1.5) * cooldownTime)
         enemies.delete(x)
       }
 
       // Kills
       if (enemy.y > 1) {
-        cooldowns.set(x, cooldownTime)
+        cooldowns.set(x, engine.fn.randomFloat(0.5, 1.5) * cooldownTime)
         pubsub.emit('kill', {enemy})
         enemies.delete(x)
       }

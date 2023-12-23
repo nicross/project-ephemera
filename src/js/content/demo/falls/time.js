@@ -6,6 +6,10 @@ content.demo.falls.time = (() => {
     load: function () {
       return this
     },
+    set: function (value) {
+      time = value
+      return this
+    },
     unload: function () {
       time = 0
 
