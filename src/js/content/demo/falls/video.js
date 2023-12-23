@@ -9,6 +9,7 @@ content.demo.falls.video = (() => {
       }
 
       this.color.load()
+      this.particles.load()
 
       return this
     },
@@ -16,6 +17,7 @@ content.demo.falls.video = (() => {
       context = undefined
 
       this.color.unload()
+      this.particles.unload()
 
       return this
     },
@@ -25,10 +27,12 @@ content.demo.falls.video = (() => {
       }
 
       context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+
+      this.background.draw()
       this.player.draw()
       this.enemies.draw()
       this.projectiles.draw()
-      // TODO: particles
+      this.particles.draw()
 
       return this
     },

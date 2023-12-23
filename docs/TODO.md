@@ -1,6 +1,10 @@
 # TODO
-- Minigame GDDs
 - Minigame 1
+  - Audio
+  - Polish
 - Minigame 2
+  - GDD
 - Minigame 3
-- Polish
+  - GDD
+- Minigame 4
+  - GDD

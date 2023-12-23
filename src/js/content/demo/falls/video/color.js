@@ -6,7 +6,7 @@ content.demo.falls.video.color = (() => {
   })
 
   const saturationField = engine.fn.createNoise({
-    octaves: 4,
+    octaves: 8,
     seed: ['falls', 'color', 'saturation'],
     type: '1d',
   })
@@ -38,8 +38,8 @@ content.demo.falls.video.color = (() => {
       const time = content.demo.falls.time.get()
 
       return engine.fn.lerp(
-        saturationField.value(time / 120),
-        0.5, 1
+        0.5, 1,
+        saturationField.value(time / 120)
       )
     },
     unload: function () {

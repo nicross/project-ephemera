@@ -12,10 +12,11 @@ content.demo.falls.enemies = (() => {
   function calculateMoveRate() {
     const time = content.demo.falls.time.get()
 
-    return engine.fn.lerp(
+    return engine.fn.lerpExp(
       1/64,
       1,
-      engine.fn.clamp(time / 5 / 60)
+      engine.fn.clamp(time / 5 / 60),
+      2
     )
   }
 
@@ -26,7 +27,7 @@ content.demo.falls.enemies = (() => {
     return engine.fn.lerp(
       1,
       fps,
-      engine.fn.clamp(time / 5 / 60)
+      engine.fn.clamp(time / 10 / 60)
     ) / fps
   }
 
@@ -38,14 +39,10 @@ content.demo.falls.enemies = (() => {
     }
 
     // Apply damage
-    enemy.damage += 1/6
+    enemy.damage += 1/4
 
     // Emit event
-    const type = enemy.damage + enemy.y > 1
-      ? 'kill'
-      : 'hit'
-
-    pubsub.emit(type, {enemy})
+    pubsub.emit('hit', {enemy})
   }
 
   function initialize() {
@@ -70,9 +67,9 @@ content.demo.falls.enemies = (() => {
 
       enemies.set(x, {
         ...defaults,
-        height: engine.fn.randomFloat(1, 3),
+        height: engine.fn.randomFloat(0.5, 2),
         x,
-        y: 1 - (((value - 0.5) * 2) * 0.75),
+        y: 1 - (((value - 0.5) * 2) * 0.5),
       })
     }
   }
@@ -90,7 +87,7 @@ content.demo.falls.enemies = (() => {
 
     enemies.set(x, {
       ...defaults,
-      height: engine.fn.randomFloat(1, 3),
+      height: engine.fn.randomFloat(0.5, 2),
       x,
     })
   }
@@ -111,7 +108,13 @@ content.demo.falls.enemies = (() => {
       enemy.y -= moveRate
 
       // Despawn past bottom of screen
-      if (enemy.y < -enemy.height || enemy.y >= 1) {
+      if (enemy.y < -enemy.height) {
+        enemies.delete(x)
+      }
+
+      // Kills
+      if (enemy.y > 1) {
+        pubsub.emit('kill', {enemy})
         enemies.delete(x)
       }
     }
