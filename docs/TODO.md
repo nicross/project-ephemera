@@ -1,7 +1,7 @@
 # TODO
 - Minigame 1
-  - Audio
-  - Polish
+  - Scoring
+  - Game over screen
 - Minigame 2
   - GDD
 - Minigame 3
