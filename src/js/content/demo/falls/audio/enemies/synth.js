@@ -72,8 +72,10 @@ content.demo.falls.audio.enemies.synth.prototype = {
     }
 
     // Panning, filtering, attenuating
+    const relativeX = content.demo.falls.player.toRelativeX(this.enemy.x)
+
     const relative = {
-      x: engine.fn.clamp(content.demo.falls.player.toRelativeX(this.enemy.x) / 8, -1, 1),
+      x: engine.fn.clamp(relativeX / 8, -1, 1),
       y: engine.fn.clamp(this.enemy.y),
     }
 
@@ -91,14 +93,30 @@ content.demo.falls.audio.enemies.synth.prototype = {
       pan
     )
 
-    engine.fn.setParam(
-      this.filter.frequency,
-      this.rootFrequency * (
-        (relative.x == 0 || relative.y == 0)
-          ? engine.fn.lerpExp(8, 1, Math.abs(relative.x), 0.5)
-          : engine.fn.lerpExp(4, 0.5, Math.abs(relative.x), 0.5)
+    // Bright in center
+    let color = 8
+
+    // Attenuate away, with brighter walls
+    if (relativeX != 0) {
+      color = engine.fn.lerpExp(
+        // Wall color
+        engine.fn.lerpExp(
+          1, 8,
+          engine.fn.scale(
+            Math.abs(relativeX),
+            1, 8,
+            1, 0
+          ),
+          3
+        ),
+        // Normal color
+        engine.fn.lerpExp(4, 0.5, Math.abs(relative.x), 0.5),
+        relative.y,
+        0.125
       )
-    )
+    }
+
+    engine.fn.setParam(this.filter.frequency, this.rootFrequency * color)
 
     return this
   },
