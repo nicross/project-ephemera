@@ -52,8 +52,6 @@ content.demo.falls.audio.enemies.synth.prototype = {
       }).connect(this.filter)
     }
 
-
-
     const now = engine.time()
 
     engine.fn.setParam(this.synth.param.frequency, this.rootFrequency)

@@ -50,30 +50,8 @@ content.demo.falls.enemies = (() => {
     const cooldownTime = calculateCooldownTime(),
       size = content.demo.falls.const.stageSize
 
-    const noise = engine.fn.createNoise({
-      octaves: 4,
-      seed: ['falls', 'enemies', 'initialize'],
-      type: '1d',
-    })
-
     for (let x = 0; x < size; x += 1) {
-      const value = engine.fn.lerp(
-        noise.value(x / size * 16),
-        noise.value((x - size) / size * 16),
-        x / size
-      )
-
-      if (value < 0.5) {
-        cooldowns.set(x, engine.fn.randomFloat(0.5, 1.5) * cooldownTime)
-        continue
-      }
-
-      enemies.set(x, {
-        ...defaults,
-        height: engine.fn.randomFloat(0.5, 1.5),
-        x,
-        y: 1 - (((value - 0.5) * 2) * 0.5),
-      })
+      cooldowns.set(x, Math.random() * cooldownTime)
     }
   }
 
