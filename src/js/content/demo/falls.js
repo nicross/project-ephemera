@@ -1,7 +1,7 @@
 content.demo.falls = content.demo.register({
   id: 'falls',
   enabled: true,
-  description: 'Under construction.',
+  description: 'Endless runner shooter.',
   name: 'Harmony Falls',
   // Constants
   const: {
