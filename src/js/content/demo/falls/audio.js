@@ -12,7 +12,7 @@ content.demo.falls.audio = (() => {
       return this
     },
     unload: function () {
-      bus.disconnect()
+      engine.fn.rampLinear(bus.gain, engine.const.zeroGain, 1/16)
       bus = undefined
 
       this.enemies.unload()
