@@ -1,5 +1,6 @@
 app.grain = (() => {
   let isActive = false,
+    touch = 0,
     value = 0
 
   return {
@@ -19,7 +20,7 @@ app.grain = (() => {
     isActive: () => isActive,
     touch: function (amount = 1) {
       if (isActive) {
-        value = engine.fn.clamp(value + amount)
+        touch = engine.fn.clamp(value + amount)
       }
 
       return this
@@ -29,7 +30,8 @@ app.grain = (() => {
         return this
       }
 
-      value = engine.fn.accelerateValue(value, 0, 1)
+      value = engine.fn.accelerateValue(value, touch, 16)
+      touch = engine.fn.accelerateValue(touch, 0, 1)
 
       this.audio.update(value)
       this.video.update(value)
@@ -47,4 +49,6 @@ engine.ready(() => {
   app.screenManager.on('exit-splash', () => app.grain.activate())
   app.screenManager.on('enter-game', () => app.grain.audio.duck())
   app.screenManager.on('exit-game', () => app.grain.audio.unduck())
+
+  content.grain.setAdapter(app.grain)
 })
