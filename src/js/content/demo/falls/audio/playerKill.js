@@ -5,7 +5,7 @@ content.demo.falls.audio.playerKill = () => {
     rootFrequency = engine.fn.fromMidi(60)
 
   const synth = engine.synth.simple({
-    gain: engine.fn.fromDb(-12),
+    gain: engine.fn.fromDb(-9),
     frequency: rootFrequency,
     type: 'sawtooth',
   }).shaped(
