@@ -10,6 +10,7 @@ app.grain = (() => {
       }
 
       isActive = true
+      touch = 1
       value = 1
 
       this.audio.activate(value)

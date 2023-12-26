@@ -41,6 +41,7 @@ content.demo.falls = content.demo.register({
     }
 
     this.audio.update()
+    this.grain.update()
     this.video.update()
   },
 })
