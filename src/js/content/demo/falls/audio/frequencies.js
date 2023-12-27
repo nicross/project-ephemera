@@ -8,6 +8,7 @@ content.demo.falls.audio.frequencies = (() => {
   const major = [
     // Eb1
     //27,29,31,34,36,
+    36,
     // Eb2
     39,41,43,46,48,
     // Eb3
@@ -17,7 +18,7 @@ content.demo.falls.audio.frequencies = (() => {
     // Eb5
     75,77,79,82,84,
     // Eb6
-    87,89,91,94,96,
+    87,89,91,94,//96,
     // Eb7
     //99,101,103,106,108,
   ].map(engine.fn.fromMidi)
