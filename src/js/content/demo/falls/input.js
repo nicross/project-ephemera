@@ -2,7 +2,7 @@ content.demo.falls.input = (() => {
   const mappings = {
     left: {
       gamepadDigital: [
-        14, // D-pad right
+        14, // D-pad left
       ],
       keyboard: [
         'ArrowLeft',
@@ -13,7 +13,7 @@ content.demo.falls.input = (() => {
     },
     right: {
       gamepadDigital: [
-        15, // D-pad left
+        15, // D-pad right
       ],
       keyboard: [
         'ArrowRight',
