@@ -24,10 +24,12 @@ content.demo.heights.movement = (() => {
     const targetVelocity = engine.tool.vector3d.create({
       x: content.demo.heights.input.x(),
       y: content.demo.heights.input.y(),
-    }).rotateEuler({
-      pitch: calculateTerrainPitch(),
     }).rotateQuaternion(
-      engine.position.getQuaternion()
+      engine.position.getQuaternion().multiply(
+        engine.tool.quaternion.fromEuler({
+          pitch: calculateTerrainPitch(),
+        })
+      )
     ).scale(maxLateralVelocity)
 
     // Accelerate toward target velocity

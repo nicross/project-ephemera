@@ -10,7 +10,7 @@ content.demo.heights = content.demo.register({
     engine.seed.set(Math.random())
 
     this.audio.load()
-    //this.camera.load()
+    this.camera.load()
     this.footsteps.load()
     this.input.load()
     this.movement.load()
@@ -20,7 +20,7 @@ content.demo.heights = content.demo.register({
   },
   unload: function () {
     this.audio.unload()
-    //this.camera.unload()
+    this.camera.unload()
     this.footsteps.unload()
     this.input.unload()
     this.movement.unload()
@@ -32,9 +32,9 @@ content.demo.heights = content.demo.register({
     this.input.update()
     this.time.update()
 
-    //this.camera.update()
     this.movement.update()
     this.footsteps.update()
+    this.camera.update()
 
     this.audio.update()
     this.video.update()
