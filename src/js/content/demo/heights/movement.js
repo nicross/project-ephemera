@@ -6,7 +6,17 @@ content.demo.heights.movement = (() => {
   let velocity = engine.tool.vector3d.create()
 
   function calculateTerrainPitch() {
-    return 0
+    const run = maxLateralVelocity,
+      start = engine.position.getVector()
+
+    const stop = start.add(
+      engine.position.getQuaternion().forward().scale(run)
+    )
+
+    const rise = content.demo.heights.terrain.value(stop)
+      - content.demo.heights.terrain.value(start)
+
+    return Math.atan(rise / run)
   }
 
   function move() {
@@ -31,8 +41,7 @@ content.demo.heights.movement = (() => {
       velocity.scale(delta)
     )
 
-    // TODO: glue to ground
-    nextPosition.z = 0
+    nextPosition.z = content.demo.heights.terrain.value(nextPosition)
 
     // Set next position
     engine.position.setVector(nextPosition)
@@ -71,5 +80,6 @@ content.demo.heights.movement = (() => {
 
       return this
     },
+    velocity: () => velociy.clone(),
   }
 })()

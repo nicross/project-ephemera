@@ -14,7 +14,7 @@ content.demo.heights = content.demo.register({
     this.footsteps.load()
     this.input.load()
     this.movement.load()
-    //this.terrain.load()
+    this.terrain.load()
     this.time.load()
     this.video.load()
   },
@@ -24,7 +24,7 @@ content.demo.heights = content.demo.register({
     this.footsteps.unload()
     this.input.unload()
     this.movement.unload()
-    //this.terrain.unload()
+    this.terrain.unload()
     this.time.unload()
     this.video.unload()
   },
