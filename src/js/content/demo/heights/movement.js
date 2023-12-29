@@ -1,0 +1,75 @@
+content.demo.heights.movement = (() => {
+  const lateralAcceleration = 3,
+    maxAngularVelocity = engine.const.tau / 4,
+    maxLateralVelocity = 1.5
+
+  let velocity = engine.tool.vector3d.create()
+
+  function calculateTerrainPitch() {
+    return 0
+  }
+
+  function move() {
+    // Calculate target velocity
+    const targetVelocity = engine.tool.vector3d.create({
+      x: content.demo.heights.input.x(),
+      y: content.demo.heights.input.y(),
+    }).rotateEuler({
+      pitch: calculateTerrainPitch(),
+    }).rotateQuaternion(
+      engine.position.getQuaternion()
+    ).scale(maxLateralVelocity)
+
+    // Accelerate toward target velocity
+    velocity = engine.fn.accelerateVector(velocity, targetVelocity, lateralAcceleration)
+
+    // Calculate next position
+    const delta = engine.loop.delta(),
+      position = engine.position.getVector()
+
+    const nextPosition = position.add(
+      velocity.scale(delta)
+    )
+
+    // TODO: glue to ground
+    nextPosition.z = 0
+
+    // Set next position
+    engine.position.setVector(nextPosition)
+  }
+
+  function turn() {
+    const delta = engine.loop.delta(),
+      value = content.demo.heights.input.turn()
+
+    // Get current yaw
+    let {yaw} = engine.position.getEuler()
+
+    // Calculate next yaw
+    yaw += value * maxAngularVelocity * delta
+    yaw %= engine.const.tau
+
+    // Set next yaw
+    engine.position.setEuler({
+      yaw,
+    })
+  }
+
+  return {
+    load: function () {
+      return this
+    },
+    unload: function () {
+      engine.position.reset()
+      velocity = engine.tool.vector3d.create()
+
+      return this
+    },
+    update: function () {
+      turn()
+      move()
+
+      return this
+    },
+  }
+})()

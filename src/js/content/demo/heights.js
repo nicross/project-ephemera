@@ -11,9 +11,9 @@ content.demo.heights = content.demo.register({
 
     this.audio.load()
     //this.camera.load()
-    //this.footsteps.load()
+    this.footsteps.load()
     this.input.load()
-    //this.movement.load()
+    this.movement.load()
     //this.terrain.load()
     this.time.load()
     this.video.load()
@@ -21,9 +21,9 @@ content.demo.heights = content.demo.register({
   unload: function () {
     this.audio.unload()
     //this.camera.unload()
-    //this.footsteps.unload()
+    this.footsteps.unload()
     this.input.unload()
-    //this.movement.unload()
+    this.movement.unload()
     //this.terrain.unload()
     this.time.unload()
     this.video.unload()
@@ -33,8 +33,8 @@ content.demo.heights = content.demo.register({
     this.time.update()
 
     //this.camera.update()
-    //this.movement.update()
-    //this.footsteps.update()
+    this.movement.update()
+    this.footsteps.update()
 
     this.audio.update()
     this.video.update()
