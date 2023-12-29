@@ -38,3 +38,49 @@ content.gl.createProgram = function ({
     }, {}),
   }
 }
+
+content.gl.createQuad = ({
+  height = 1,
+  origin = engine.tool.vector3d.create(), // center of the quad
+  quaternion = engine.tool.quaternion.identity(),
+  rotate = engine.tool.quaternion.identity(),
+  translate = engine.tool.vector3d.create(),
+  width = 1,
+} = {}) => {
+  const corners = [
+    engine.tool.vector3d.create({y: -width, z: -height}) // right bottom
+      .add(origin)
+      .rotateQuaternion(rotate)
+      .rotateQuaternion(quaternion).add(translate),
+    engine.tool.vector3d.create({y: -width, z: height}) // right top
+      .add(origin)
+      .rotateQuaternion(rotate)
+      .rotateQuaternion(quaternion).add(translate),
+    engine.tool.vector3d.create({y: width, z: -height}) // left bottom
+      .add(origin)
+      .rotateQuaternion(rotate)
+      .rotateQuaternion(quaternion).add(translate),
+    engine.tool.vector3d.create({y: width, z: height}) // left top
+      .add(origin)
+      .rotateQuaternion(rotate)
+      .rotateQuaternion(quaternion).add(translate),
+  ]
+
+  return [
+    corners[0].x, corners[0].y, corners[0].z, // right bottom
+    corners[1].x, corners[1].y, corners[1].z, // right top
+    corners[2].x, corners[2].y, corners[2].z, // left bottom
+    corners[1].x, corners[1].y, corners[1].z, // right top
+    corners[2].x, corners[2].y, corners[2].z, // left bottom
+    corners[3].x, corners[3].y, corners[3].z, // left top
+  ]
+}
+
+content.gl.quadTextureCoordinates = () => [
+  1, 1,
+  1, 0,
+  0, 1,
+  1, 0,
+  0, 1,
+  0, 0,
+]

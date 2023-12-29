@@ -6,6 +6,7 @@ content.demo.heights.input = (() => {
       ],
       gamepadDigital: [],
       keyboard: [
+        'ArrowDown',
         'PageDown',
       ],
       mouseAxis: [
@@ -19,6 +20,7 @@ content.demo.heights.input = (() => {
       ],
       gamepadDigital: [],
       keyboard: [
+        'ArrowUp',
         'PageUp',
       ],
       mouseAxis: [
@@ -34,7 +36,6 @@ content.demo.heights.input = (() => {
         13, // D-pad up
       ],
       keyboard: [
-        'ArrowDown',
         'KeyS',
         'Numpad5',
       ],
@@ -49,7 +50,6 @@ content.demo.heights.input = (() => {
         12, // D-pad up
       ],
       keyboard: [
-        'ArrowUp',
         'KeyW',
         'Numpad8',
       ],
@@ -125,8 +125,6 @@ content.demo.heights.input = (() => {
 
   function check(mappings) {
     return Math.max(
-      // Keyboard buttons
-      mappings.keyboard.reduce((value, key) => value || engine.input.keyboard.is(key) > 0 ? 1 : 0, 0),
       // Gamepad axes
       mappings.gamepadAxis.reduce((value, mapping) => {
         const reading = engine.input.gamepad.getAxis(mapping[0])
@@ -138,10 +136,12 @@ content.demo.heights.input = (() => {
       }, 0),
       // Gamepad buttons
       mappings.gamepadDigital.reduce((value, key) => value || engine.input.gamepad.isDigital(key) ? 1 : 0, 0),
+      // Keyboard buttons
+      mappings.keyboard.reduce((value, key) => value || engine.input.keyboard.is(key) > 0 ? 1 : 0, 0),
       // Mouse axes
       document.pointerLockElement
         ? mappings.mouseAxis.reduce((value, mapping) => {
-            const reading = Math.sign(
+            const reading = mapping[1] * Math.sign(
               mapping[0] == 'x'
                 ? engine.input.mouse.getMoveX()
                 : engine.input.mouse.getMoveY()
@@ -149,7 +149,7 @@ content.demo.heights.input = (() => {
 
             return Math.max(
               value,
-              mapping[1] * reading > 0 ? reading : 0,
+              reading > 0 ? reading : 0,
             )
           }, 0)
         : 0,

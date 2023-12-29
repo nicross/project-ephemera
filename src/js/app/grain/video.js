@@ -14,13 +14,15 @@ void main() {
   vec2 co1 = vec2(gl_FragCoord.yx * (time + 1.0));
 
   float lightness = round(rand(co0));
-  float opacity = mix(rand(co1), 1.0, value) / mix(20.0, 4.0, sqrt(rand(co1)) * value);
+  float opacity = mix(rand(co1), 1.0, value) / mix(40.0, 4.0, sqrt(rand(co1)) * value);
 
   color = vec4(lightness, lightness, lightness, opacity);
 }
 `
 
   const vertexShader = `#version 300 es
+
+precision highp float;
 
 in vec3 position;
 out float time;

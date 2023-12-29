@@ -1,7 +1,7 @@
 content.demo.heights.movement = (() => {
-  const lateralAcceleration = 3,
+  const lateralAcceleration = 8,
     maxAngularVelocity = engine.const.tau / 4,
-    maxLateralVelocity = 1.5
+    maxLateralVelocity = 4
 
   let velocity = engine.tool.vector3d.create()
 

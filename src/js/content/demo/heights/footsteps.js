@@ -1,6 +1,6 @@
 content.demo.heights.footsteps = (() => {
   const pubsub = engine.tool.pubsub.create(),
-    strideLength = 0.75,
+    strideLength = 1,
     tree = engine.tool.octree.create()
 
   let lastStep = engine.tool.vector3d.create()

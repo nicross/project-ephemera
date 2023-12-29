@@ -8,6 +8,7 @@ content.demo.heights = content.demo.register({
   // Lifecycle
   load: function () {
     engine.seed.set(Math.random())
+    engine.position.setEuler({yaw: engine.const.tau * 5/8})
 
     this.audio.load()
     this.camera.load()

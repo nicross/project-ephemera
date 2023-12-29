@@ -3,6 +3,9 @@ content.demo.heights.video.moon = (() => {
 
 precision highp float;
 
+${content.demo.heights.glsl.defineIns()}
+${content.demo.heights.glsl.commonFragment()}
+
 out vec4 color;
 
 void main() {
@@ -12,8 +15,14 @@ void main() {
 
   const vertexShader = `#version 300 es
 
-void main(void) {
+precision highp float;
 
+${content.demo.heights.glsl.defineOuts()}
+${content.demo.heights.glsl.defineUniforms()}
+${content.demo.heights.glsl.commonVertex()}
+
+void main(void) {
+  ${content.demo.heights.glsl.passUniforms()}
 }
 `
 
@@ -24,6 +33,7 @@ void main(void) {
       const gl = content.demo.heights.video.context()
 
       gl.useProgram(program.program)
+      content.demo.heights.glsl.bindUniforms(gl, program)
 
       return this
     },
@@ -43,7 +53,9 @@ void main(void) {
             type: gl.VERTEX_SHADER,
           },
         ],
-        uniforms: [],
+        uniforms: [
+          ...content.demo.heights.glsl.uniformNames(),
+        ],
       })
 
       return this

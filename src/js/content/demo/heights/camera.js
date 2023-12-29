@@ -1,6 +1,6 @@
 content.demo.heights.camera = (() => {
   const drawDistance = 1000,
-    height = 1.75,
+    height = 2,
     lookMaxVelocity = engine.const.tau / 4,
     lookRange = engine.const.tau * 63/256
 
@@ -24,7 +24,7 @@ content.demo.heights.camera = (() => {
     // Calculate perspective
     // Twice as far to support layering of background elements
     const aspect = canvas.width / canvas.height,
-      fov = (engine.const.tau / 4) / aspect
+      fov = (engine.const.tau * 75/360) / aspect
 
     const far = drawDistance * 2,
       near = 0.1
@@ -77,6 +77,7 @@ content.demo.heights.camera = (() => {
     },
     look: () => look,
     projection: () => projection,
+    quaternion: () => quaternion,
     unload: function () {
       look = 0
 
