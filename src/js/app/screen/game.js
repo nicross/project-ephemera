@@ -14,17 +14,12 @@ app.screen.game = app.screenManager.invent({
   },
   // Hooks
   onReady: function () {
-    this.canvasElement = this.rootElement.querySelector('.a-game--canvas')
-
     window.addEventListener('orientationchange', () => this.recalculateCanvas())
     window.addEventListener('resize', () => this.recalculateCanvas())
-    this.recalculateCanvas()
-
-    content.video.setCanvas(this.canvasElement)
   },
   onEnter: function ({demo}) {
-    this.recalculateCanvas()
-    
+    this.buildCanvas()
+
     this.state.demo = demo
     demo.load()
   },
@@ -42,7 +37,24 @@ app.screen.game = app.screenManager.invent({
     this.state.demo.update()
   },
   // Methods
+  buildCanvas: function () {
+    if (this.canvasElement) {
+      this.canvasElement.remove()
+    }
+
+    this.canvasElement = document.createElement('canvas')
+    this.canvasElement.classList.add('a-game--canvas')
+
+    this.rootElement.appendChild(this.canvasElement)
+    this.recalculateCanvas()
+
+    content.video.setCanvas(this.canvasElement)
+  },
   recalculateCanvas: function () {
+    if (!this.canvasElement) {
+      return
+    }
+
     this.canvasElement.height = this.canvasElement.clientHeight
     this.canvasElement.width = this.canvasElement.clientWidth
   },
