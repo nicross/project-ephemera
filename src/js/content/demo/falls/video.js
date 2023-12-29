@@ -4,9 +4,11 @@ content.demo.falls.video = (() => {
   return {
     context: () => context,
     load: function () {
-      if (content.video.isActive()) {
-        context = content.video.canvas()?.getContext('2d')
+      if (!content.video.isActive()) {
+        return this
       }
+
+      context = content.video.canvas().getContext('2d')
 
       this.color.load()
       this.particles.load()

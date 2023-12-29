@@ -23,7 +23,7 @@ content.demo.heights.footsteps = (() => {
     },
     unload: function () {
       lastStep = engine.tool.vector3d.create()
-      tree.reset()
+      tree.clear()
 
       return this
     },
