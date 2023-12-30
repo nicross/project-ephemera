@@ -33,7 +33,7 @@ vec4 calculateSkyColor() {
 
   float moonRatio = distance(gl_FragCoord.xy / resolution.xy, ((moon.xy / resolution.xy) + 1.0) / 2.0);
   moonRatio = 1.0 - clamp(moonRatio, 0.0, 1.0);
-  moonRatio *= 1.0 - (0.125 * rand(vec2(gl_FragCoord.xy + time)));
+  moonRatio *= 1.0 - (0.25 * rand(vec2(gl_FragCoord.xy + time)));
   moonRatio *= clamp(moon.z / drawDistance, 0.0, 1.0);
 
   bottom = mix(bottom, moonColor, moonRatio);

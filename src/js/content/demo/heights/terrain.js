@@ -35,7 +35,7 @@ content.demo.heights.terrain = (() => {
     },
     value: function ({x, y} = engine.position.getVector()) {
       const skew = engine.tool.simplex3d.prototype.skewFactor,
-        slope = x / 4
+        slope = x / 3
 
       return slope
         + (field0.value(x / 250 * skew, y / 250 * skew) * 50)

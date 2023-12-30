@@ -18,7 +18,11 @@ void main() {
   float c = circle(quadCoordinates + vec2(-0.05, -0.05), 1.0);
   float value = pow(d, 1.0 / 8.0) * (1.0 - pow(c, 1.0 / 8.0));
 
-  color = vec4(hsv2rgb(vec3(11.0 / 12.0, 0.875, value)), 1.0);
+  color = mix(
+    calculateSkyColor(),
+    vec4(hsv2rgb(vec3(11.0 / 12.0, 0.875, 1.0)), 1.0),
+    value
+  );
 }
 `
 

@@ -10,6 +10,7 @@ ${content.demo.heights.glsl.defineIns()}
 ${content.demo.heights.glsl.commonFragment()}
 
 in float alpha;
+in float hue;
 
 out vec4 color;
 
@@ -22,7 +23,7 @@ void main() {
 
   color = mix(
     calculateSkyColor(),
-    vec4(hsv2rgb(vec3(11.0 / 12.0, 1.0, 1.0)), 1.0),
+    vec4(hsv2rgb(vec3(hue, 1.0, 1.0)), 1.0),
     alpha * pow(d, 1.0 / 8.0)
   );
 }
@@ -41,12 +42,22 @@ in vec3 offset;
 in vec3 vertex;
 
 out float alpha;
+out float hue;
 
 void main(void) {
   gl_Position = u_projection * vec4(vertex + offset, 1.0);
 
   ${content.demo.heights.glsl.passUniforms()}
   alpha = sin(life * PI);
+  hue = mix(
+    6.0,
+    11.0,
+    pow(cos(perlin3d(
+      (offset.x - camera.x) / 5.0,
+      (offset.y - camera.y) / 5.0,
+      u_time / 4.0
+    ) * PI * 0.5), 1.0 / 2.0)
+  ) / 12.0;
 }
 `
 

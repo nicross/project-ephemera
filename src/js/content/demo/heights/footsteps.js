@@ -32,7 +32,11 @@ content.demo.heights.footsteps = (() => {
 
       if (lastStep.distance(position) >= strideLength) {
         lastStep = position
-        tree.insert(position)
+
+        if (!tree.find(position, strideLength)) {
+          tree.insert(position)
+        }
+
         pubsub.emit('step')
       }
 

@@ -53,7 +53,7 @@ void main(void) {
   gl_Position = u_projection * v;
 
   ${content.demo.heights.glsl.passUniforms()}
-  alpha = scale(cos(twinkle * u_time), -1.0, 1.0, 0.75, 1.0);
+  alpha = scale(cos(twinkle * PI * u_time), -1.0, 1.0, 0.5, 1.0);
   alpha *= pow(sin(atan(offset.z, 1.0)), 1.5);
   hue = hue_in;
 }
@@ -77,8 +77,8 @@ void main(void) {
       }).normalize()
 
       const hue = engine.fn.wrap(srand(-1/3, 1/3), 0, 1),
-        scale = 1 /engine.fn.lerpExp(4, 1, srand(), 2),
-        twinkle = srand(2, 8)
+        scale = 1 /engine.fn.lerpExp(3, 1, srand(), 2),
+        twinkle = 11 / engine.fn.choose([5,7,11,13,17], srand())
 
       hues.push(hue)
       offsets.push(vector.x, vector.y, vector.z)
