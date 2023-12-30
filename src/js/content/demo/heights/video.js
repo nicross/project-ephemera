@@ -16,6 +16,7 @@ content.demo.heights.video = (() => {
       context.enable(context.BLEND)
       context.blendFunc(context.SRC_ALPHA, context.ONE_MINUS_SRC_ALPHA)
 
+      this.fairies.load()
       this.footsteps.load()
       this.moon.load()
       this.sky.load()
@@ -27,6 +28,7 @@ content.demo.heights.video = (() => {
     unload: function () {
       context = undefined
 
+      this.fairies.unload()
       this.footsteps.unload()
       this.moon.unload()
       this.sky.unload()
@@ -48,6 +50,7 @@ content.demo.heights.video = (() => {
       this.moon.draw()
       this.terrain.draw()
       this.footsteps.draw()
+      this.fairies.draw()
 
       return this
     },

@@ -12,6 +12,7 @@ content.demo.heights = content.demo.register({
 
     this.audio.load()
     this.camera.load()
+    this.fairies.load()
     this.footsteps.load()
     this.input.load()
     this.movement.load()
@@ -22,6 +23,7 @@ content.demo.heights = content.demo.register({
   unload: function () {
     this.audio.unload()
     this.camera.unload()
+    this.fairies.unload()
     this.footsteps.unload()
     this.input.unload()
     this.movement.unload()
@@ -36,6 +38,7 @@ content.demo.heights = content.demo.register({
     this.movement.update()
     this.footsteps.update()
     this.camera.update()
+    this.fairies.update()
 
     this.audio.update()
     this.video.update()
