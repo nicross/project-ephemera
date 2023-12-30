@@ -6,12 +6,23 @@ precision highp float;
 ${content.demo.heights.glsl.defineIns()}
 ${content.demo.heights.glsl.commonFragment()}
 
+in float alpha;
 in float hue;
 
 out vec4 color;
 
 void main() {
-  color = vec4(hsv2rgb(vec3(hue, 0.5, 1.0)), 1.0);
+  float d = circle(quadCoordinates, 1.0);
+
+  if (d == 0.0) {
+    discard;
+  }
+
+  color = mix(
+    calculateSkyColor(),
+    vec4(hsv2rgb(vec3(hue, 0.5, 1.0)), 1.0),
+    alpha * pow(d, 1.0 / 8.0)
+  );
 }
 `
 
@@ -26,12 +37,14 @@ ${content.demo.heights.glsl.commonVertex()}
 in vec3 offset;
 in vec3 vertex;
 
+out float alpha;
 out float hue;
 
 void main(void) {
-  gl_Position = u_projection * vec4(vertex + offset, 1.0);
+  gl_Position = u_projection * vec4(vertex + offset + vec3(0.0, 0.0, 0.5), 1.0);
 
   ${content.demo.heights.glsl.passUniforms()}
+  alpha = 1.0;
   hue = (perlin3d(
     (offset.x + u_camera.x) / 30.0,
     (offset.y + u_camera.y) / 30.0,
@@ -109,6 +122,7 @@ void main(void) {
 
       program = content.gl.createProgram({
         attributes: [
+          ...content.demo.heights.glsl.attributeNames(),
           'offset',
           'vertex',
         ],

@@ -38,10 +38,10 @@ content.demo.heights.terrain = (() => {
         slope = x / 4
 
       return slope
-        + (field0.value(x / 280 * skew, y / 280 * skew) * 40)
-        + (field1.value(x / 120 * skew, y / 120 * skew) * 20)
+        + (field0.value(x / 250 * skew, y / 250 * skew) * 50)
+        + (field1.value(x / 100 * skew, y / 100 * skew) * 20)
         + (field2.value(x / 50 * skew, y / 50 * skew) * 10)
-        + (field3.value(x / 4 * skew, y / 4 * skew) * 1)
+        + (field3.value(x / 5 * skew, y / 5 * skew) * 1)
     },
     unload: function () {
       engine.ephemera

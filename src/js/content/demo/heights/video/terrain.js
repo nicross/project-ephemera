@@ -14,12 +14,16 @@ in float alpha;
 out vec4 color;
 
 void main() {
-  float value = 0.0;
+  float d = circle(quadCoordinates, 1.0);
+
+  if (d == 0.0) {
+    discard;
+  }
 
   color = mix(
     calculateSkyColor(),
-    vec4(0.0, 0.0, 1.0, 1.0),
-    alpha
+    vec4(hsv2rgb(vec3(11.0 / 12.0, 1.0, 1.0)), 1.0),
+    alpha * pow(d, 1.0 / 8.0)
   );
 }
 `
@@ -173,6 +177,7 @@ void main(void) {
 
       program = content.gl.createProgram({
         attributes: [
+          ...content.demo.heights.glsl.attributeNames(),
           'life',
           'offset',
           'vertex',

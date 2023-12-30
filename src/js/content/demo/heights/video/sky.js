@@ -56,6 +56,7 @@ void main(void) {
 
       program = content.gl.createProgram({
         attributes: [
+          ...content.demo.heights.glsl.attributeNames(),
           'vertex',
         ],
         context: gl,

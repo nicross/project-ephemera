@@ -15,10 +15,16 @@ in float hue;
 out vec4 color;
 
 void main() {
+  float d = circle(quadCoordinates, 1.0);
+
+  if (d == 0.0) {
+    discard;
+  }
+
   color = mix(
     calculateSkyColor(),
     vec4(hsv2rgb(vec3(hue, 0.25, 1.0)), 1.0),
-    alpha
+    alpha * pow(d, 1.0 / 8.0)
   );
 }
 `
@@ -95,9 +101,9 @@ void main(void) {
 
       // Bind mesh
       const mesh = content.gl.createQuad({
-        height: 4,
+        height: 5,
         quaternion: content.demo.heights.camera.quaternion(),
-        width: 4,
+        width: 5,
       })
 
       gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
@@ -151,6 +157,7 @@ void main(void) {
 
       program = content.gl.createProgram({
         attributes: [
+          ...content.demo.heights.glsl.attributeNames(),
           'hue_in',
           'offset',
           'scale_in',

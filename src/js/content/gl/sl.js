@@ -2,10 +2,24 @@ content.gl.sl = {}
 
 content.gl.sl.common = () => `
 ${content.gl.sl.definePi()}
+${content.gl.sl.circle()}
 ${content.gl.sl.hsv2rgb()}
 ${content.gl.sl.rand()}
 ${content.gl.sl.scale()}
 ${content.gl.sl.perlin3d()}
+`
+
+content.gl.sl.circle = (prefix = '') => `
+// https://webgl2fundamentals.org/webgl/webgl-qna-the-fastest-way-to-draw-many-circles-example-5.html
+float circle(vec2 st, float radius) {
+  vec2 dist = st - vec2(0.5);
+
+  return 1.0 - smoothstep(
+     0.0,
+     radius,
+     dot(dist, dist) * 4.0
+  );
+}
 `
 
 content.gl.sl.definePi = () => `
