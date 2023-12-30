@@ -5,13 +5,9 @@ content.demo.heights.fairies = (() => {
 
   const generator = engine.tool.generator2d.create({
     generator: function (x, y) {
-      if (!x && !y) {
-        return
-      }
-
       const srand = engine.fn.srand('heights', 'fairies', x, y)
 
-      if (srand() > 1/8) {
+      if (srand() > 1/4 || (x == 0 && y == 0)) {
         return
       }
 
@@ -59,7 +55,7 @@ content.demo.heights.fairies = (() => {
     if (!fairy.velocity.isZero()) {
       fairy.x += fairy.velocity.x * delta
       fairy.y += fairy.velocity.y * delta
-      fairy.velocity = engine.fn.accelerateVector(fairy.velocity, {}, 1/2)
+      fairy.velocity = engine.fn.accelerateVector(fairy.velocity, {}, 1)
     }
 
     // Float above terrain at a height proportionate to alertness
@@ -82,7 +78,7 @@ content.demo.heights.fairies = (() => {
         isNear ? 1 : 0,
         2 * (isNear ? fairy.timidity : 1 - fairy.timidity) * (0.5 + engine.fn.clamp(Math.sin(fairy.alertness * Math.PI)) * 0.5)
       ),
-      engine.fn.clamp(engine.fn.scale(distance, 6, 2, 0, 1))
+      engine.fn.clamp(engine.fn.scale(distance, 8, 4, 0, 1))
     )
 
     // Run away when alerted
@@ -94,7 +90,7 @@ content.demo.heights.fairies = (() => {
         .inverse()
         .normalize()
         .rotate(engine.fn.randomFloat(-1/8, 1/8) * engine.const.tau)
-        .scale(engine.fn.randomFloat(6, 10))
+        .scale(engine.fn.randomFloat(8, 16))
     }
   }
 
