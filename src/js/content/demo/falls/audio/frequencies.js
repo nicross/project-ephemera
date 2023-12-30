@@ -54,6 +54,7 @@ content.demo.falls.audio.frequencies = (() => {
       return this
     },
     unload: function () {
+      keyField.reset()
       engine.ephemera.remove(keyField)
 
       return this

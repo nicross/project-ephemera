@@ -43,6 +43,9 @@ content.demo.falls.video.color = (() => {
       )
     },
     unload: function () {
+      hueField.reset()
+      saturationField.reset()
+
       engine.ephemera
         .add(hueField)
         .add(saturationField)

@@ -44,6 +44,11 @@ content.demo.heights.terrain = (() => {
         + (field3.value(x / 5 * skew, y / 5 * skew) * 1)
     },
     unload: function () {
+      field0.reset()
+      field1.reset()
+      field2.reset()
+      field3.reset()
+
       engine.ephemera
         .remove(field0)
         .remove(field1)
