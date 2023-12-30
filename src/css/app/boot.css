@@ -73,12 +73,12 @@
   0% {
     filter: blur(1rem) brightness(200%);
     opacity: 0;
-    transform: translateY(-50%);
+    transform: scale(4) translate(-100%, -50vh);
   }
   100% {
     filter: blur(0) brightness(100%);
     opacity: 1;
-    transform: translateY(0%);
+    transform: none;
   }
 }
 
