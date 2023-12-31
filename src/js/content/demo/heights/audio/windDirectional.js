@@ -1,17 +1,18 @@
-content.demo.heights.audio.wind = (() => {
-  const rootFrequency = engine.fn.fromMidi(36)
+content.demo.heights.audio.windDirectional = (() => {
+  const offsetStrength = 0.25,
+    rootFrequency = engine.fn.fromMidi(36)
 
   let binaural,
     synth
 
   function calculateParameters() {
-    const velocity = content.demo.heights.wind.velocity()
+    const velocity = content.demo.heights.wind.velocity(offsetStrength)
 
     return {
       color: engine.fn.lerpExp(1, 4, velocity, 2),
-      gain: engine.fn.fromDb(-18) * engine.fn.fromDb(engine.fn.lerp(0, -3, velocity)),
+      gain: engine.fn.fromDb(-13.5) * engine.fn.fromDb(engine.fn.lerp(0, -4.5, velocity)),
       playbackRate: velocity,
-      vector: content.demo.heights.wind.vector().rotate(
+      vector: content.demo.heights.wind.vector(offsetStrength).rotate(
         engine.position.getEuler().yaw
       ),
     }
@@ -28,7 +29,7 @@ content.demo.heights.audio.wind = (() => {
     } = calculateParameters()
 
     synth = engine.synth.buffer({
-      buffer: content.audio.buffer.brownNoise.choose(),
+      buffer: content.audio.buffer.brownNoise.get(0),
       gain,
       playbackRate,
     }).filtered({

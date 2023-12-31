@@ -10,7 +10,8 @@ content.demo.heights.audio = (() => {
       this.footsteps.load()
       this.moon.load()
       this.trail.load()
-      this.wind.load()
+      this.windAmbient.load()
+      this.windDirectional.load()
 
       return this
     },
@@ -22,7 +23,8 @@ content.demo.heights.audio = (() => {
       this.footsteps.unload()
       this.moon.unload()
       this.trail.unload()
-      this.wind.unload()
+      this.windAmbient.unload()
+      this.windDirectional.unload()
 
       return this
     },
@@ -30,7 +32,8 @@ content.demo.heights.audio = (() => {
       this.fairies.update()
       this.moon.update()
       this.trail.update()
-      this.wind.update()
+      this.windAmbient.update()
+      this.windDirectional.update()
 
       return this
     },

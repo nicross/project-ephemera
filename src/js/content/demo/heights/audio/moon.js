@@ -44,7 +44,7 @@ content.demo.heights.audio.moon = (() => {
       color: engine.fn.lerp(2, 8, colorField.value(time / 17)),
       fmodDepth: fmodDepthField.value(time / 18) * rootFrequency * 2,
       fmodDetune: engine.fn.lerp(-200, 200, fmodDetuneField.value(time / 19)),
-      gain: engine.fn.fromDb(-21) * engine.fn.fromDb(engine.fn.lerp(-3, 0, gainField.value(time / 20))),
+      gain: engine.fn.fromDb(-15) * engine.fn.fromDb(engine.fn.lerp(-3, 0, gainField.value(time / 20))),
       vector: content.demo.heights.moonVector().rotateQuaternion(
         engine.position.getQuaternion().conjugate()
       ),
