@@ -1,5 +1,5 @@
 content.demo.heights.audio.moon = (() => {
-  const rootFrequency = engine.fn.fromMidi(28)
+  const rootFrequency = engine.fn.fromMidi(27)
 
   const amodDepthField = engine.fn.createNoise({
     octaves: 8,

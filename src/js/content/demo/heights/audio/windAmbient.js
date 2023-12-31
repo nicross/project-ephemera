@@ -28,7 +28,7 @@ content.demo.heights.audio.windAmbient = (() => {
     return {
       carrierGain: 1 - modDepth,
       frequency: engine.fn.lerpExp(20000, 15000, velocity),
-      gain: engine.fn.fromDb(-16.5) * engine.fn.fromDb(engine.fn.lerp(0, -3, velocity)),
+      gain: engine.fn.fromDb(-15) * engine.fn.fromDb(engine.fn.lerp(0, -6, velocity)),
       modDepth,
       modFrequency: 1 / engine.fn.lerp(8, 1, modFrequencyField.value(time / 17)),
       playbackRate: playbackRateField.value(time / 13),

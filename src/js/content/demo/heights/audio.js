@@ -6,6 +6,8 @@ content.demo.heights.audio = (() => {
     load: function () {
       bus = engine.mixer.createBus()
 
+      engine.const.speedOfSound = 999
+
       this.fairies.load()
       this.footsteps.load()
       this.moon.load()
@@ -18,6 +20,8 @@ content.demo.heights.audio = (() => {
     unload: function () {
       engine.fn.rampLinear(bus.gain, engine.const.zeroGain, 1/16)
       bus = undefined
+
+      engine.const.speedOfSound = engine.const.defaultSpeedOfSound
 
       this.fairies.unload()
       this.footsteps.unload()

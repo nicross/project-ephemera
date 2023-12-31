@@ -7,7 +7,7 @@ content.demo.heights.fairies = (() => {
     generator: function (x, y) {
       const srand = engine.fn.srand('heights', 'fairies', x, y)
 
-      if (srand() > 1/4 || (x == 0 && y == 0)) {
+      if (srand() > 3/4 || (x == 0 && y == 0)) {
         return
       }
 
@@ -21,7 +21,8 @@ content.demo.heights.fairies = (() => {
 
       const fairy = {
         alertness: 0,
-        alertCooldown: 0,
+        amodDepth: srand(),
+        amodFrequency: srand(),
         angle: srand(-engine.const.tau, engine.const.tau),
         note: srand(),
         timidity: srand(),

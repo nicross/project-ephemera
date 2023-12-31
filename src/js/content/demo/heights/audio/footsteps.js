@@ -47,7 +47,7 @@ content.demo.heights.audio.footsteps = (() => {
 
       const amodDepth = amodDepthField.value(x / 20, y / 20) * 0.5,
         detune = engine.fn.randomFloat(-25, 25),
-        gain = engine.fn.fromDb(-6 + engine.fn.lerp(-3, 0, strength))
+        gain = engine.fn.fromDb(-9 + engine.fn.lerp(-3, 0, strength))
 
       const synth = engine.synth.mod({
         amodDepth,
@@ -61,7 +61,7 @@ content.demo.heights.audio.footsteps = (() => {
         fmodFrequency: rootFrequency * 4,
         fmodType: 'triangle',
       }).filtered({
-        frequency: engine.fn.lerp(2, 4, colorField.value(x / 20, y / 20)) * rootFrequency,
+        frequency: engine.fn.lerp(3, 6, colorField.value(x / 20, y / 20)) * rootFrequency,
       }).chainAssign(
         'panner', context.createStereoPanner()
       ).connect(bus)
