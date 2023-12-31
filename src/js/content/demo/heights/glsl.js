@@ -75,10 +75,7 @@ content.demo.heights.glsl.bindUniforms = (gl, program) => {
   gl.uniform1f(program.uniforms.u_look, content.demo.heights.camera.look() / engine.const.tau * 4)
 
   // Bind u_moon
-  const moon = engine.tool.vector3d.unitX().inverse()
-    .rotateEuler({pitch: -engine.const.tau / 24})
-    .scale(drawDistance * 1.5)
-
+  const moon = content.demo.heights.moonVector().scale(drawDistance * 1.5)
   gl.uniform3fv(program.uniforms.u_moon, [moon.x, moon.y, moon.z])
 
   // Bind u_projection

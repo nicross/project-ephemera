@@ -83,5 +83,6 @@ content.demo.heights.movement = (() => {
       return this
     },
     velocity: () => velociy.clone(),
+    velocityRatio: () => engine.fn.clamp(velocity.distance() / maxLateralVelocity),
   }
 })()

@@ -10,7 +10,6 @@ content.demo.heights = content.demo.register({
     engine.seed.set(Math.random())
     engine.position.setEuler({yaw: engine.const.tau * 7/16})
 
-    this.audio.load()
     this.camera.load()
     this.fairies.load()
     this.footsteps.load()
@@ -18,6 +17,9 @@ content.demo.heights = content.demo.register({
     this.movement.load()
     this.terrain.load()
     this.time.load()
+    this.wind.load()
+
+    this.audio.load()
     this.video.load()
   },
   unload: function () {
@@ -30,6 +32,7 @@ content.demo.heights = content.demo.register({
     this.terrain.unload()
     this.time.unload()
     this.video.unload()
+    this.wind.unload()
   },
   update: function () {
     this.input.update()
@@ -39,8 +42,11 @@ content.demo.heights = content.demo.register({
     this.footsteps.update()
     this.camera.update()
     this.fairies.update()
+    this.wind.update()
 
     this.audio.update()
     this.video.update()
   },
+  // Methods
+  moonVector: () => engine.tool.vector3d.unitX().inverse().rotateEuler({pitch: -engine.const.tau / 24}),
 })

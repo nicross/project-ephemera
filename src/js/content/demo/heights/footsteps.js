@@ -37,7 +37,9 @@ content.demo.heights.footsteps = (() => {
           tree.insert(position)
         }
 
-        pubsub.emit('step')
+        pubsub.emit('step', {
+          strength: content.demo.heights.movement.velocityRatio(),
+        })
       }
 
       return this

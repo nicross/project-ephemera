@@ -181,9 +181,13 @@ content.demo.heights.input = (() => {
       x = check(mappings.moveForward) - check(mappings.moveBackward)
       y = check(mappings.strafeLeft) - check(mappings.strafeRight)
 
-      // TODO: Mouse controls not working as expected
-      //console.log({x, y, turn, look})
-      //console.log(engine.input.mouse.getMoveX(), engine.input.mouse.getMoveY())
+      // Normalize
+      const magnitude = engine.fn.distance({x, y})
+
+      if (magnitude > 1) {
+        x /= magnitude
+        y /= magnitude
+      }
 
       return this
     },
