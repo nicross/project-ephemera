@@ -5,6 +5,7 @@ app.screen.demos = app.screenManager.invent({
   rootSelector: '.a-demos',
   transitions: {
     back: function () {
+      delete app.screen.demos.state.lastClicked
       this.change('mainMenu')
     },
     play: function (demo) {
@@ -34,6 +35,7 @@ app.screen.demos = app.screenManager.invent({
 
       button.addEventListener('click', () => {
         if (button.getAttribute('aria-disabled') != 'true') {
+          this.state.lastClicked = button
           app.screenManager.dispatch('play', {demo})
         }
       })
@@ -84,5 +86,14 @@ app.screen.demos = app.screenManager.invent({
     if (ui.down) {
       return app.utility.focus.setNextFocusable(root)
     }
+  },
+  focusWithin: function () {
+    if (this.state.lastClicked) {
+      app.utility.focus.set(this.state.lastClicked)
+      return this
+    }
+
+    app.utility.focus.setWithin(this.rootElement)
+    return this
   },
 })
