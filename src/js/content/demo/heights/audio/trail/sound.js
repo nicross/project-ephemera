@@ -24,6 +24,7 @@ content.demo.heights.audio.trail.sound = engine.sound.extend({
     this.manager = manager
     this.step = step
 
+    this.step.audio = 1
     this.manager.add(this.step)
 
     this.rootFrequency = engine.fn.fromMidi(
@@ -52,9 +53,13 @@ content.demo.heights.audio.trail.sound = engine.sound.extend({
     this.synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, now + 1)
     this.synth.stop(now + 1)
 
-    setTimeout(() => this.destroy(), 2000)
+    setTimeout(() => this.destroy(), 1500)
   },
   onDestroy: function () {
+    this.step.audio = 0
     this.manager.delete(this.step)
+  },
+  onUpdate: function () {
+    this.step.audio = engine.fn.accelerateValue(this.step.audio, 0, 1)
   },
 })

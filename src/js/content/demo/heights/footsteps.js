@@ -34,7 +34,12 @@ content.demo.heights.footsteps = (() => {
         lastStep = position
 
         if (!tree.find(position, strideLength) && (position.x || position.y)) {
-          tree.insert(position)
+          tree.insert({
+            audio: 0,
+            x: position.x,
+            y: position.y,
+            z: position.z,
+          })
         }
 
         pubsub.emit('step', {

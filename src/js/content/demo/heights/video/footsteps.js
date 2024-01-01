@@ -8,6 +8,7 @@ ${content.demo.heights.glsl.commonFragment()}
 
 in float alpha;
 in float hue;
+in float saturation;
 
 out vec4 color;
 
@@ -20,8 +21,8 @@ void main() {
 
   color = mix(
     calculateSkyColor(),
-    vec4(hsv2rgb(vec3(hue, 0.5, 1.0)), 1.0),
-    pow(d, 1.0 / 8.0)
+    vec4(hsv2rgb(vec3(hue, saturation, 1.0)), 1.0),
+    pow(d, 1.0 / 4.0)
   );
 
   color.a = alpha;
@@ -36,11 +37,13 @@ ${content.demo.heights.glsl.defineOuts()}
 ${content.demo.heights.glsl.defineUniforms()}
 ${content.demo.heights.glsl.commonVertex()}
 
+in float audio;
 in vec3 offset;
 in vec3 vertex;
 
 out float alpha;
 out float hue;
+out float saturation;
 
 void main(void) {
   gl_Position = u_projection * vec4(vertex + offset + vec3(0.0, 0.0, 0.5), 1.0);
@@ -64,6 +67,8 @@ void main(void) {
     (offset.y + u_camera.y) / 5.0,
     u_time / 7.5
   ) * 0.5) + (u_time / 60.0);
+
+  saturation = mix(0.25, 1.0, audio);
 }
 `
 
@@ -76,16 +81,19 @@ void main(void) {
       gl.useProgram(program.program)
       content.demo.heights.glsl.bindUniforms(gl, program)
 
-      // Bind offset
+      // build data
       const camera = content.demo.heights.camera.vector()
 
       const footsteps = content.demo.heights.footsteps.nearby(
         content.demo.heights.camera.drawDistance()
       )
 
-      const offsets = []
+      const audios = [],
+        offsets = []
 
       for (const footstep of footsteps) {
+        audios.push(footstep.audio)
+
         offsets.push(
           footstep.x - camera.x,
           footstep.y - camera.y,
@@ -93,6 +101,14 @@ void main(void) {
         )
       }
 
+      // Bind audio
+      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(audios), gl.STATIC_DRAW)
+      gl.enableVertexAttribArray(program.attributes.audio)
+      gl.vertexAttribPointer(program.attributes.audio, 1, gl.FLOAT, false, 0, 0)
+      gl.vertexAttribDivisor(program.attributes.audio, 1)
+
+      // Bind offset
       gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(offsets), gl.STATIC_DRAW)
       gl.enableVertexAttribArray(program.attributes.offset)
@@ -101,9 +117,9 @@ void main(void) {
 
       // Bind mesh
       const mesh = content.gl.createQuad({
-        height: 1/24,
+        height: 1/16,
         quaternion: content.demo.heights.camera.quaternion(),
-        width: 1/24,
+        width: 1/16,
       })
 
       gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
@@ -115,6 +131,7 @@ void main(void) {
       gl.drawArraysInstanced(gl.TRIANGLES, 0, mesh.length / 3, footsteps.length)
 
       // Reset divisors
+      gl.vertexAttribDivisor(program.attributes.audio, 0)
       gl.vertexAttribDivisor(program.attributes.offset, 0)
 
       return this
@@ -125,6 +142,7 @@ void main(void) {
       program = content.gl.createProgram({
         attributes: [
           ...content.demo.heights.glsl.attributeNames(),
+          'audio',
           'offset',
           'vertex',
         ],
