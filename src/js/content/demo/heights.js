@@ -1,7 +1,7 @@
 content.demo.heights = content.demo.register({
   id: 'heights',
   enabled: true,
-  description: 'Under construction.',
+  description: 'Cozy midnight hiker.',
   name: 'Melody Heights',
   // Constants
   const: {},

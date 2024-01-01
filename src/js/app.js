@@ -12,11 +12,11 @@ const app = (() => {
   function onResize() {
     // Constrain to 4:3 aspect ratio
     if (window.innerHeight > window.innerWidth * 3/4) {
-      root.style.height = (3/4 * window.innerWidth) + 'px'
-      root.style.width = '100%'
+      root.classList.add('a-app-portrait')
+      root.classList.remove('a-app-landscape')
     } else {
-      root.style.height = '100%'
-      root.style.width = (4/3 * window.innerHeight) + 'px'
+      root.classList.add('a-app-landscape')
+      root.classList.remove('a-app-portrait')
     }
   }
 
@@ -52,6 +52,7 @@ const app = (() => {
         ? ready.then(callback)
         : readyContext
     },
+    root: () => root,
     screen: {},
     utility: {},
     width: () => root.clientWidth,

@@ -53,7 +53,7 @@ content.demo.heights.audio.trail.sound = engine.sound.extend({
     this.synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, now + 1)
     this.synth.stop(now + 1)
 
-    setTimeout(() => this.destroy(), 1500)
+    setTimeout(() => this.destroy(), 1000)
   },
   onDestroy: function () {
     this.step.audio = 0

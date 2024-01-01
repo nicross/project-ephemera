@@ -69,3 +69,29 @@
 .a-app-active {
   opacity: 1;
 }
+
+.a-app-portrait {
+  height: calc(3 / 4 * 100vw);
+  width: 100%;
+}
+
+.a-app-landscape {
+  height: 100%;
+  width: calc(4 / 3 * 100vh);
+}
+
+/* Responsive fluid font sizing */
+@media (max-width: 20rem) {
+  .a-app {
+    font-size: 0.5em;
+  }
+}
+
+@media (min-width: 20rem) {
+  .a-app-landscape {
+    font-size: calc(0.5em + ((1.33333vh - 0.4rem) * 1.5));
+  }
+  .a-app-portrait {
+    font-size: calc(0.5em + ((1vw - 0.4rem) * 1.5));
+  }
+}

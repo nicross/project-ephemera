@@ -18,7 +18,7 @@ content.demo.heights.audio.fairies = (() => {
     },
     update: function () {
       const audible = new Set(
-        content.demo.heights.fairies.closest(1000, 8)
+        content.demo.heights.fairies.closest(1000, 7)
       )
 
       // Destroy inaudible sounds
