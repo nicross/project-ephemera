@@ -6,6 +6,9 @@ content.demo.heights.audio = (() => {
     load: function () {
       bus = engine.mixer.createBus()
 
+      bus.gain.value = engine.const.zeroGain
+      engine.fn.rampLinear(bus.gain, 1, 1/2)
+
       engine.const.speedOfSound = 999
 
       this.fairies.load()

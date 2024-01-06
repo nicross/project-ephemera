@@ -6,6 +6,9 @@ content.demo.falls.audio = (() => {
     load: function () {
       bus = engine.mixer.createBus()
 
+      bus.gain.value = engine.const.zeroGain
+      engine.fn.rampLinear(bus.gain, 1, 1/16)
+
       this.frequencies.load()
       this.enemies.load()
 
