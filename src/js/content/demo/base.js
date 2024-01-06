@@ -1,6 +1,7 @@
 content.demo.base = {
   // Information
   id: undefined,
+  allowPointerLock: false,
   enabled: false,
   name: '',
   description: '',

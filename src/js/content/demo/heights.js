@@ -1,5 +1,6 @@
 content.demo.heights = content.demo.register({
   id: 'heights',
+  allowPointerLock: true,
   enabled: true,
   description: 'Cozy midnight hiker.',
   name: 'Melody Heights',

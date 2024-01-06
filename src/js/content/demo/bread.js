@@ -1,7 +1,7 @@
 content.demo.bread = content.demo.register({
   id: 'bread',
   enabled: true,
-  description: 'Ephemeral musical object.',
+  description: 'Ephemeral object inspector.',
   name: 'Secret Bread',
   // Constants
   const: {},

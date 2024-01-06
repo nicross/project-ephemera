@@ -85,7 +85,9 @@ app.controls.mouse = (() => {
   }
 
   function requestPointerLock() {
-    gameScreen.requestPointerLock()
+    if (app.screen.game.state.demo.allowPointerLock) {
+      gameScreen.requestPointerLock()
+    }
   }
 
   return {
