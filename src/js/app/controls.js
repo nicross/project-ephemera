@@ -52,6 +52,10 @@ app.controls = (() => {
       return this
     },
     update: function () {
+      content.cursor.set(
+        app.controls.mouse.cursor()
+      )
+
       updateGame()
       updateUi()
 

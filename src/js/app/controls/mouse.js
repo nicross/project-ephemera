@@ -3,7 +3,8 @@ app.controls.mouse = (() => {
     lookY = 0,
     rotate = 0
 
-  let vector = engine.tool.vector2d.create()
+  let cursor = engine.tool.vector2d.create(),
+    vector = engine.tool.vector2d.create()
 
   engine.ready(() => {
     gameScreen = document.querySelector('.a-game')
@@ -11,6 +12,8 @@ app.controls.mouse = (() => {
 
     app.screenManager.on('exit-game', onExitGame)
     app.screenManager.on('enter-game', onEnterGame)
+
+    window.addEventListener('mousemove', onMouseMove)
   })
 
   // Prevent back/forward buttons
@@ -80,6 +83,29 @@ app.controls.mouse = (() => {
     }
   }
 
+  function onMouseMove(e) {
+    const root = app.root()
+
+    if (!root) {
+      return
+    }
+
+    const height = root.clientHeight,
+      width = root.clientWidth
+
+    const dimension = Math.min(height, width)
+
+    cursor.x = engine.fn.clamp(
+      engine.fn.scale(e.clientX, (width - dimension) * 0.5, width - ((width - dimension) * 0.5), -1, 1),
+      -1, 1
+    )
+
+    cursor.y = engine.fn.clamp(
+      engine.fn.scale(e.clientY, (height - dimension) * 0.5, height - ((height - dimension) * 0.5), 1, -1),
+      -1, 1
+    )
+  }
+
   function pause() {
     app.screenManager.dispatch('pause')
   }
@@ -91,6 +117,7 @@ app.controls.mouse = (() => {
   }
 
   return {
+    cursor: () => cursor.clone(),
     game: function (mappings) {
       if (!isPointerLock()) {
         return {}
