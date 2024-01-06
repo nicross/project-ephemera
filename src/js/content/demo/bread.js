@@ -5,6 +5,7 @@ content.demo.bread = content.demo.register({
   name: 'Secret Bread',
   // Constants
   const: {},
+  // Lifecycle
   load: function () {
 
   },

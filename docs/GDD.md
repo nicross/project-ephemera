@@ -95,7 +95,7 @@ Hold one shift to press deeper, hold both to press even deeper.
 Arrow keys control the frequency interpreter.
 
 ### Gamepad controls
-Thumbsticks control position of two pointers on opposite halves of the sphere.
+Sticks control position of two pointers on opposite halves of the sphere.
 Click stick or press bumper to touch.
 Triggers control depth.
 Directional pad controls the frequency interpreter.
@@ -105,8 +105,9 @@ Directional pad controls the frequency interpreter.
 - Touches are 3D normal vectors with an extra depth component
 - Depth is the time dimension of a 4D simplex noise field
 - Time is always moving forward, but going deeper looks back in time by a maximum amount
-- Frequency intepreter modes: chromatic, diatonic, major pentatonic, minor pentatonic
-- Polyphony up to a certain number of ongoing notes, cancels oldest note.
+- Frequency interpreter modes: chromatic, diatonic, major pentatonic, minor pentatonic
+- Polyphony up to a certain number of ongoing notes, cancels oldest note
+- Haptic / film grain noise field, summed from touches
 
 ### Graphics
 - Circle oscilloscope in center of screen
@@ -122,3 +123,4 @@ Directional pad controls the frequency interpreter.
   - AM depth, frequency, oscillator type
   - FM depth, frequency, oscillator type
   - Shaper mix
+  - Attack qualities

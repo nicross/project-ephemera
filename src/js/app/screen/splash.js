@@ -8,7 +8,7 @@ app.screen.splash = app.screenManager.invent({
       // Skip boot sequence into demo
       if (app.debug && true) {
         return this.change('game', {
-          demo: content.demo.heights,
+          demo: content.demo.bread,
         })
       }
 
