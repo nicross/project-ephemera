@@ -1,5 +1,7 @@
 content.demo.bread.input = (() => {
-  const touches = new Set()
+  const touchLimit = 8
+
+  let touches = new Set()
 
   return {
     load: function () {
@@ -10,7 +12,7 @@ content.demo.bread.input = (() => {
       return this
     },
     unload: function () {
-      touches.clear()
+      touches = new Set()
 
       this.gamepad.unload()
       this.keyboard.unload()
@@ -23,6 +25,14 @@ content.demo.bread.input = (() => {
       this.gamepad.update()
       this.keyboard.update()
       this.mouse.update()
+
+      touches = new Set(
+        [
+          ...this.mouse.touches(),
+          ...this.gamepad.touches(),
+          ...this.keyboard.touches(),
+        ].slice(0, touchLimit)
+      )
 
       return this
     },

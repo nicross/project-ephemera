@@ -3,6 +3,7 @@ content.demo.bread.input.gamepad = (() => {
     load: function () {
       return this
     },
+    touches: () => [],
     unload: function () {
       return this
     },

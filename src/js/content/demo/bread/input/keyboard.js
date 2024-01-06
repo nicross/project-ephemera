@@ -3,6 +3,7 @@ content.demo.bread.input.keyboard = (() => {
     load: function () {
       return this
     },
+    touches: () => [],
     unload: function () {
       return this
     },
