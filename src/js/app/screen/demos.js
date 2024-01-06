@@ -21,7 +21,10 @@ app.screen.demos = app.screenManager.invent({
     // Demos
     const demoList = root.querySelector('.a-demos--demos')
 
-    for (const demo of Object.values(content.demo.all())) {
+    const demos = Object.values(content.demo.all())
+    demos.sort((a, b) => a.name.localeCompare(b.name))
+
+    for (const demo of demos) {
       const item = document.createElement('li')
       item.classList.add('a-demos--demo')
 
