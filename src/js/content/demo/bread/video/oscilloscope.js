@@ -1,5 +1,5 @@
 content.demo.bread.video.oscilloscope = (() => {
-  const fftBinCount = 64
+  const fftBinCount = 96
 
   const fragmentShader = `#version 300 es
 

@@ -15,7 +15,7 @@ content.demo.bread.audio.touches.synth.prototype = {
 
     const {
       carrierType,
-      color,
+      filterFrequency,
       mainDetune,
       rootFrequency,
       pan,
@@ -31,7 +31,8 @@ content.demo.bread.audio.touches.synth.prototype = {
       type: carrierType,
       width,
     }).filtered({
-      frequency: rootFrequency * color,
+      detune: mainDetune,
+      frequency: filterFrequency,
     }).chainAssign(
       'panner', context.createStereoPanner(),
     ).chainAssign(
@@ -57,7 +58,7 @@ content.demo.bread.audio.touches.synth.prototype = {
   },
   update: function () {
     const {
-      color,
+      filterFrequency,
       mainDetune,
       pan,
       rootFrequency,
@@ -66,7 +67,8 @@ content.demo.bread.audio.touches.synth.prototype = {
 
     this.rootFrequency = rootFrequency
 
-    engine.fn.setParam(this.synth.filter.frequency, this.rootFrequency * color)
+    engine.fn.setParam(this.synth.filter.detune, mainDetune)
+    engine.fn.setParam(this.synth.filter.frequency, filterFrequency)
     engine.fn.setParam(this.synth.panner.pan, pan)
     engine.fn.setParam(this.synth.param.detune, mainDetune)
     engine.fn.setParam(this.synth.param.frequency, rootFrequency)
@@ -79,7 +81,11 @@ content.demo.bread.audio.touches.synth.prototype = {
 
     return {
       ...all,
-      color: engine.fn.scale(this.touch.x, 1, -1, 16, 0.5),
+      filterFrequency: engine.fn.clamp(
+        all.rootFrequency * engine.fn.scale(this.touch.x, 1, -1, 16, 0.5),
+        engine.const.minFrequency,
+        engine.const.maxFrequency,
+      ),
       pan: -this.touch.y,
     }
   },

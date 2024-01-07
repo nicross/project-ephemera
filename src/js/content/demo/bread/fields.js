@@ -11,27 +11,27 @@ content.demo.bread.fields = (() => {
     yScale = 1,
     zScale = 1,
   } of [
+    // Static fields
+    {
+      key: 'rootFrequency',
+      octaves: 8,
+      transform: (value) => content.demo.bread.frequency.get(value),
+      tScale: 0,
+    },
+    // Dynamic fields
     {
       key: 'carrierType',
       transform: (value) => engine.fn.choose([
-        'sine',
-        'triangle','square','sawtooth','square','triangle',
-        'sine',
-        'triangle','square','sawtooth','square','triangle',
-        'sine',
+        'sine','triangle','square','sawtooth',
       ], value),
     },
     {
       key: 'mainDetune',
-      transform: (value) => engine.fn.lerp(-25, 25, value),
-    },
-    {
-      key: 'rootFrequency',
-      transform: (value) => engine.fn.lerp(128, 512, value),
+      transform: (value) => engine.fn.lerp(-50, 50, value),
     },
     {
       key: 'width',
-      transform: (value) => engine.fn.lerp(1/9, 8/9, value),
+      transform: (value) => engine.fn.lerp(1/8, 7/8, value),
     },
   ]) {
     const field = engine.fn.createNoise({
@@ -40,11 +40,15 @@ content.demo.bread.fields = (() => {
       type: 'simplex4d',
     })
 
-    tScale /= engine.tool.simplex4d.prototype.skewFactor
-    tScale /= 120
-    xScale /= engine.tool.simplex4d.prototype.skewFactor
-    yScale /= engine.tool.simplex4d.prototype.skewFactor
-    zScale /= engine.tool.simplex4d.prototype.skewFactor
+    tScale *= engine.tool.simplex4d.prototype.skewFactor
+    xScale *= engine.tool.simplex4d.prototype.skewFactor
+    yScale *= engine.tool.simplex4d.prototype.skewFactor
+    zScale *= engine.tool.simplex4d.prototype.skewFactor
+
+    tScale *= 1/30
+    xScale *= 1
+    yScale *= 1
+    zScale *= 1
 
     getters[key] = ({
       depth = 0,
@@ -56,7 +60,7 @@ content.demo.bread.fields = (() => {
         x * xScale,
         y * yScale,
         z * zScale,
-        (content.demo.bread.time.get() + depth) * tScale
+        (content.demo.bread.time.get() * tScale) + (depth * 1/30)
       )
     )
 
@@ -64,7 +68,6 @@ content.demo.bread.fields = (() => {
   }
 
   return {
-    ...getters,
     all: (...args) => {
       const parameters = {}
 

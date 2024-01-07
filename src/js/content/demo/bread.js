@@ -7,9 +7,12 @@ content.demo.bread = content.demo.register({
   const: {},
   // Lifecycle
   load: function () {
+    engine.seed.set(Math.random())
+
     this.time.load()
 
     this.fields.load()
+    this.frequency.load()
     this.input.load()
 
     this.audio.load()
@@ -17,6 +20,7 @@ content.demo.bread = content.demo.register({
   },
   unload: function () {
     this.audio.unload()
+    this.frequency.unload()
     this.fields.unload()
     this.input.unload()
     this.time.unload()
@@ -25,6 +29,7 @@ content.demo.bread = content.demo.register({
   update: function () {
     this.time.update()
     this.fields.update()
+    this.frequency.update()
     this.input.update()
 
     this.audio.update()
