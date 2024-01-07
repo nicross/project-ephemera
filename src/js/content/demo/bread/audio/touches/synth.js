@@ -12,20 +12,26 @@ content.demo.bread.audio.touches.synth.prototype = {
       context = engine.context()
 
     this.touch = touch
-    this.rootFrequency = 256
 
     const {
+      carrierType,
       color,
+      mainDetune,
+      rootFrequency,
       pan,
+      width,
     } = this.calculateParameters()
 
+    this.rootFrequency = rootFrequency
+
     this.synth = engine.synth.pwm({
-      frequency: 128,
+      detune: mainDetune,
+      frequency: rootFrequency,
       gain: engine.fn.fromDb(-12),
-      type: 'sawtooth',
-      width: 0.5,
+      type: carrierType,
+      width,
     }).filtered({
-      frequency: this.rootFrequency * color,
+      frequency: rootFrequency * color,
     }).chainAssign(
       'panner', context.createStereoPanner(),
     ).chainAssign(
@@ -52,18 +58,29 @@ content.demo.bread.audio.touches.synth.prototype = {
   update: function () {
     const {
       color,
+      mainDetune,
       pan,
+      rootFrequency,
+      width,
     } = this.calculateParameters()
+
+    this.rootFrequency = rootFrequency
 
     engine.fn.setParam(this.synth.filter.frequency, this.rootFrequency * color)
     engine.fn.setParam(this.synth.panner.pan, pan)
+    engine.fn.setParam(this.synth.param.detune, mainDetune)
+    engine.fn.setParam(this.synth.param.frequency, rootFrequency)
+    engine.fn.setParam(this.synth.param.width, width)
 
     return this
   },
   calculateParameters: function () {
+    const all = content.demo.bread.fields.all(this.touch)
+
     return {
+      ...all,
       color: engine.fn.scale(this.touch.x, 1, -1, 16, 0.5),
-      pan: -this.touch.y
+      pan: -this.touch.y,
     }
   },
 }
