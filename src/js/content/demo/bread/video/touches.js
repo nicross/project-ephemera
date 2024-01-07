@@ -41,15 +41,19 @@ void main(void) {
       content.demo.bread.glsl.bindUniforms(gl, program)
 
       // Build touch data
-      const touches = content.demo.bread.input.touches()
+      const center = {x: 2, y: 0, z: 0},
+        radius = 1,
+        touches = content.demo.bread.input.touches()
 
       const offsets = []
 
       for (const touch of touches) {
+        const magnitude = (1 - (touch.depth * 0.5)) * radius
+
         offsets.push(
-          touch.x,
-          touch.y,
-          touch.z,
+          center.x - (touch.x * magnitude),
+          center.y + (touch.y * magnitude),
+          center.z + (touch.z * magnitude),
         )
       }
 
@@ -62,8 +66,9 @@ void main(void) {
 
       // Bind mesh
       const mesh = content.gl.createQuad({
-        height: 1/4,
-        width: 1/4,
+        height: 1/12,
+        quaternion: engine.position.getQuaternion(),
+        width: 1/12,
       })
 
       gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
@@ -72,7 +77,7 @@ void main(void) {
       gl.vertexAttribPointer(program.attributes.vertex, 3, gl.FLOAT, false, 0, 0)
 
       // Draw instances
-      gl.drawArraysInstanced(gl.TRIANGLES, 0, mesh.length / 3, touches.length)
+      gl.drawArraysInstanced(gl.TRIANGLES, 0, mesh.length / 3, touches.size)
 
       // Reset divisors
       gl.vertexAttribDivisor(program.attributes.offset, 0)

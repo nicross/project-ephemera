@@ -24,6 +24,9 @@ content.demo.heights = content.demo.register({
     this.video.load()
   },
   unload: function () {
+    engine.position.setVector({})
+    engine.position.setEuler({})
+
     this.audio.unload()
     this.camera.unload()
     this.fairies.unload()

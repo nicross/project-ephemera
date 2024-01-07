@@ -90,18 +90,27 @@ app.controls.mouse = (() => {
       return
     }
 
-    const height = root.clientHeight,
-      width = root.clientWidth
-
-    const dimension = Math.min(height, width)
+    const dimension = Math.min(root.clientHeight, root.clientWidth)
 
     cursor.x = engine.fn.clamp(
-      engine.fn.scale(e.clientX, (width - dimension) * 0.5, width - ((width - dimension) * 0.5), -1, 1),
+      engine.fn.scale(
+        e.clientX,
+        (window.innerWidth - root.clientWidth) * 0.5,
+        window.innerWidth - ((window.innerWidth - root.clientWidth) * 0.5),
+        -1,
+        1
+      ),
       -1, 1
     )
 
     cursor.y = engine.fn.clamp(
-      engine.fn.scale(e.clientY, (height - dimension) * 0.5, height - ((height - dimension) * 0.5), 1, -1),
+      engine.fn.scale(
+        e.clientY,
+        (window.innerHeight - root.clientHeight) * 0.5,
+        window.innerHeight - ((window.innerHeight - root.clientHeight) * 0.5),
+        1,
+        -1
+      ),
       -1, 1
     )
   }

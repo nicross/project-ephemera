@@ -9,7 +9,7 @@ content.demo.bread.video = (() => {
     const aspect = canvas.width / canvas.height,
       fov = (engine.const.tau * 75/360) / aspect
 
-    const far = 10,
+    const far = 20,
       near = 0.1
 
     const top = near * Math.tan(fov / 2)
@@ -42,8 +42,13 @@ content.demo.bread.video = (() => {
       0, 0, 0, 1,
     ])
 
+    // Camera rotation
+    const rotation = engine.tool.matrix4d.fromQuaternion(
+      engine.position.getQuaternion().conjugate()
+    ).transpose()
+
     // Putting it all together
-    return base.multiply(swapper)
+    return base.multiply(swapper).multiply(rotation)
   }
 
   return {
