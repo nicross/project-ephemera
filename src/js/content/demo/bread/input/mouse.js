@@ -5,6 +5,7 @@ content.demo.bread.input.mouse = (() => {
     load: function () {
       return this
     },
+    mode: () => undefined,
     touches: () => touch ? [touch] : [],
     unload: function () {
       return this

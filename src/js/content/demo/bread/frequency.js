@@ -42,6 +42,8 @@ content.demo.bread.frequency = (() => {
       return this
     },
     update: function () {
+      mode = content.demo.bread.input.mode() || mode
+
       return this
     },
   }

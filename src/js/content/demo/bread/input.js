@@ -11,6 +11,11 @@ content.demo.bread.input = (() => {
 
       return this
     },
+    mode: function () {
+      return this.gamepad.mode()
+        || this.keyboard.mode()
+        || this.mouse.mode()
+    },
     unload: function () {
       touches = new Set()
 
@@ -26,13 +31,17 @@ content.demo.bread.input = (() => {
       this.keyboard.update()
       this.mouse.update()
 
-      touches = new Set(
-        [
-          ...this.mouse.touches(),
-          ...this.gamepad.touches(),
-          ...this.keyboard.touches(),
-        ].slice(0, touchLimit)
-      )
+      touches = [
+        ...this.mouse.touches(),
+        ...this.gamepad.touches(),
+        ...this.keyboard.touches(),
+      ]
+
+      if (touches.length > touchLimit) {
+        touches = touches.slice(touches.length - touchLimit - 1, touches.length - 1)
+      }
+
+      touches = new Set(touches)
 
       return this
     },

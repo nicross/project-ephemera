@@ -45,7 +45,7 @@ content.demo.bread.fields = (() => {
     yScale *= engine.tool.simplex4d.prototype.skewFactor
     zScale *= engine.tool.simplex4d.prototype.skewFactor
 
-    tScale *= 1/30
+    tScale *= 1/20
     xScale *= 1
     yScale *= 1
     zScale *= 1
@@ -60,7 +60,7 @@ content.demo.bread.fields = (() => {
         x * xScale,
         y * yScale,
         z * zScale,
-        (content.demo.bread.time.get() * tScale) + (depth * 1/30)
+        (content.demo.bread.time.get() * tScale) - (depth * 1/10)
       )
     )
 
