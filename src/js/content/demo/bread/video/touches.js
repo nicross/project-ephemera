@@ -9,7 +9,15 @@ ${content.demo.bread.glsl.commonFragment()}
 out vec4 color;
 
 void main() {
-  color = vec4(1.0, 1.0, 1.0, 1.0);
+  float d = circle(quadCoordinates, 1.0);
+
+  if (d <= 0.0) {
+    discard;
+  }
+
+  float value = 0.5;
+
+  color = vec4(value, value, value, value * pow(d, 1.0 / 10.0));
 }
 `
 
@@ -66,9 +74,9 @@ void main(void) {
 
       // Bind mesh
       const mesh = content.gl.createQuad({
-        height: 1/12,
+        height: 1/32,
         quaternion: engine.position.getQuaternion(),
-        width: 1/12,
+        width: 1/32,
       })
 
       gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())

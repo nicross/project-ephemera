@@ -16,11 +16,19 @@ content.gl.createProgram = function ({
     gl.attachShader(program, shader)
 
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      console.error((type == gl.VERTEX_SHADER ? 'VERTEX' : 'FRAGMENT') + ' SHADER:\n' + gl.getShaderInfoLog(shader))
+      console.error(
+        (type == gl.VERTEX_SHADER ? 'VERTEX' : 'FRAGMENT') + ' SHADER:\n' + gl.getShaderInfoLog(shader)
+      )
     }
   }
 
   gl.linkProgram(program)
+
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.error(
+      gl.getProgramInfoLog(program)
+    );
+  }
 
   return {
     attributes: attributes.reduce((hash, name) => {

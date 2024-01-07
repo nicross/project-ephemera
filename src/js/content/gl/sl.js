@@ -6,6 +6,7 @@ ${content.gl.sl.circle()}
 ${content.gl.sl.hsv2rgb()}
 ${content.gl.sl.rand()}
 ${content.gl.sl.scale()}
+${content.gl.sl.perlin2d()}
 ${content.gl.sl.perlin3d()}
 `
 
@@ -37,6 +38,29 @@ vec3 hsv2rgb(vec3 c) {
   );
   rgb = rgb*rgb*(3.0-2.0*rgb);
   return c.z * mix(vec3(1.0), rgb, c.y);
+}
+`
+
+content.gl.sl.perlin2d = () => `
+float perlin2d(float x, float y) {
+  float x0 = floor(x);
+  float x1 = x0 + 1.0;
+  float y0 = floor(y);
+  float y1 = y0 + 1.0;
+
+  float dx = x - x0;
+  float dy = y - y0;
+
+  float v0 = rand(vec2(x0, y0));
+  float v1 = rand(vec2(x0, y1));
+  float v2 = rand(vec2(x1, y0));
+  float v3 = rand(vec2(x1, y1));
+
+  return mix(
+    mix(v0, v1, dy),
+    mix(v2, v3, dy),
+    dx
+  );
 }
 `
 

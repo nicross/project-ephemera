@@ -4,6 +4,8 @@ content.demo.bread.time = (() => {
   return {
     get: () => time,
     load: function () {
+      time = engine.fn.randomFloat(-3600, 3600)
+
       return this
     },
     set: function (value) {

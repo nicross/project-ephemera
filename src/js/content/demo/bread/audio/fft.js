@@ -1,6 +1,8 @@
 content.demo.bread.audio.fft = (() => {
+  const fftSize = 512
+
   let analyser,
-    data = new Float32Array()
+    data = new Float32Array(fftSize / 2)
 
   return {
     data: () => data,
@@ -9,7 +11,7 @@ content.demo.bread.audio.fft = (() => {
         context = engine.context()
 
       analyser = new AnalyserNode(context, {
-        fftSize: 2048,
+        fftSize,
       })
 
       bus.connect(analyser)
@@ -20,12 +22,17 @@ content.demo.bread.audio.fft = (() => {
       analyser.disconnect()
       analyser = undefined
 
+      data = new Float32Array(fftSize / 2)
+
       return this
     },
     update: function () {
-      data = analyser.getFloatTimeDomainData(
-        new Float32Array(analyser.fftSize)
-      )
+      const temp = new Uint8Array(fftSize / 2)
+      analyser.getByteFrequencyData(temp)
+
+      for (const i in temp) {
+        data[i] = engine.fn.clamp(temp[i] / 255)
+      }
 
       return this
     },

@@ -19,10 +19,11 @@ content.demo.bread.audio.touches.synth.prototype = {
       pan,
     } = this.calculateParameters()
 
-    this.synth = engine.synth.simple({
-      frequency: 256,
+    this.synth = engine.synth.pwm({
+      frequency: 128,
       gain: engine.fn.fromDb(-12),
       type: 'sawtooth',
+      width: 0.5,
     }).filtered({
       frequency: this.rootFrequency * color,
     }).chainAssign(
@@ -61,7 +62,7 @@ content.demo.bread.audio.touches.synth.prototype = {
   },
   calculateParameters: function () {
     return {
-      color: engine.fn.scale(this.touch.x, 1, -1, 16, 1),
+      color: engine.fn.scale(this.touch.x, 1, -1, 16, 0.5),
       pan: -this.touch.y
     }
   },
