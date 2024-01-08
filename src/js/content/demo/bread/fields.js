@@ -18,13 +18,14 @@ content.demo.bread.fields = (() => {
       transform: (value) => content.demo.bread.frequency.get(value),
       tScale: 0,
     },
-    // Dynamic fields
     {
       key: 'carrierType',
       transform: (value) => engine.fn.choose([
         'sine','triangle','square','sawtooth',
       ], value),
+      tScale: 0,
     },
+    // Dynamic fields
     {
       key: 'mainDetune',
       transform: (value) => engine.fn.lerp(-50, 50, value),
@@ -46,9 +47,9 @@ content.demo.bread.fields = (() => {
     zScale *= engine.tool.simplex4d.prototype.skewFactor
 
     tScale *= 1/20
-    xScale *= 1
-    yScale *= 1
-    zScale *= 1
+    xScale *= 1.5
+    yScale *= 1.5
+    zScale *= 1.5
 
     getters[key] = ({
       depth = 0,

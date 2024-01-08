@@ -1,23 +1,31 @@
 content.demo.bread.input.gamepad = (() => {
   const leftMappings = {
-    depth: 6,
     touch: [
       4,
       10,
     ],
+    touchAxis: 6,
     xAxis: 1,
     yAxis: 0,
   }
 
+  const leftRotation = engine.tool.quaternion.fromEuler({
+    yaw: engine.const.tau * 0.25,
+  })
+
   const rightMappings = {
-    depth: 7,
     touch: [
       5,
       11,
     ],
+    touchAxis: 7,
     xAxis: 3,
     yAxis: 2,
   }
+
+  const rightRotation = engine.tool.quaternion.fromEuler({
+    yaw: -engine.const.tau * 0.25,
+  })
 
   const modeMappings = {
     0: 12,
@@ -29,17 +37,18 @@ content.demo.bread.input.gamepad = (() => {
   let left,
     right
 
-  function update(mappings, previous) {
+  function update(mappings, rotation, previous) {
     const isTouch = mappings.touch.reduce((previous, key) => previous || engine.input.gamepad.isDigital(key), false)
+    const isAnalogTouch = engine.input.gamepad.getAnalog(mappings.touchAxis) > 0
 
-    if (!isTouch) {
+    if (!isTouch && !isAnalogTouch) {
       return
     }
 
     const next = previous || {}
 
-    next.depth = engine.input.gamepad.getAnalog(mappings.depth)
-    next.z = -engine.input.gamepad.getAxis(mappings.xAxis)
+    next.depth = engine.input.gamepad.getAnalog(mappings.touchAxis)
+    next.z = engine.input.gamepad.getAxis(mappings.xAxis)
     next.y = -engine.input.gamepad.getAxis(mappings.yAxis)
     next.x = 0
 
@@ -51,6 +60,12 @@ content.demo.bread.input.gamepad = (() => {
     }
 
     next.x = 1 - engine.fn.distance(next)
+
+    const rotated = engine.tool.vector3d.create(next).rotateQuaternion(rotation)
+
+    next.x = rotated.x
+    next.y = rotated.y
+    next.z = rotated.z
 
     return next
   }
@@ -88,8 +103,8 @@ content.demo.bread.input.gamepad = (() => {
       return this
     },
     update: function () {
-      left = update(leftMappings, left)
-      right = update(rightMappings, right)
+      left = update(leftMappings, leftRotation, left)
+      right = update(rightMappings, rightRotation, right)
 
       return this
     },

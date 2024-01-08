@@ -82,7 +82,7 @@ content.demo.bread.audio.touches.synth.prototype = {
     return {
       ...all,
       filterFrequency: engine.fn.clamp(
-        all.rootFrequency * engine.fn.scale(this.touch.x, 1, -1, 16, 0.5),
+        all.rootFrequency * engine.fn.scale(this.touch.x, 1, -1, 16, 1),
         engine.const.minFrequency,
         engine.const.maxFrequency,
       ),
