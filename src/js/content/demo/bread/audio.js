@@ -10,6 +10,7 @@ content.demo.bread.audio = (() => {
       engine.fn.rampLinear(bus.gain, 1, 1/16)
 
       this.fft.load()
+      this.fx.load()
       this.touches.load()
 
       return this
@@ -19,6 +20,7 @@ content.demo.bread.audio = (() => {
       bus = undefined
 
       this.fft.unload()
+      this.fx.unload()
       this.touches.unload()
 
       return this
@@ -26,6 +28,7 @@ content.demo.bread.audio = (() => {
     update: function () {
       this.touches.update()
       this.fft.update()
+      this.fx.update()
 
       return this
     },

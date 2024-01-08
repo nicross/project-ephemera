@@ -36,7 +36,6 @@ content.demo.bread.audio.touches.synth.prototype = {
     this.synth = engine.synth.pwm({
       detune: mainDetune,
       frequency: rootFrequency,
-      gain: baseGain * carrierGain,
       type: carrierType,
       width,
     }).filtered({
@@ -46,7 +45,7 @@ content.demo.bread.audio.touches.synth.prototype = {
       'panner', context.createStereoPanner(),
     ).chainAssign(
       'fader', context.createGain(),
-    ).connect(bus)
+    ).connect(bus).connect(content.demo.bread.audio.fx.input())
 
     // AM
     this.synth.assign('amod', engine.synth.lfo({
