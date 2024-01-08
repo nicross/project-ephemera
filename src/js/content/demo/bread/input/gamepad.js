@@ -67,6 +67,10 @@ content.demo.bread.input.gamepad = (() => {
     next.y = rotated.y
     next.z = rotated.z
 
+    next.modifier = isAnalogTouch && !isTouch
+      ? 1 - engine.input.gamepad.getAnalog(mappings.touchAxis)
+      : 0
+
     return next
   }
 

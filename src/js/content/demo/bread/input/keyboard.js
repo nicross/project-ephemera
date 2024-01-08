@@ -2,38 +2,43 @@ content.demo.bread.input.keyboard = (() => {
   const touches = new Map()
 
   const mappings = {
-    Digit1: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(0/10))), z: 0.666},
-    Digit2: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(1/10))), z: 0.666},
-    Digit3: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(2/10))), z: 0.666},
-    Digit4: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(3/10))), z: 0.666},
-    Digit5: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(4/10))), z: 0.666},
-    Digit6: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(5/10))), z: 0.666},
-    Digit7: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(6/10))), z: 0.666},
-    Digit8: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(7/10))), z: 0.666},
-    Digit9: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(8/10))), z: 0.666},
-    Digit0: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(9/10))), z: 0.666},
+    Digit1: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(0/12))), z: 0.666},
+    Digit2: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(1/12))), z: 0.666},
+    Digit3: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(2/12))), z: 0.666},
+    Digit4: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(3/12))), z: 0.666},
+    Digit5: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(4/12))), z: 0.666},
+    Digit6: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(5/12))), z: 0.666},
+    Digit7: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(6/12))), z: 0.666},
+    Digit8: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(7/12))), z: 0.666},
+    Digit9: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(8/12))), z: 0.666},
+    Digit0: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(9/12))), z: 0.666},
+    Minus: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(10/12))), z: 0.666},
+    Equal: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(11/12))), z: 0.666},
     // Tropic
-    KeyQ: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(0/10))), z: 0.333},
-    KeyW: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(1/10))), z: 0.333},
-    KeyE: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(2/10))), z: 0.333},
-    KeyR: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(3/10))), z: 0.333},
-    KeyT: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(4/10))), z: 0.333},
-    KeyY: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(5/10))), z: 0.333},
-    KeyU: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(6/10))), z: 0.333},
-    KeyI: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(7/10))), z: 0.333},
-    KeyO: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(8/10))), z: 0.333},
-    KeyP: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(9/10))), z: 0.333},
+    KeyQ: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(0/12))), z: 0.333},
+    KeyW: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(1/12))), z: 0.333},
+    KeyE: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(2/12))), z: 0.333},
+    KeyR: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(3/12))), z: 0.333},
+    KeyT: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(4/12))), z: 0.333},
+    KeyY: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(5/12))), z: 0.333},
+    KeyU: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(6/12))), z: 0.333},
+    KeyI: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(7/12))), z: 0.333},
+    KeyO: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(8/12))), z: 0.333},
+    KeyP: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(9/12))), z: 0.333},
+    BracketLeft: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(10/12))), z: 0.333},
+    BracketRight: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(11/12))), z: 0.333},
     // Equator
-    KeyA: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(0/10))), z: -0.333},
-    KeyS: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(1/10))), z: -0.333},
-    KeyD: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(2/10))), z: -0.333},
-    KeyF: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(3/10))), z: -0.333},
-    KeyG: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(4/10))), z: -0.333},
-    KeyH: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(5/10))), z: -0.333},
-    KeyJ: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(6/10))), z: -0.333},
-    KeyK: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(7/10))), z: -0.333},
-    KeyL: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(8/10))), z: -0.333},
-    Semicolon: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(9/10))), z: -0.333},
+    KeyA: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(0/11))), z: -0.333},
+    KeyS: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(1/11))), z: -0.333},
+    KeyD: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(2/11))), z: -0.333},
+    KeyF: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(3/11))), z: -0.333},
+    KeyG: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(4/11))), z: -0.333},
+    KeyH: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(5/11))), z: -0.333},
+    KeyJ: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(6/11))), z: -0.333},
+    KeyK: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(7/11))), z: -0.333},
+    KeyL: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(8/11))), z: -0.333},
+    Semicolon: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(9/11))), z: -0.333},
+    Quote: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(10/11))), z: -0.333},
     // Tropic
     KeyZ: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(0/10))), z: -0.666},
     KeyX: {...engine.tool.vector2d.unitX().rotate(engine.const.tau * (0.5 + -(1/10))), z: -0.666},
@@ -58,12 +63,8 @@ content.demo.bread.input.keyboard = (() => {
     const left = engine.input.keyboard.is('ShiftLeft'),
       right = engine.input.keyboard.is('ShiftRight')
 
-    if (left && right) {
-      return 1
-    }
-
     return left || right
-      ? 0.5
+      ? 1
       : 0
   }
 
@@ -89,10 +90,14 @@ content.demo.bread.input.keyboard = (() => {
 
       for (const [key, vector] of Object.entries(mappings)) {
         if (engine.input.keyboard.is(key)) {
-          if (!touches.has(key)) {
+          if (touches.has(key)) {
+            const touch = touches.get(key)
+            touch.depth = depth
+          } else {
             touches.set(key, {
               ...vector,
               depth,
+              modifier: 0,
             })
           }
         } else {

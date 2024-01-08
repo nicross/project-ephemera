@@ -14,8 +14,17 @@ content.demo.bread.audio.touches.synth.prototype = {
     this.touch = touch
 
     const {
+      amDepth,
+      amFrequency,
+      baseGain,
+      carrierGain,
       carrierType,
+      colorDepth,
+      colorFrequency,
       filterFrequency,
+      fmDepth,
+      fmFrequency,
+      fmType,
       mainDetune,
       rootFrequency,
       pan,
@@ -27,7 +36,7 @@ content.demo.bread.audio.touches.synth.prototype = {
     this.synth = engine.synth.pwm({
       detune: mainDetune,
       frequency: rootFrequency,
-      gain: engine.fn.fromDb(-12),
+      gain: baseGain * carrierGain,
       type: carrierType,
       width,
     }).filtered({
@@ -39,6 +48,35 @@ content.demo.bread.audio.touches.synth.prototype = {
       'fader', context.createGain(),
     ).connect(bus)
 
+    // AM
+    this.synth.assign('amod', engine.synth.lfo({
+      depth: baseGain * amDepth,
+      frequency: amFrequency,
+    }))
+
+    this.synth.chainStop(this.synth.amod)
+    this.synth.amod.connect(this.synth.param.gain)
+
+    // Color modulation
+    this.synth.assign('cmod', engine.synth.lfo({
+      depth: colorDepth,
+      frequency: colorFrequency,
+    }))
+
+    this.synth.chainStop(this.synth.cmod)
+    this.synth.cmod.connect(this.synth.filter.detune)
+
+    // FM
+    this.synth.assign('fmod', engine.synth.lfo({
+      depth: rootFrequency * fmDepth,
+      detune: mainDetune,
+      frequency: rootFrequency * fmFrequency,
+      type: fmType,
+    }))
+
+    this.synth.chainStop(this.synth.fmod)
+    this.synth.fmod.connect(this.synth.param.frequency)
+
     this.synth.fader.gain.value = 0
     this.synth.panner.pan.value = pan
 
@@ -49,16 +87,24 @@ content.demo.bread.audio.touches.synth.prototype = {
   },
   destroy: function () {
     const now = engine.time(),
-      release = 1/32
+      release = 1/16
 
-    engine.fn.rampLinear(this.synth.param.gain, 0, release)
+    engine.fn.rampLinear(this.synth.fader.gain, 0, release)
     this.synth.stop(now + release)
 
     return this
   },
   update: function () {
     const {
+      amDepth,
+      amFrequency,
+      baseGain,
+      carrierGain,
+      colorDepth,
+      colorFrequency,
       filterFrequency,
+      fmDepth,
+      fmFrequency,
       mainDetune,
       pan,
       rootFrequency,
@@ -70,8 +116,16 @@ content.demo.bread.audio.touches.synth.prototype = {
     engine.fn.setParam(this.synth.filter.detune, mainDetune)
     engine.fn.setParam(this.synth.filter.frequency, filterFrequency)
     engine.fn.setParam(this.synth.panner.pan, pan)
+    engine.fn.setParam(this.synth.param.amod.depth, baseGain * amDepth)
+    engine.fn.setParam(this.synth.param.amod.frequency, amFrequency)
+    engine.fn.setParam(this.synth.param.cmod.depth, colorDepth)
+    engine.fn.setParam(this.synth.param.cmod.frequency, colorFrequency)
     engine.fn.setParam(this.synth.param.detune, mainDetune)
+    engine.fn.setParam(this.synth.param.fmod.depth, rootFrequency * fmDepth)
+    engine.fn.setParam(this.synth.param.fmod.detune, mainDetune)
+    engine.fn.setParam(this.synth.param.fmod.frequency, rootFrequency * fmFrequency)
     engine.fn.setParam(this.synth.param.frequency, rootFrequency)
+    engine.fn.setParam(this.synth.param.gain, baseGain * carrierGain)
     engine.fn.setParam(this.synth.param.width, width)
 
     return this
@@ -81,6 +135,8 @@ content.demo.bread.audio.touches.synth.prototype = {
 
     return {
       ...all,
+      baseGain: engine.fn.fromDb(-6) * (1 - (this.touch.modifier ** 2)),
+      carrierGain: 1 - all.amDepth,
       filterFrequency: engine.fn.clamp(
         all.rootFrequency * engine.fn.scale(this.touch.x, 1, -1, 16, 1),
         engine.const.minFrequency,

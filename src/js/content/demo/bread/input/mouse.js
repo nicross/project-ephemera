@@ -26,6 +26,7 @@ content.demo.bread.input.mouse = (() => {
 
         // Project cursor onto surface of sphere in screen space
         touch.depth = 0
+        touch.modifier = 0
         touch.x = 1 - Math.min(magnitude, 1)
         touch.y = -x
         touch.z = y

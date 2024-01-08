@@ -25,10 +25,41 @@ content.demo.bread.fields = (() => {
       ], value),
       tScale: 0,
     },
+    {
+      key: 'fmType',
+      transform: (value) => engine.fn.choose([
+        'sine','triangle','square','sawtooth',
+      ], value),
+      tScale: 0,
+    },
     // Dynamic fields
     {
+      key: 'amDepth',
+      transform: (value) => engine.fn.fromDb(engine.fn.lerp(-9, -3, value)),
+    },
+    {
+      key: 'amFrequency',
+      transform: (value) => engine.fn.lerpExp(1/8, 8, value, 3),
+    },
+    {
+      key: 'colorDepth',
+      transform: (value) => engine.fn.lerpExp(0, 1200, value, 2),
+    },
+    {
+      key: 'colorFrequency',
+      transform: (value) => engine.fn.lerpExp(1/8, 8, value, 3),
+    },
+    {
+      key: 'fmDepth',
+      transform: (value) => value ** 1.5,
+    },
+    {
+      key: 'fmFrequency',
+      transform: (value) => engine.fn.lerpExp(1/4, 4, value, 2),
+    },
+    {
       key: 'mainDetune',
-      transform: (value) => engine.fn.lerp(-50, 50, value),
+      transform: (value) => engine.fn.lerp(-25, 25, value),
     },
     {
       key: 'width',
@@ -46,10 +77,10 @@ content.demo.bread.fields = (() => {
     yScale *= engine.tool.simplex4d.prototype.skewFactor
     zScale *= engine.tool.simplex4d.prototype.skewFactor
 
-    tScale *= 1/20
-    xScale *= 1.5
-    yScale *= 1.5
-    zScale *= 1.5
+    tScale *= 1/60
+    xScale *= 2
+    yScale *= 2
+    zScale *= 2
 
     getters[key] = ({
       depth = 0,
