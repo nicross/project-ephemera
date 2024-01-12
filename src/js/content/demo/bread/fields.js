@@ -51,7 +51,7 @@ content.demo.bread.fields = (() => {
     },
     {
       key: 'fmDepth',
-      transform: (value) => value ** 1.5,
+      transform: (value) => value > 2/5 ? engine.fn.scale(value, 2/5, 1, 0, 1) : 0,
     },
     {
       key: 'fmFrequency',
@@ -93,10 +93,10 @@ content.demo.bread.fields = (() => {
     yScale *= engine.tool.simplex4d.prototype.skewFactor
     zScale *= engine.tool.simplex4d.prototype.skewFactor
 
-    tScale *= 1/60
-    xScale *= 2
-    yScale *= 2
-    zScale *= 2
+    tScale *= 1/30
+    xScale *= 1
+    yScale *= 1
+    zScale *= 1
 
     getters[key] = ({
       depth = 0,
