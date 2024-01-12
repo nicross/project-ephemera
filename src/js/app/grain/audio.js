@@ -154,17 +154,23 @@ app.grain.audio = (() => {
 
   return {
     activate: function (value) {
-      createSynth(value, 1/2)
+      if (!synth) {
+        createSynth(value, 1/2)
+      }
 
       return this
     },
     duck: function (value) {
-      destroySynth(1/2)
+      if (synth) {
+        destroySynth(1/2)
+      }
 
       return this
     },
     unduck: function () {
-      createSynth(app.grain.value(), 1/8)
+      if (!synth) {
+        createSynth(app.grain.value(), 1/8)
+      }
 
       return this
     },
