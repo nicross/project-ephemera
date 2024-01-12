@@ -174,7 +174,7 @@ content.demo.bread.audio.touches.synth.prototype = {
       baseGain: engine.fn.fromDb(-6) * (1 - (this.touch.modifier ** 2)),
       carrierGain: 1 - all.amDepth,
       filterFrequency: engine.fn.clamp(
-        all.rootFrequency * engine.fn.scale(this.touch.x, 1, -1, 16, 1),
+        all.rootFrequency * engine.fn.scale(this.touch.x, 1, -1, 16, 1) * (1 - (this.touch.modifier ** 0.5)),
         engine.const.minFrequency,
         engine.const.maxFrequency,
       ),
