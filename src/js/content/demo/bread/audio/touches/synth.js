@@ -26,8 +26,12 @@ content.demo.bread.audio.touches.synth.prototype = {
       fmFrequency,
       fmType,
       mainDetune,
-      rootFrequency,
       pan,
+      pwmDepth,
+      pwmFrequency,
+      rootFrequency,
+      vibratoDepth,
+      vibratoFrequency,
       width,
     } = this.calculateParameters()
 
@@ -76,6 +80,28 @@ content.demo.bread.audio.touches.synth.prototype = {
     this.synth.chainStop(this.synth.fmod)
     this.synth.fmod.connect(this.synth.param.frequency)
 
+    // PWM
+    this.synth.assign('wmod', engine.synth.lfo({
+      depth: pwmDepth,
+      frequency: pwmFrequency,
+      type: 'sine',
+    }))
+
+    this.synth.chainStop(this.synth.wmod)
+    this.synth.wmod.connect(this.synth.param.width)
+
+    // Vibrato
+    this.synth.assign('dmod', engine.synth.lfo({
+      depth: vibratoDepth,
+      frequency: vibratoFrequency,
+      type: 'sine',
+    }))
+
+    this.synth.chainStop(this.synth.dmod)
+    this.synth.dmod.connect(this.synth.param.detune)
+    this.synth.dmod.connect(this.synth.param.fmod.detune)
+
+    // Positioning
     this.synth.fader.gain.value = 0
     this.synth.panner.pan.value = pan
 
@@ -106,7 +132,11 @@ content.demo.bread.audio.touches.synth.prototype = {
       fmFrequency,
       mainDetune,
       pan,
+      pwmDepth,
+      pwmFrequency,
       rootFrequency,
+      vibratoDepth,
+      vibratoFrequency,
       width,
     } = this.calculateParameters()
 
@@ -120,17 +150,24 @@ content.demo.bread.audio.touches.synth.prototype = {
     engine.fn.setParam(this.synth.param.cmod.depth, colorDepth)
     engine.fn.setParam(this.synth.param.cmod.frequency, colorFrequency)
     engine.fn.setParam(this.synth.param.detune, mainDetune)
+    engine.fn.setParam(this.synth.param.dmod.depth, vibratoDepth)
+    engine.fn.setParam(this.synth.param.dmod.frequency, vibratoFrequency)
     engine.fn.setParam(this.synth.param.fmod.depth, rootFrequency * fmDepth)
     engine.fn.setParam(this.synth.param.fmod.detune, mainDetune)
     engine.fn.setParam(this.synth.param.fmod.frequency, rootFrequency * fmFrequency)
     engine.fn.setParam(this.synth.param.frequency, rootFrequency)
     engine.fn.setParam(this.synth.param.gain, baseGain * carrierGain)
     engine.fn.setParam(this.synth.param.width, width)
+    engine.fn.setParam(this.synth.param.wmod.depth, pwmDepth)
+    engine.fn.setParam(this.synth.param.wmod.frequency, pwmFrequency)
 
     return this
   },
   calculateParameters: function () {
     const all = content.demo.bread.fields.all(this.touch)
+
+    all.pwmDepth *= 1/3
+    all.width = engine.fn.lerp(1/6 + all.pwmDepth, 5/6 - all.pwmDepth, all.width)
 
     return {
       ...all,

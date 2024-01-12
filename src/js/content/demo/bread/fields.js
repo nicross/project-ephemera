@@ -62,8 +62,24 @@ content.demo.bread.fields = (() => {
       transform: (value) => engine.fn.lerp(-25, 25, value),
     },
     {
+      key: 'pwmDepth',
+      transform: (value) => value,
+    },
+    {
+      key: 'pwmFrequency',
+      transform: (value) => engine.fn.lerp(1/8, 8, value, 2),
+    },
+    {
+      key: 'vibratoDepth',
+      transform: (value) => engine.fn.lerp(0, 25, value),
+    },
+    {
+      key: 'vibratoFrequency',
+      transform: (value) => engine.fn.lerp(1/8, 8, value, 2),
+    },
+    {
       key: 'width',
-      transform: (value) => engine.fn.lerp(1/8, 7/8, value),
+      transform: (value) => value,
     },
   ]) {
     const field = engine.fn.createNoise({
