@@ -11,6 +11,13 @@ content.grain = (() => {
 
       return this
     },
+    set: function (...args) {
+      if (adapter) {
+        adapter.set(...args)
+      }
+
+      return this
+    },
     touch: function (...args) {
       if (adapter) {
         adapter.touch(...args)

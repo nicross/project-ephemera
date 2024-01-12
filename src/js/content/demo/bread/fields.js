@@ -42,6 +42,14 @@ content.demo.bread.fields = (() => {
       transform: (value) => engine.fn.lerpExp(1/8, 8, value, 3),
     },
     {
+      key: 'buzzStrong',
+      transform: (value) => (Math.abs((value * 2) - 1) ** 2),
+    },
+    {
+      key: 'buzzWeak',
+      transform: (value) => Math.abs((value * 2) - 1),
+    },
+    {
       key: 'colorDepth',
       transform: (value) => engine.fn.lerpExp(0, 1200, value, 2),
     },
@@ -116,6 +124,7 @@ content.demo.bread.fields = (() => {
   }
 
   return {
+    ...getters,
     all: (...args) => {
       const parameters = {}
 

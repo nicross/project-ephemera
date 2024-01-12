@@ -1,6 +1,6 @@
 content.demo.bread.frequency = (() => {
   const chords = [
-    // Pentatonic major
+    // Pentatonic
     [
       60,63,65,67,70
     ],

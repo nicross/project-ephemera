@@ -1,5 +1,6 @@
 content.demo.bread = content.demo.register({
   id: 'bread',
+  allowHum: true,
   enabled: true,
   description: 'Ephemeral object inspector.',
   name: 'Secret Bread',
@@ -33,6 +34,7 @@ content.demo.bread = content.demo.register({
     this.input.update()
 
     this.audio.update()
+    this.buzz.update()
     this.video.update()
   },
 })
