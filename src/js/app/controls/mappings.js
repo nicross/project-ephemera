@@ -77,6 +77,13 @@ app.controls.mappings = {
   confirm: [
     {type: 'gamepad', key: 0},
   ],
+  exitGame: [
+    {type: 'keyboard', key: 'Escape'},
+    {type: 'keyboard', key: 'Backspace'},
+    {type: 'gamepad', key: 8},
+    {type: 'gamepad', key: 9},
+    {type: 'mouse', key: 3},
+  ],
   pause: [
     {type: 'keyboard', key: 'Escape'},
     {type: 'keyboard', key: 'Backspace'},

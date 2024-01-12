@@ -30,7 +30,7 @@ app.screen.game = app.screenManager.invent({
   onFrame: function () {
     const ui = app.controls.ui()
 
-    if (ui.back) {
+    if (ui.exitGame) {
       return app.screenManager.dispatch('back')
     }
 

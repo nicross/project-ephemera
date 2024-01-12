@@ -45,6 +45,7 @@ app.controls.keyboard = {
     // Mapped keys
     for (const [mapping, name] of Object.entries({
       back: 'back',
+      exitGame: 'exitGame',
       pause: 'pause',
       uiDown: 'down',
       uiLeft: 'left',

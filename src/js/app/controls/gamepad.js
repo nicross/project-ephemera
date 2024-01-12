@@ -120,6 +120,7 @@ app.controls.gamepad = {
     for (const [mapping, name] of Object.entries({
       back: 'back',
       confirm: 'confirm',
+      exitGame: 'exitGame',
       pause: 'pause',
       start: 'start',
     })) {
