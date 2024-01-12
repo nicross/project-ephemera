@@ -1,9 +1,13 @@
 content.demo.heights.movement = (() => {
-  const lateralAcceleration = 8,
+  const gravity = 10,
+    lateralAcceleration = 8,
     maxAngularVelocity = engine.const.tau / 4,
-    maxLateralVelocity = 4
+    maxLateralVelocity = 4,
+    pubsub = engine.tool.pubsub.create()
 
-  let velocity = engine.tool.vector3d.create()
+  let isJump = false,
+    jumpTimer = 0,
+    velocity = engine.tool.vector3d.create()
 
   function calculateTerrainPitch() {
     const run = maxLateralVelocity,
@@ -20,33 +24,75 @@ content.demo.heights.movement = (() => {
   }
 
   function move() {
+    const delta = engine.loop.delta()
+
     // Calculate target velocity
-    const targetVelocity = engine.tool.vector3d.create({
+    const intendedVelocity = engine.tool.vector3d.create({
       x: content.demo.heights.input.x(),
       y: content.demo.heights.input.y(),
     }).rotateQuaternion(
       engine.position.getQuaternion().multiply(
-        engine.tool.quaternion.fromEuler({
-          pitch: calculateTerrainPitch(),
-        })
+        isJump
+          ? engine.tool.quaternion.identity()
+          : engine.tool.quaternion.fromEuler({
+              pitch: calculateTerrainPitch(),
+            })
       )
     ).scale(maxLateralVelocity)
 
+    intendedVelocity.z = 0
+
+    const targetVelocity = isJump
+      ? (intendedVelocity.isZero() ? velocity : engine.fn.centroid(intendedVelocity, {x: velocity.x, y: velocity.y}))
+      : intendedVelocity
+
+    targetVelocity.z = velocity.z
+
     // Accelerate toward target velocity
     velocity = engine.fn.accelerateVector(velocity, targetVelocity, lateralAcceleration)
+    velocity.z -= gravity * delta
 
     // Calculate next position
-    const delta = engine.loop.delta(),
-      position = engine.position.getVector()
-
-    const nextPosition = position.add(
+    const nextPosition = engine.position.getVector().add(
       velocity.scale(delta)
     )
 
-    nextPosition.z = content.demo.heights.terrain.value(nextPosition)
+    // Glue to surface when not jumping
+    const terrain = content.demo.heights.terrain.value(nextPosition)
+
+    if (nextPosition.z <= terrain) {
+      isJump = false
+      pubsub.emit('jump-end')
+    }
+
+    if (!isJump) {
+      nextPosition.z = terrain
+      velocity.z = 0
+    }
 
     // Set next position
     engine.position.setVector(nextPosition)
+  }
+
+  function jump() {
+    const delta = engine.loop.delta(),
+      input = content.demo.heights.input.jump()
+
+    if (!input) {
+      jumpTimer = 0
+      return
+    }
+
+    if (isJump) {
+      jumpTimer = engine.fn.accelerateValue(jumpTimer, 0, 2)
+      velocity.z += 3 * gravity * jumpTimer * delta
+      return
+    }
+
+    isJump = true
+    jumpTimer = 1
+    pubsub.emit('jump-start')
+    velocity.z += 0.5 * gravity
   }
 
   function turn() {
@@ -66,23 +112,28 @@ content.demo.heights.movement = (() => {
     })
   }
 
-  return {
+  return pubsub.decorate({
+    isJump: () => isJump,
     load: function () {
       return this
     },
     unload: function () {
       engine.position.reset()
+
+      isJump = false
+      jumpTimer = 0
       velocity = engine.tool.vector3d.create()
 
       return this
     },
     update: function () {
       turn()
+      jump()
       move()
 
       return this
     },
     velocity: () => velociy.clone(),
     velocityRatio: () => engine.fn.clamp(velocity.distance() / maxLateralVelocity),
-  }
+  })
 })()

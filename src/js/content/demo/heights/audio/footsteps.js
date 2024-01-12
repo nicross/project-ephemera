@@ -97,4 +97,8 @@ content.demo.heights.audio.footsteps = (() => {
   }
 })()
 
-content.demo.heights.footsteps.on('step', (e) => content.demo.heights.audio.footsteps.trigger(e))
+content.demo.heights.footsteps.on('step', (e) => {
+  if (!content.demo.heights.movement.isJump()) {
+    content.demo.heights.audio.footsteps.trigger(e)
+  }
+})

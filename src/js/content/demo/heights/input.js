@@ -116,9 +116,26 @@ content.demo.heights.input = (() => {
       ],
       mouseButton: [],
     },
+    jump: {
+      gamepadAxis: [],
+      gamepadDigital: [
+        0, // A
+        4, // Left bumper
+        5, // right bumper
+      ],
+      keyboard: [
+        'Enter',
+        'Space',
+      ],
+      mouseAxis: [],
+      mouseButton: [
+        2,
+      ],
+    },
   }
 
-  let look = 0,
+  let jump = false,
+    look = 0,
     turn = 0,
     x = 0,
     y = 0
@@ -165,6 +182,7 @@ content.demo.heights.input = (() => {
     load: function () {
       return this
     },
+    jump: () => jump,
     look: () => look,
     turn: () => turn,
     unload: function () {
@@ -176,6 +194,7 @@ content.demo.heights.input = (() => {
       return this
     },
     update: function () {
+      jump = Boolean(check(mappings.jump))
       look = check(mappings.lookUp) - check(mappings.lookDown)
       turn = check(mappings.turnLeft) - check(mappings.turnRight)
       x = check(mappings.moveForward) - check(mappings.moveBackward)
