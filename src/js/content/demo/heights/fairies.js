@@ -61,7 +61,7 @@ content.demo.heights.fairies = (() => {
 
     // Float above terrain at a height proportionate to alertness
     const bob = 0.75 + (Math.sin(time / 4) * 0.25)
-    fairy.z = content.demo.heights.terrain.value(fairy) + bob + fairy.alertness
+    fairy.z = content.demo.heights.terrain.value(fairy) + bob + (fairy.alertness * 2)
 
     if (!fairy.velocity.isZero()) {
       return

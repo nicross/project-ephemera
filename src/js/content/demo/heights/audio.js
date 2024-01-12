@@ -13,6 +13,7 @@ content.demo.heights.audio = (() => {
 
       this.fairies.load()
       this.footsteps.load()
+      this.jump.load()
       this.moon.load()
       this.trail.load()
       this.windAmbient.load()
@@ -28,6 +29,7 @@ content.demo.heights.audio = (() => {
 
       this.fairies.unload()
       this.footsteps.unload()
+      this.jump.unload()
       this.moon.unload()
       this.trail.unload()
       this.windAmbient.unload()
@@ -37,6 +39,7 @@ content.demo.heights.audio = (() => {
     },
     update: function () {
       this.fairies.update()
+      this.jump.update()
       this.moon.update()
       this.trail.update()
       this.windAmbient.update()

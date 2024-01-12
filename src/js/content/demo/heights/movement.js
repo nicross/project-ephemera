@@ -1,8 +1,8 @@
 content.demo.heights.movement = (() => {
   const gravity = 10,
-    lateralAcceleration = 8,
+    lateralAcceleration = 10,
     maxAngularVelocity = engine.const.tau / 4,
-    maxLateralVelocity = 4,
+    maxLateralVelocity = 5,
     pubsub = engine.tool.pubsub.create()
 
   let isJump = false,
@@ -60,9 +60,12 @@ content.demo.heights.movement = (() => {
     // Glue to surface when not jumping
     const terrain = content.demo.heights.terrain.value(nextPosition)
 
-    if (nextPosition.z <= terrain) {
+    if (isJump && nextPosition.z <= terrain) {
       isJump = false
-      pubsub.emit('jump-end')
+
+      pubsub.emit('jump-end', {
+        velocity: engine.fn.clamp(engine.fn.scale(Math.abs(velocity.z) / gravity, 0.5, 1.5, 0, 1)),
+      })
     }
 
     if (!isJump) {
@@ -84,7 +87,7 @@ content.demo.heights.movement = (() => {
     }
 
     if (isJump) {
-      jumpTimer = engine.fn.accelerateValue(jumpTimer, 0, 2)
+      jumpTimer = engine.fn.accelerateValue(jumpTimer, 0, 3/2)
       velocity.z += 3 * gravity * jumpTimer * delta
       return
     }
