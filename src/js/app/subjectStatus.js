@@ -2,24 +2,33 @@ app.subjectStatus = engine.tool.fsm.create({
   state: 'Nominal',
   transition: {
     Nominal: {
-      viewStatus: function () {
-        this.change('Aware')
+      enterGame: function ({demo}) {
+        if (demo.subjectStatus) {
+          this.change(demo.subjectStatus)
+        }
       },
       pushMindControl: function () {
         this.change('Suspicious')
       },
+      viewStatus: function () {
+        this.change('Aware')
+      },
     },
     Aware: {
-      exitGame: function () {
-        this.change('Nominal')
+      enterGame: function ({demo}) {
+        if (demo.subjectStatus) {
+          this.change(demo.subjectStatus)
+        }
       },
       pushMindControl: function () {
         this.change('Suspicious')
       },
     },
     Suspicious: {
-      exitGame: function () {
-        this.change('Aware')
+      enterGame: function ({demo}) {
+        if (demo.subjectStatus) {
+          this.change(demo.subjectStatus)
+        }
       },
     },
   },
@@ -28,5 +37,13 @@ app.subjectStatus = engine.tool.fsm.create({
 app.ready(() => {
   document.querySelector('.a-information--row-subjectStatus').addEventListener('blur', () => app.subjectStatus.dispatch('viewStatus'))
   document.querySelector('.a-settings--mindControlButton').addEventListener('click', () => app.subjectStatus.dispatch('pushMindControl'))
-  app.screenManager.on('exit-game', () => app.subjectStatus.dispatch('exitGame'))
+
+  // Demo statuses
+  app.screenManager.on('enter-game', (e) => app.subjectStatus.dispatch('enterGame', e))
+
+  for (const [id, demo] of Object.entries(content.demo.all())) {
+    if (demo.subjectStatus) {
+      app.subjectStatus.transition[demo.subjectStatus] = {...app.subjectStatus.transition.Nominal}
+    }
+  }
 })

@@ -3,6 +3,7 @@ content.demo.falls = content.demo.register({
   enabled: true,
   description: 'Endless runner shooter.',
   name: 'Harmony Falls',
+  subjectStatus: 'Stimulated',
   // Constants
   const: {
     stageSize: 36,

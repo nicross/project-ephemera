@@ -4,6 +4,7 @@ content.demo.heights = content.demo.register({
   enabled: true,
   description: 'Cozy midnight hiker.',
   name: 'Melody Heights',
+  subjectStatus: 'Sedated',
   // Constants
   const: {},
   // Lifecycle

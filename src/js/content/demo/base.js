@@ -6,6 +6,7 @@ content.demo.base = {
   enabled: false,
   name: '',
   description: '',
+  subjectStatus: false,
   // Methods
   extend: function (definition) {
     return engine.fn.extend(this, definition)

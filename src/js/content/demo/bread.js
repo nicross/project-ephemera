@@ -2,8 +2,9 @@ content.demo.bread = content.demo.register({
   id: 'bread',
   allowHum: true,
   enabled: true,
-  description: 'Ephemeral object inspector.',
   name: 'Secret Bread',
+  description: 'Ephemeral object inspector.',
+  subjectStatus: 'Satiated',
   // Constants
   const: {},
   // Lifecycle
