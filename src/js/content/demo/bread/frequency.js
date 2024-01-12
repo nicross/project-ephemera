@@ -8,9 +8,9 @@ content.demo.bread.frequency = (() => {
     [
       60,62,63,65,67,68,70,
     ],
-    // Pentatonic minor
+    // Demonic 🤘
     [
-      60,62,63,67,68
+      60,62,63,66,67,68,71,
     ],
     // Chromatic
     [
