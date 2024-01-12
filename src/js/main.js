@@ -19,6 +19,9 @@
     })
   )
 
+  // Gamepad deadzone
+  engine.input.gamepad.setDeadzone(0.15)
+
   // Boosted dynamic range
   engine.mixer.param.limiter.attack.value = 0.003
   engine.mixer.param.limiter.gain.value = 1

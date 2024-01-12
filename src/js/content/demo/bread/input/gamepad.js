@@ -76,7 +76,7 @@ content.demo.bread.input.gamepad = (() => {
 
   return {
     load: function () {
-      engine.input.gamepad.setDeadzone(0.15)
+      engine.input.gamepad.setDeadzone(0)
 
       return this
     },
@@ -103,6 +103,8 @@ content.demo.bread.input.gamepad = (() => {
     unload: function () {
       left = undefined
       right = undefined
+
+      engine.input.gamepad.setDeadzone(0.15)
 
       return this
     },
