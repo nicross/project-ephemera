@@ -41,19 +41,25 @@ content.demo.heights.audio.trail.sound = engine.sound.extend({
       type: engine.fn.choose(['sine','triangle','square','sawtooth'], Math.random()),
       width: 0.5,
     }).filtered({
-      frequency: this.rootFrequency * 2,
+      frequency: engine.const.minFrequency,
     }).connect(this.output)
 
     this.filterModel.options.frequency = this.rootFrequency
 
-    const gain = engine.fn.fromDb(-15),
+    const duration = engine.fn.randomFloat(7/8, 9/8),
+      gain = engine.fn.fromDb(-15),
       now = engine.time()
 
+    this.synth.filter.frequency.linearRampToValueAtTime(this.rootFrequency * 2, now + 1/64)
+    this.synth.filter.frequency.linearRampToValueAtTime(this.rootFrequency * 1.5, now + duration)
+
+    this.synth.param.width.linearRampToValueAtTime(engine.fn.randomFloat(1/8, 7/8), now + duration)
+
     this.synth.param.gain.linearRampToValueAtTime(gain, now + 1/64)
-    this.synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, now + 1)
+    this.synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, now + duration)
     this.synth.stop(now + 1)
 
-    setTimeout(() => this.destroy(), 1000)
+    setTimeout(() => this.destroy(), (duration + 1/8) * 1000)
   },
   onDestroy: function () {
     this.step.audio = 0

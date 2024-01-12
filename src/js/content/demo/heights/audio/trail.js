@@ -1,6 +1,6 @@
 content.demo.heights.audio.trail = (() => {
   const manager = new Set(),
-    maxSounds = 5
+    maxSounds = 3
 
   return {
     load: function () {
