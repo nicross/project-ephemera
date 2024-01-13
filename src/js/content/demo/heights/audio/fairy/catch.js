@@ -17,7 +17,7 @@ content.demo.heights.audio.fairies.catch = () => {
     frequency: rootFrequency,
     type: 'sawtooth',
   }).filtered({
-    detune: detune,
+    detune: detune + 1200,
     frequency: rootFrequency,
   }).connect(bus)
 
@@ -26,7 +26,7 @@ content.demo.heights.audio.fairies.catch = () => {
     now = engine.time()
 
   high.param.detune.linearRampToValueAtTime(detune + 2400, now + duration/8)
-  low.filter.detune.linearRampToValueAtTime(detune + 1200, now + duration)
+  low.filter.detune.linearRampToValueAtTime(detune, now + duration)
   low.param.detune.linearRampToValueAtTime(detune - 2400, now + duration/4)
 
   high.param.gain.linearRampToValueAtTime(gain, now + 1/32)

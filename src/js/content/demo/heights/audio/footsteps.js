@@ -47,7 +47,7 @@ content.demo.heights.audio.footsteps = (() => {
 
       const amodDepth = amodDepthField.value(x / 20, y / 20) * 0.5,
         detune = engine.fn.randomFloat(-25, 25),
-        gain = engine.fn.fromDb(-7.5 + engine.fn.lerp(-4.5, 0, strength))
+        gain = engine.fn.fromDb(-7.5 + engine.fn.lerp(-6, 0, strength))
 
       const synth = engine.synth.mod({
         amodDepth,
