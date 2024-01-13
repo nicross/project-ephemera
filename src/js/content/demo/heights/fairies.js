@@ -103,7 +103,7 @@ content.demo.heights.fairies = (() => {
         .inverse()
         .normalize()
         .rotate(engine.fn.randomFloat(-1/8, 1/8) * engine.const.tau)
-        .scale(engine.fn.randomFloat(8, 16))
+        .scale(engine.fn.randomFloat(15, 20))
     }
   }
 
