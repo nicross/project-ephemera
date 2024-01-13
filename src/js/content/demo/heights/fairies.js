@@ -60,18 +60,30 @@ content.demo.heights.fairies = (() => {
     }
 
     // Float above terrain at a height proportionate to alertness
-    const bob = 0.75 + (Math.sin(time / 4) * 0.25)
-    fairy.z = content.demo.heights.terrain.value(fairy) + bob + (fairy.alertness * 2)
+    const bob = 0.25 + (Math.sin(time / 4) * 0.25)
+    fairy.z = content.demo.heights.terrain.value(fairy) + bob + fairy.alertness
 
+    // Handle catching
+    const position = engine.position.getVector()
+    const distance = engine.fn.distance(position, fairy)
+
+    if (distance < 2) {
+      if (fairy.sound) {
+        fairy.sound.fadeOutDuration = 1/16
+      }
+
+      fairies.delete(fairy)
+      tree.remove(fairy)
+
+      return pubsub.emit('catch', fairy)
+    }
+
+    // Accelerate alertness based on distance versus tolerance/timidity
     if (!fairy.velocity.isZero()) {
       return
     }
 
-    // Accelerate alertness based on distance versus tolerance/timidity
-    const position = engine.position.getVector()
-
-    const distance = engine.fn.distance(position, {...fairy, z: fairy.z - 0.75}),
-      isNear = distance < fairy.tolerance
+    const isNear = distance < fairy.tolerance
 
     fairy.alertness = Math.max(
       engine.fn.accelerateValue(
@@ -81,13 +93,6 @@ content.demo.heights.fairies = (() => {
       ),
       engine.fn.clamp(engine.fn.scale(distance, 10, 1, 0, 1))
     )
-
-    if (distance < 2) {
-      fairies.delete(fairy)
-      tree.remove(fairy)
-
-      return pubsub.emit('catch', fairy)
-    }
 
     // Run away when alerted
     if (fairy.alertness >= 1) {

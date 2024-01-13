@@ -1,5 +1,21 @@
 engine.ready(() => {
 
+  // Catches
+  content.demo.heights.fairies.on('catch', () => {
+    content.haptics.enqueue({
+      duration: engine.fn.randomFloat(75, 150),
+      strongMagnitude: engine.fn.randomFloat(1/16, 1/8),
+      weakMagnitude: engine.fn.randomFloat(1/16, 1/8),
+    })
+
+    content.haptics.enqueue({
+      duration: engine.fn.randomFloat(200, 250),
+      startDelay: engine.fn.randomFloat(150, 250),
+      strongMagnitude: engine.fn.randomFloat(1/4, 1/2),
+      weakMagnitude: engine.fn.randomFloat(1/4, 1/2),
+    })
+  })
+
   // Footsteps
   content.demo.heights.footsteps.on('step', ({strength}) => {
     if (content.demo.heights.movement.isJump()) {

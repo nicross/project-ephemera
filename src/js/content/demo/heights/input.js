@@ -55,7 +55,7 @@ content.demo.heights.input = (() => {
       ],
       mouseAxis: [],
       mouseButton: [
-        0, // Primary click
+        2,
       ],
     },
     strafeLeft: {
@@ -129,7 +129,7 @@ content.demo.heights.input = (() => {
       ],
       mouseAxis: [],
       mouseButton: [
-        2,
+        0,
       ],
     },
   }
