@@ -18,6 +18,7 @@ app.grain = (() => {
 
       return this
     },
+    get: () => touch,
     isActive: () => isActive,
     set: function (amount = 0) {
       touch = amount

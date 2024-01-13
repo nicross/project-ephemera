@@ -3,6 +3,9 @@ content.grain = (() => {
   let adapter
 
   return {
+    get: function (...args) {
+      return adapter ? adapter.get() : 0
+    },
     getAdapter: () => adapter,
     setAdapter: function (value) {
       if (value && value.touch) {

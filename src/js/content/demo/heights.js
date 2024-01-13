@@ -12,6 +12,7 @@ content.demo.heights = content.demo.register({
     engine.seed.set(Math.random())
     engine.position.setEuler({yaw: engine.const.tau * 7/16})
 
+    this.buzz.load()
     this.camera.load()
     this.fairies.load()
     this.footsteps.load()
@@ -29,6 +30,7 @@ content.demo.heights = content.demo.register({
     engine.position.setEuler({})
 
     this.audio.unload()
+    this.buzz.unload()
     this.camera.unload()
     this.fairies.unload()
     this.footsteps.unload()

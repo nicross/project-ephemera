@@ -70,7 +70,7 @@ content.demo.heights.fairies = (() => {
     // Accelerate alertness based on distance versus tolerance/timidity
     const position = engine.position.getVector()
 
-    const distance = position.distance(fairy),
+    const distance = engine.fn.distance(position, {...fairy, z: fairy.z - 0.75}),
       isNear = distance < fairy.tolerance
 
     fairy.alertness = Math.max(
@@ -79,8 +79,15 @@ content.demo.heights.fairies = (() => {
         isNear ? 1 : 0,
         2 * (isNear ? fairy.timidity : 1 - fairy.timidity) * (0.5 + engine.fn.clamp(Math.sin(fairy.alertness * Math.PI)) * 0.5)
       ),
-      engine.fn.clamp(engine.fn.scale(distance, 8, 4, 0, 1))
+      engine.fn.clamp(engine.fn.scale(distance, 10, 1, 0, 1))
     )
+
+    if (distance < 2) {
+      fairies.delete(fairy)
+      tree.remove(fairy)
+
+      return pubsub.emit('catch', fairy)
+    }
 
     // Run away when alerted
     if (fairy.alertness >= 1) {
@@ -95,7 +102,7 @@ content.demo.heights.fairies = (() => {
     }
   }
 
-  return {
+  return pubsub.decorate({
     all: () => fairies,
     closest: function (radius = 0, count = 0) {
       const all = this.nearby(radius)
@@ -150,5 +157,5 @@ content.demo.heights.fairies = (() => {
 
       return this
     },
-  }
+  })
 })()
