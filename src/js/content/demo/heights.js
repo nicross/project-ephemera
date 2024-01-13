@@ -50,6 +50,7 @@ content.demo.heights = content.demo.register({
     this.wind.update()
 
     this.audio.update()
+    this.buzz.update()
     this.video.update()
   },
   // Methods
