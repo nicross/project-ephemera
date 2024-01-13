@@ -62,7 +62,7 @@ void main(void) {
     for (let i = 0; i < count; i += 1) {
       particles.push({
         life: 1,
-        rate: 1 / 60,
+        rate: 1 / 120,
         velocity: engine.tool.vector3d.create({
           x: engine.fn.randomFloat(-3, 3),
           y: engine.fn.randomFloat(-3, 3),
@@ -80,7 +80,8 @@ void main(void) {
       delta = engine.loop.delta(),
       drawDistance2 = content.demo.heights.camera.drawDistance() * 2/8,
       lifes = [],
-      offsets = []
+      offsets = [],
+      wind = content.demo.heights.wind.vector(1/3).scale(1 * delta)
 
     particles = particles.reduce((particles, particle) => {
       particle.life -= delta * particle.rate
@@ -88,6 +89,9 @@ void main(void) {
       if (particle.life < 0) {
         return particles
       }
+
+      particle.velocity.x += wind.x
+      particle.velocity.y += wind.y
 
       particle.x += particle.velocity.x * delta
       particle.y += particle.velocity.y * delta
