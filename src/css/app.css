@@ -83,15 +83,15 @@
 /* Responsive fluid font sizing */
 @media (max-width: 20rem) {
   .a-app {
-    font-size: 0.5em;
+    font-size: 0.666em;
   }
 }
 
 @media (min-width: 20rem) {
   .a-app-landscape {
-    font-size: calc(0.5em + ((1.33333vh - 0.4rem) * 1.5));
+    font-size: calc(0.666em + ((1.33333vh - 0.4rem) * 1.5));
   }
   .a-app-portrait {
-    font-size: calc(0.5em + ((1vw - 0.4rem) * 1.5));
+    font-size: calc(0.666em + ((1vw - 0.4rem) * 1.5));
   }
 }
