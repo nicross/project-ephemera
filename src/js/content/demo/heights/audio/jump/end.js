@@ -15,7 +15,7 @@ content.demo.heights.audio.jump.end = ({
   }).connect(bus)
 
   const duration = 1/3,
-    gain = engine.fn.fromDb(engine.fn.lerp(-13.5, -10.5, velocity)),
+    gain = engine.fn.fromDb(engine.fn.lerp(-9, -6, velocity)),
     now = engine.time()
 
   synth.filter.detune.linearRampToValueAtTime(detune, now + 1/32)

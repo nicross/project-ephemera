@@ -64,9 +64,9 @@ void main(void) {
         life: 1,
         rate: 1 / 60,
         velocity: engine.tool.vector3d.create({
-          x: engine.fn.randomFloat(-4, 4),
-          y: engine.fn.randomFloat(-4, 4),
-          z: engine.fn.randomFloat(0, 4),
+          x: engine.fn.randomFloat(-3, 3),
+          y: engine.fn.randomFloat(-3, 3),
+          z: engine.fn.randomFloat(0, 3),
         }),
         x: where.x,
         y: where.y,
@@ -106,8 +106,6 @@ void main(void) {
       return particles
     }, [])
 
-    console.log(particles)
-
     return {
       lifes,
       offsets,
@@ -144,9 +142,9 @@ void main(void) {
 
       // Bind mesh
       const mesh = content.gl.createQuad({
-        height: 1/64,
+        height: 1/48,
         quaternion: content.demo.heights.camera.quaternion(),
-        width: 1/64,
+        width: 1/48,
       })
 
       gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
@@ -201,5 +199,5 @@ void main(void) {
 })()
 
 content.demo.heights.fairies.on('catch', (fairy) => {
-  content.demo.heights.video.particles.generate(fairy, engine.fn.randomInt(50, 100))
+  content.demo.heights.video.particles.generate(fairy, engine.fn.randomInt(200, 250))
 })
