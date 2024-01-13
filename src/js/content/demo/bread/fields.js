@@ -35,35 +35,43 @@ content.demo.bread.fields = (() => {
     // Dynamic fields
     {
       key: 'amDepth',
-      transform: (value) => engine.fn.fromDb(engine.fn.lerp(-9, -3, value)),
+      transform: (value) => value > 0 ? engine.fn.lerp(0, 0.5, abs(value)) : 0,
     },
     {
       key: 'amFrequency',
-      transform: (value) => engine.fn.lerpExp(1/8, 8, value, 3),
+      transform: (value) => engine.fn.lerpExp(1/8, 8, abs(value), 2),
     },
     {
       key: 'buzzStrong',
-      transform: (value) => (Math.abs((value * 2) - 1) ** 2),
+      transform: (value) => abs(value) ** 2,
+    },
+    {
+      key: 'buzzStrongTexture',
+      transform: (value) => abs(value),
     },
     {
       key: 'buzzWeak',
-      transform: (value) => Math.abs((value * 2) - 1),
+      transform: (value) => abs(value),
+    },
+    {
+      key: 'buzzWeakTexture',
+      transform: (value) => abs(value),
     },
     {
       key: 'colorDepth',
-      transform: (value) => engine.fn.lerpExp(0, 1200, value, 2),
+      transform: (value) => value > 0 ? engine.fn.lerp(0, 1200, abs(value)) : 0,
     },
     {
       key: 'colorFrequency',
-      transform: (value) => engine.fn.lerpExp(1/8, 8, value, 3),
+      transform: (value) => engine.fn.lerpExp(1/8, 8, abs(value), 2),
     },
     {
       key: 'fmDepth',
-      transform: (value) => value > 2/5 ? engine.fn.scale(value, 2/5, 1, 0, 1) : 0,
+      transform: (value) => value > 0 ? abs(value) : 0,
     },
     {
       key: 'fmFrequency',
-      transform: (value) => engine.fn.lerpExp(1/4, 4, value, 2),
+      transform: (value) => engine.fn.lerp(1/4, 4, abs(value)),
     },
     {
       key: 'mainDetune',
@@ -71,19 +79,19 @@ content.demo.bread.fields = (() => {
     },
     {
       key: 'pwmDepth',
-      transform: (value) => value,
+      transform: (value) => value > 0 ? abs(value) : 0,
     },
     {
       key: 'pwmFrequency',
-      transform: (value) => engine.fn.lerp(1/8, 8, value, 2),
+      transform: (value) => engine.fn.lerp(1/8, 8, abs(value), 2),
     },
     {
       key: 'vibratoDepth',
-      transform: (value) => engine.fn.lerp(0, 25, value),
+      transform: (value) => value > 0 ? engine.fn.lerp(0, 100, abs(value)) : 0,
     },
     {
       key: 'vibratoFrequency',
-      transform: (value) => engine.fn.lerp(1/8, 8, value, 2),
+      transform: (value) => engine.fn.lerp(1/8, 8, abs(value), 2),
     },
     {
       key: 'width',
@@ -121,6 +129,10 @@ content.demo.bread.fields = (() => {
     )
 
     fields.push(field)
+  }
+
+  function abs(value) {
+    return Math.abs((value * 2) - 1)
   }
 
   return {

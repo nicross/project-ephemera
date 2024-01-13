@@ -4,12 +4,18 @@ content.demo.bread.buzz = (() => {
       const touches = [...content.demo.bread.input.touches()]
 
       const strong = touches.reduce(
-        (value, touch) => Math.max(value, content.demo.bread.fields.buzzStrong(touch) * (1 - (touch.modifier ** 0.5))),
+        (value, touch) => Math.max(
+          value,
+          content.demo.bread.fields.buzzStrong(touch) * (1 - (touch.modifier ** 0.5)) * (1 - (Math.random() * content.demo.bread.fields.buzzStrongTexture(touch)))
+        ),
         0
       )
 
       const weak = touches.reduce(
-        (value, touch) => Math.max(value, content.demo.bread.fields.buzzWeak(touch) * (1 - (touch.modifier ** 0.5))),
+        (value, touch) => Math.max(
+          value,
+          content.demo.bread.fields.buzzWeak(touch) * (1 - (touch.modifier ** 0.5)) * (1 - (Math.random() * content.demo.bread.fields.buzzWeakTexture(touch)))
+        ),
         0
       )
 
