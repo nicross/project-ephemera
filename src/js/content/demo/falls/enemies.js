@@ -10,6 +10,9 @@ content.demo.falls.enemies = (() => {
     y: 1,
   }
 
+  let rateTarget = 0,
+    rateValue = 0
+
   function calculateCooldownTime() {
     const time = content.demo.falls.time.get()
 
@@ -22,12 +25,17 @@ content.demo.falls.enemies = (() => {
   }
 
   function calculateMoveRate() {
-    const time = content.demo.falls.time.get()
+    const delta = engine.loop.delta() * (
+      content.demo.falls.player.isDead() ? 0.25 : 1
+    )
+
+    rateTarget = engine.fn.clamp(rateTarget + (delta / 300))
+    rateValue = engine.fn.accelerateValue(rateValue, rateTarget, 16)
 
     return engine.fn.lerpExp(
       1/64,
       1,
-      engine.fn.clamp(time / 5 / 60),
+      rateValue,
       2
     )
   }
@@ -134,6 +142,11 @@ content.demo.falls.enemies = (() => {
 
       return this
     },
+    multiplyMoveRate: function (value) {
+      rateTarget *= value
+
+      return this
+    },
     nearby: (radius = 0) => {
       const playerX = content.demo.falls.player.x(),
         results = [],
@@ -152,6 +165,9 @@ content.demo.falls.enemies = (() => {
     unload: function () {
       enemies.clear()
 
+      rateTarget = 0
+      rateValue = 0
+
       return this
     },
     update: function () {
@@ -162,3 +178,7 @@ content.demo.falls.enemies = (() => {
     },
   })
 })()
+
+engine.ready(() => {
+  content.demo.falls.player.on('kill', () => content.demo.falls.enemies.multiplyMoveRate(0))
+})
