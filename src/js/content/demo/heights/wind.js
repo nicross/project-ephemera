@@ -58,7 +58,7 @@ content.demo.heights.wind = (() => {
     update: function () {
       const time = content.demo.heights.time.get()
 
-      direction = engine.fn.lerp(-1/8, 1/8, directionField.value(time / 29)) * engine.const.tau
+      direction = (0.5 + engine.fn.lerp(-1/8, 1/8, directionField.value(time / 29))) * engine.const.tau
       directionOffset = engine.fn.lerp(-1/8, 1/8, directionOffsetField.value(time)) * engine.const.tau
       velocity = velocityField.value(time / 31)
       velocityOffset = velocityOffsetField.value(time)
