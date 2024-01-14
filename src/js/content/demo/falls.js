@@ -17,6 +17,7 @@ content.demo.falls = content.demo.register({
 
     this.enemies.load()
     this.input.load()
+    this.pickups.load()
     this.player.load()
     this.projectiles.load()
 
@@ -27,6 +28,7 @@ content.demo.falls = content.demo.register({
     this.audio.unload()
     this.enemies.unload()
     this.input.unload()
+    this.pickups.unload()
     this.player.unload()
     this.projectiles.unload()
     this.time.unload()
@@ -39,6 +41,7 @@ content.demo.falls = content.demo.register({
 
     this.input.update()
     this.player.update()
+    this.pickups.update()
     this.enemies.update()
     this.projectiles.update()
 
