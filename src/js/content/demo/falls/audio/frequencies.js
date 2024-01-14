@@ -62,7 +62,10 @@ content.demo.falls.audio.frequencies = (() => {
     update: function () {
       const time = content.demo.falls.time.get()
 
-      keyValue = keyField.value(time / 120)
+      keyValue = engine.fn.smooth(
+        keyField.value(time / 30),
+        12
+      )
 
       return this
     },
