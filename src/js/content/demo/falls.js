@@ -32,14 +32,15 @@ content.demo.falls = content.demo.register({
     this.video.unload()
   },
   update: function () {
-    if (!this.player.isDead()) {
-      this.time.update()
-      this.input.update()
+    this.time.update()
 
+    if (!this.player.isDead()) {
+      this.input.update()
       this.player.update()
-      this.enemies.update()
       this.projectiles.update()
     }
+
+    this.enemies.update()
 
     this.audio.update()
     this.grain.update()

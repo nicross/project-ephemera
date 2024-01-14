@@ -27,6 +27,10 @@ content.demo.falls.video.player = (() => {
 
   return {
     draw: function () {
+      if (content.demo.falls.player.isDead()) {
+        return this
+      }
+      
       pawn()
       center()
 
