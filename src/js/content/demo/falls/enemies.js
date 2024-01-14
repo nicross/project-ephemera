@@ -10,24 +10,12 @@ content.demo.falls.enemies = (() => {
     y: 1,
   }
 
-  let rateTarget = 0,
-    rateValue = 0
-
   function calculateCooldownTime() {
     return engine.fn.lerpExp(
       16,
       0,
-      rateValue,
+      content.demo.falls.velocity.value(),
       0.5
-    )
-  }
-
-  function calculateMoveRate() {
-    return engine.fn.lerpExp(
-      1/64,
-      1,
-      rateValue,
-      2
     )
   }
 
@@ -82,9 +70,6 @@ content.demo.falls.enemies = (() => {
   function update() {
     const delta = engine.loop.delta()
 
-    rateTarget = engine.fn.clamp(rateTarget + (delta / 300))
-    rateValue = engine.fn.accelerateValue(rateValue, rateTarget, 16)
-
     // Cooldowns
     for (const [x, cooldown] of cooldowns) {
       if (cooldown > delta) {
@@ -97,7 +82,7 @@ content.demo.falls.enemies = (() => {
     // Enemies
     const cooldownTime = calculateCooldownTime(),
       damageRate = 1 * delta,
-      moveRate = calculateMoveRate() * delta
+      moveRate = content.demo.falls.velocity.get() * delta
 
     for (const [x, enemy] of enemies) {
       // Apply damage toward top of screen
@@ -126,6 +111,7 @@ content.demo.falls.enemies = (() => {
   return pubsub.decorate({
     all: () => Array.from(enemies.values()),
     get: (x) => enemies.get(x),
+    has: (x) => enemies.has(x),
     hit: function (projetile) {
       hit(projetile)
 
@@ -133,11 +119,6 @@ content.demo.falls.enemies = (() => {
     },
     load: function () {
       initialize()
-
-      return this
-    },
-    multiplyRate: function (value) {
-      rateTarget *= value
 
       return this
     },
@@ -159,9 +140,6 @@ content.demo.falls.enemies = (() => {
     unload: function () {
       enemies.clear()
 
-      rateTarget = 0
-      rateValue = 0
-
       return this
     },
     update: function () {
@@ -172,7 +150,3 @@ content.demo.falls.enemies = (() => {
     },
   })
 })()
-
-engine.ready(() => {
-  content.demo.falls.player.on('kill', () => content.demo.falls.enemies.multiplyRate(0))
-})

@@ -13,6 +13,7 @@ content.demo.falls = content.demo.register({
     engine.seed.set(Math.random())
 
     this.time.load()
+    this.velocity.load()
 
     this.enemies.load()
     this.input.load()
@@ -29,10 +30,12 @@ content.demo.falls = content.demo.register({
     this.player.unload()
     this.projectiles.unload()
     this.time.unload()
+    this.velocity.unload()
     this.video.unload()
   },
   update: function () {
     this.time.update()
+    this.velocity.update()
 
     this.input.update()
     this.player.update()
