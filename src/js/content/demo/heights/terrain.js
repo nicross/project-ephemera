@@ -38,9 +38,9 @@ content.demo.heights.terrain = (() => {
         slope = x / 3
 
       return slope
-        + (field0.value(x / 250 * skew, y / 250 * skew) * 50)
-        + (field1.value(x / 100 * skew, y / 100 * skew) * 20)
-        + (field2.value(x / 50 * skew, y / 50 * skew) * 10)
+        + (field0.value(x / 250 * skew, y / 250 * skew) * 75)
+        + (field1.value(x / 100 * skew, y / 100 * skew) * 30)
+        + (field2.value(x / 50 * skew, y / 50 * skew) * 15)
         + (field3.value(x / 5 * skew, y / 5 * skew) * 1)
     },
     unload: function () {
