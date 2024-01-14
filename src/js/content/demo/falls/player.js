@@ -2,6 +2,7 @@ content.demo.falls.player = (() => {
   const pubsub = engine.tool.pubsub.create()
 
   let isDead = false,
+    isDeadAccelerated = 0,
     x = 0
 
   function checkDeath() {
@@ -27,6 +28,7 @@ content.demo.falls.player = (() => {
 
   return pubsub.decorate({
     isDead: () => isDead,
+    isDeadAccelerated: () => isDeadAccelerated,
     load: function () {
       return this
     },
@@ -42,6 +44,7 @@ content.demo.falls.player = (() => {
     },
     unload: function () {
       isDead = false
+      isDeadAccelerated = 0
       x = 0
 
       return this
@@ -50,6 +53,10 @@ content.demo.falls.player = (() => {
       if (!isDead) {
         checkDeath()
         handleInput()
+      }
+
+      if (isDead && isDeadAccelerated < 1) {
+        isDeadAccelerated = engine.fn.accelerateValue(isDeadAccelerated, 1, 1)
       }
 
       return this

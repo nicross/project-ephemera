@@ -62,7 +62,7 @@ content.demo.falls.audio.enemies.synth.prototype = {
 
     engine.fn.setParam(this.synth.param.width, this.synth.param.width.value)
     this.synth.param.width.linearRampToValueAtTime(0.5, now + 1/32)
-    this.synth.param.width.linearRampToValueAtTime(0.5 + (engine.fn.randomSign() * engine.fn.randomFloat(0.1, 0.3)), now + 1/4)
+    this.synth.param.width.linearRampToValueAtTime(0.5 + (engine.fn.randomSign() * engine.fn.randomFloat(0.0625, 0.25)), now + 1/4)
   },
   update: function () {
     // Retrigger synth
@@ -117,6 +117,8 @@ content.demo.falls.audio.enemies.synth.prototype = {
         0.125
       )
     }
+
+    color = engine.fn.lerp(color, 4, content.demo.falls.player.isDeadAccelerated())
 
     engine.fn.setParam(this.filter.frequency, this.rootFrequency * color)
 
