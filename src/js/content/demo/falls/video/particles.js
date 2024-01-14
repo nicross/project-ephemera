@@ -109,6 +109,58 @@ content.demo.falls.enemies.on('kill', ({
   }
 })
 
+// Pickups destroy
+content.demo.falls.pickups.on('destroy', (pickup) => {
+  const context = content.demo.falls.video.context()
+
+  if (!context) {
+    return
+  }
+
+  const count = engine.fn.randomFloat(33, 66),
+    radius = context.canvas.height/600*4,
+    velocity = context.canvas.height * 100/600
+
+  for (let i = 0; i <= count; i += 1) {
+    content.demo.falls.video.particles.spawn({
+      life: 1,
+      offset: {x: engine.fn.randomFloat(-radius, radius), y: 0},
+      radius: engine.fn.randomFloat(0, 2) ** 2,
+      rate: engine.fn.randomFloat(1, 2),
+      velocity: {x: velocity * engine.fn.randomFloat(-1, 1), y: velocity * engine.fn.randomFloat(-1, 0)},
+      x: pickup.x,
+      y: pickup.y,
+    })
+  }
+})
+
+// Pickups pickup
+content.demo.falls.pickups.on('pickup', (pickup) => {
+  const context = content.demo.falls.video.context()
+
+  if (!context) {
+    return
+  }
+
+  const count = engine.fn.randomFloat(33, 66),
+    playerX = content.demo.falls.player.x(),
+    radius = context.canvas.height/600*4,
+    velocity = context.canvas.height * 100/600
+
+  // Projectile explode
+  for (let i = 0; i <= count; i += 1) {
+    content.demo.falls.video.particles.spawn({
+      life: 1,
+      offset: {x: engine.fn.randomFloat(-radius, radius), y: engine.fn.randomFloat(-radius, radius)},
+      radius: engine.fn.randomFloat(0, 2) ** 2,
+      rate: engine.fn.randomFloat(1, 2),
+      velocity: {x: velocity * engine.fn.randomFloat(-1, 1), y: velocity * engine.fn.randomFloat(-1, 1)},
+      x: pickup.x,
+      y: pickup.y,
+    })
+  }
+})
+
 // Player kills
 content.demo.falls.player.on('kill', () => {
   const context = content.demo.falls.video.context()

@@ -1,5 +1,6 @@
 content.demo.falls.pickups = (() => {
-  const pubsub = engine.tool.pubsub.create()
+  const pubsub = engine.tool.pubsub.create(),
+    threshold = 600/800/17/2
 
   let cooldown = 0,
     pickup
@@ -12,7 +13,7 @@ content.demo.falls.pickups = (() => {
     const playerX = content.demo.falls.player.x()
 
     const enemies = content.demo.falls.enemies.all()
-      .filter((enemy) => enemy.y + enemy.height < 0.95 && enemy.x != playerX)
+      .filter((enemy) => enemy.y + enemy.height < (1 - (threshold * 2)) && enemy.x != playerX)
 
     if (!enemies.length) {
       return
@@ -29,15 +30,19 @@ content.demo.falls.pickups = (() => {
 
     pickup.y -= content.demo.falls.velocity.get() * engine.loop.delta()
 
-    // Despawn / pickup at bottom of screen
-    if (pickup.y <= 0) {
-      if (pickup.x == playerX) {
-        pubsub.emit('pickup', pickup)
-        cooldown = 30
-      } else {
-        cooldown = 10
-      }
+    // Pickup by player
+    if (pickup.x == playerX && pickup.y <= threshold) {
+      pubsub.emit('pickup', pickup)
 
+      cooldown = 30
+      pickup = undefined
+
+      return
+    }
+
+    // Despawn at bottom
+    if (pickup.y <= -threshold) {
+      cooldown = 1
       pickup = undefined
 
       return
@@ -46,10 +51,10 @@ content.demo.falls.pickups = (() => {
     // Check enemy collision
     const enemy = content.demo.falls.enemies.get(pickup.x)
 
-    if (enemy && enemy.y + enemy.height >= pickup.y) {
+    if (enemy && pickup.y >= enemy.y && enemy.y + enemy.height >= pickup.y) {
       pubsub.emit('destroy', pickup)
 
-      cooldown = 10
+      cooldown = 5
       pickup = undefined
 
       return
