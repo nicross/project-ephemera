@@ -34,13 +34,10 @@ content.demo.falls = content.demo.register({
   update: function () {
     this.time.update()
 
-    if (!this.player.isDead()) {
-      this.input.update()
-      this.player.update()
-      this.projectiles.update()
-    }
-
+    this.input.update()
+    this.player.update()
     this.enemies.update()
+    this.projectiles.update()
 
     this.audio.update()
     this.grain.update()

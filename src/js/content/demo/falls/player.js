@@ -47,8 +47,10 @@ content.demo.falls.player = (() => {
       return this
     },
     update: function () {
-      checkDeath()
-      handleInput()
+      if (!isDead) {
+        checkDeath()
+        handleInput()
+      }
 
       return this
     },

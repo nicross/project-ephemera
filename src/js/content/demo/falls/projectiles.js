@@ -5,6 +5,10 @@ content.demo.falls.projectiles = (() => {
     projectiles = new Set()
 
   function shoot() {
+    if (content.demo.falls.player.isDead()) {
+      return
+    }
+
     if (!content.demo.falls.input.isShoot()) {
       return
     }
@@ -31,7 +35,7 @@ content.demo.falls.projectiles = (() => {
         projectiles.delete(projectile)
       }
 
-      if (isHit) {
+      if (isHit && !content.demo.falls.player.isDead()) {
         content.demo.falls.enemies.hit(projectile)
       }
     }
