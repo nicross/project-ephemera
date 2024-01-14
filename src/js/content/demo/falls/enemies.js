@@ -75,7 +75,7 @@ content.demo.falls.enemies = (() => {
 
     enemies.set(x, {
       ...defaults,
-      height: engine.fn.randomFloat(0.5, 1.5),
+      height: engine.fn.randomFloat(1, 24) / 12,
       x,
     })
   }
