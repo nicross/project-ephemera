@@ -33,6 +33,7 @@ content.demo.falls.video = (() => {
       this.background.draw()
       this.player.draw()
       this.enemies.draw()
+      this.pickups.draw()
       this.projectiles.draw()
       this.particles.draw()
 
