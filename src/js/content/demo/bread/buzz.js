@@ -20,13 +20,13 @@ content.demo.bread.buzz = (() => {
       )
 
       // Set grain
-      content.grain.set(engine.fn.clamp((weak * 0.666) + (strong * 0.666)))
+      content.grain.set(engine.fn.clamp((weak + strong) * 0.5) ** (1/3))
 
       // Set haptics
       content.haptics.enqueue({
         duration: 1000 * engine.loop.delta(),
-        strongMagnitude: (strong ** 2) * 1/3,
-        weakMagnitude: (weak ** 2) * 1/3,
+        strongMagnitude: (strong ** 2) * 0.5,
+        weakMagnitude: (weak ** 2) * 0.5,
       })
 
       return this
