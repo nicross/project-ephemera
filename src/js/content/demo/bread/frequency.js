@@ -26,19 +26,26 @@ content.demo.bread.frequency = (() => {
     //...chord.map((note) => note + (3 * 12)),
   ].map((note) => engine.fn.fromMidi(note)))
 
-  let mode = 1
+  let lastMode,
+    mode = 0
 
   return {
     get: (value) => engine.fn.choose(chords[mode], value),
     load: function () {
-      mode = 1
+      do {
+        mode = engine.fn.randomInt(0, 3)
+      } while (mode === lastMode)
+
       return this
     },
     setMode: function (value) {
       mode = engine.fn.clamp(value, 0, chords.length)
+
       return this
     },
     unload: function () {
+      lastMode = mode
+
       return this
     },
     update: function () {
