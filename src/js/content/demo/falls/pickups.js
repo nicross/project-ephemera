@@ -62,7 +62,7 @@ content.demo.falls.pickups = (() => {
 
     // Pickup by player
     if (pickup.x == playerX && pickup.y <= threshold) {
-      pubsub.emit('pickup', pickup)
+      pubsub.emit('collect', pickup)
 
       cooldown = 30
       pickup = undefined
@@ -95,7 +95,7 @@ content.demo.falls.pickups = (() => {
 
     for (const projectile of projectiles) {
       if (projectile.x == pickup.x && projectile.y >= pickup.y) {
-        pubsub.emit('pickup', pickup)
+        pubsub.emit('collect', pickup)
 
         cooldown = 30
         pickup = undefined

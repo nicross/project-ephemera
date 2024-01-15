@@ -41,6 +41,6 @@ content.demo.falls.velocity = (() => {
 
 engine.ready(() => {
   content.demo.falls.player.on('kill', () => content.demo.falls.velocity.multiply(0))
-  content.demo.falls.pickups.on('destroy', () => content.demo.falls.velocity.multiply(7/6))
-  content.demo.falls.pickups.on('pickup', () => content.demo.falls.velocity.multiply(5/6))
+  content.demo.falls.pickups.on('collect', () => content.demo.falls.velocity.multiply(4/5))
+  content.demo.falls.pickups.on('destroy', () => content.demo.falls.velocity.multiply(6/5))
 })

@@ -18,17 +18,8 @@ engine.ready(() => {
     })
   })
 
-  // Pickups destroy
-  content.demo.falls.pickups.on('destroy', () => {
-    content.haptics.enqueue({
-      duration: 125,
-      strongMagnitude: 0.5,
-      weakMagnitude: 0.5,
-    })
-  })
-
-  // Pickups pickup
-  content.demo.falls.pickups.on('pickup', () => {
+  // Pickup collect
+  content.demo.falls.pickups.on('collect', () => {
     content.haptics.enqueue({
       duration: 125,
       strongMagnitude: 0.5,
@@ -40,6 +31,15 @@ engine.ready(() => {
       startDelay: 200,
       strongMagnitude: 0.333,
       weakMagnitude: 0.333,
+    })
+  })
+
+  // Pickup destroy
+  content.demo.falls.pickups.on('destroy', () => {
+    content.haptics.enqueue({
+      duration: 125,
+      strongMagnitude: 0.5,
+      weakMagnitude: 0.5,
     })
   })
 
