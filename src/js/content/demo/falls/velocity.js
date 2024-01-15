@@ -23,8 +23,8 @@ content.demo.falls.velocity = (() => {
     update: function () {
       const delta = engine.loop.delta()
 
-      target = engine.fn.clamp(target + (delta / 300))
-      value = engine.fn.accelerateValue(value, target, 16)
+      target = engine.fn.accelerateValue(target, 1, 1/300)
+      value = engine.fn.accelerateValue(value, target, 2)
 
       velocity = engine.fn.lerpExp(
         1/60,

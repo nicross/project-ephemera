@@ -56,7 +56,7 @@ content.demo.falls.player = (() => {
       }
 
       if (isDead && isDeadAccelerated < 1) {
-        isDeadAccelerated = engine.fn.accelerateValue(isDeadAccelerated, 1, 1)
+        isDeadAccelerated = engine.fn.accelerateValue(isDeadAccelerated, 1, 2)
       }
 
       return this
