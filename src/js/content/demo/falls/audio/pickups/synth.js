@@ -14,6 +14,8 @@ content.demo.falls.audio.pickups.synth.prototype = {
     this.rootFrequency = pickup.frequency
     this.pickup = pickup
 
+    this.occlusion = this.calculateOcclusion()
+
     // Audio circuit: synth->filter->gain->panner->bus
     this.panner = context.createStereoPanner()
     this.panner.connect(bus)
@@ -27,15 +29,17 @@ content.demo.falls.audio.pickups.synth.prototype = {
     this.filter.connect(this.fader)
 
     // Synthesis
-    const gain = engine.fn.fromDb(-16.5)
+    const gain = engine.fn.fromDb(-15)
 
-    this.synth = engine.synth.am({
+    this.synth = engine.synth.mod({
+      amodDepth: engine.fn.fromDb(-3),
+      amodFrequency: 1,
       carrierType: 'sawtooth',
       carrierFrequency: this.rootFrequency,
-      carrierGain: 1 - engine.fn.fromDb(-4.5),
+      carrierGain: 1 - engine.fn.fromDb(-3),
       gain: engine.const.zeroGain,
-      modDepth: engine.fn.fromDb(-4.5),
-      modFrequency: 1,
+      fmodFrequency: this.rootFrequency * 2/Math.PI,
+      fmodDepth: 0,
     }).shaped(
       engine.shape.noise4()
     ).connect(this.filter)
@@ -54,6 +58,8 @@ content.demo.falls.audio.pickups.synth.prototype = {
     return this
   },
   update: function () {
+    this.occlusion = engine.fn.accelerateValue(this.occlusion, this.calculateOcclusion(), 8)
+
     // Panning, filtering, attenuating
     const relativeX = content.demo.falls.player.toRelativeX(this.pickup.x)
 
@@ -90,18 +96,75 @@ content.demo.falls.audio.pickups.synth.prototype = {
     const enemy = content.demo.falls.enemies.get(this.pickup.x)
 
     let color = engine.fn.lerp(6, 0.75, Math.abs(relative.x))
-      * (enemy && enemy.y <= this.pickup.y ? 0.5 : 1)
+      * engine.fn.lerp(1, 0.5, this.occlusion)
 
     color = engine.fn.lerp(0.25, color, aheadRatio * behindRatio * (1 - content.demo.falls.player.isDeadAccelerated()))
 
     engine.fn.setParam(this.filter.frequency, this.rootFrequency * color)
 
-    // Modulation
+    // AM
     engine.fn.setParam(
-      this.synth.param.mod.frequency,
+      this.synth.param.amod.frequency,
       engine.fn.lerpExp(16, 1, engine.fn.clamp(this.pickup.y), 0.5) * engine.fn.lerp(1, 0.5, relative.x)
     )
 
+    // FM
+    engine.fn.setParam(
+      this.synth.param.fmod.depth,
+      engine.fn.lerpExp(0, Math.PI/2, this.occlusion, 2) * this.rootFrequency
+    )
+
     return this
+  },
+  // Methods
+  calculateOcclusion: function () {
+    const playerX = content.demo.falls.player.x(),
+      relativeX = content.demo.falls.player.toRelativeX(this.pickup.x),
+      threshold = content.demo.falls.pickups.threshold()
+
+    // Prevent divide by zero
+    if (relativeX == 0) {
+      const enemy = content.demo.falls.enemies.get(playerX)
+      return enemy && enemy.y <= this.pickup.y ? 1 : 0
+    }
+
+    // Check each nearby enemy against a raycast
+    const slope = engine.fn.clamp(this.pickup.y) / engine.fn.clamp(relativeX / 8, -1, 1)
+
+    return content.demo.falls.enemies.nearby(8).reduce((value, enemy) => {
+      // Filter out enemies that aren't between player and pickup
+      const isBetween = engine.fn.between(content.demo.falls.player.toRelativeX(enemy.x), 0, relativeX)
+
+      if (!isBetween || value == 1) {
+        return value
+      }
+
+      // Calculate the projected y-value at x
+      const projection = engine.fn.clamp(content.demo.falls.player.toRelativeX(enemy.x) / 8, -1, 1) * slope
+
+      // Skip ahead if fully occluded
+      if (engine.fn.between(projection, enemy.y + threshold/2, enemy.y + enemy.height - threshold/2)) {
+        return 1
+      }
+
+      // Occlusion from bottom
+      if (engine.fn.between(projection, enemy.y, enemy.y + threshold/2)) {
+        return Math.max(
+          value,
+          engine.fn.scale(projection, enemy.y, enemy.y + threshold/2, 0, 1),
+        )
+      }
+
+      // Occlusion from top
+      if (engine.fn.between(projection, enemy.y + enemy.height - threshold/2, enemy.y + enemy.height)) {
+        return Math.max(
+          value,
+          engine.fn.scale(projection, enemy.y + enemy.height - threshold/2, enemy.y + enemy.height, 1, 0),
+        )
+      }
+
+      // Not occluded, use previous value
+      return value
+    }, 0)
   },
 }

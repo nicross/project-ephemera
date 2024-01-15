@@ -112,7 +112,7 @@ content.demo.falls.audio.enemies.synth.prototype = {
           3
         ),
         // Normal color
-        engine.fn.lerpExp(5, 1, Math.abs(relative.x), 0.5),
+        engine.fn.lerpExp(5, 1, Math.abs(relative.x), 0.75),
         relative.y,
         0.125
       )
