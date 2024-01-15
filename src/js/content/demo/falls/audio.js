@@ -10,7 +10,9 @@ content.demo.falls.audio = (() => {
       engine.fn.rampLinear(bus.gain, 1, 1/16)
 
       this.frequencies.load()
+
       this.enemies.load()
+      this.pickups.load()
 
       return this
     },
@@ -20,12 +22,15 @@ content.demo.falls.audio = (() => {
 
       this.enemies.unload()
       this.frequencies.unload()
+      this.pickups.unload()
 
       return this
     },
     update: function () {
       this.frequencies.update()
+
       this.enemies.update()
+      this.pickups.update()
 
       return this
     },

@@ -13,7 +13,7 @@ content.demo.falls.audio.enemies.synth.prototype = {
 
     this.enemy = enemy
 
-    // Audio circuit: filter->gain->panner
+    // Audio circuit: synth->filter->gain->panner->bus
     this.panner = context.createStereoPanner()
     this.panner.connect(bus)
 
@@ -118,7 +118,7 @@ content.demo.falls.audio.enemies.synth.prototype = {
       )
     }
 
-    color = engine.fn.lerp(color, 4, content.demo.falls.player.isDeadAccelerated())
+    color = engine.fn.lerp(color, 1, content.demo.falls.player.isDeadAccelerated())
 
     engine.fn.setParam(this.filter.frequency, this.rootFrequency * color)
 

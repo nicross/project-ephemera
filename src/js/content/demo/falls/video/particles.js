@@ -110,7 +110,7 @@ content.demo.falls.enemies.on('kill', ({
 })
 
 // Pickup collect
-content.demo.falls.pickups.on('collect', (pickup) => {
+content.demo.falls.pickups.on('collect', ({pickup}) => {
   const context = content.demo.falls.video.context()
 
   if (!context) {
@@ -136,7 +136,7 @@ content.demo.falls.pickups.on('collect', (pickup) => {
 })
 
 // Pickup destroy
-content.demo.falls.pickups.on('destroy', (pickup) => {
+content.demo.falls.pickups.on('destroy', ({pickup}) => {
   const context = content.demo.falls.video.context()
 
   if (!context) {

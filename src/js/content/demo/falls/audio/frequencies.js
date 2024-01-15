@@ -64,7 +64,7 @@ content.demo.falls.audio.frequencies = (() => {
 
       keyValue = engine.fn.smooth(
         keyField.value(time / 30),
-        12
+        5
       )
 
       return this

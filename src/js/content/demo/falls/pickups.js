@@ -51,8 +51,11 @@ content.demo.falls.pickups = (() => {
     // Spawn in random spot
     const x = engine.fn.choose(available, Math.random())
 
-    pickup = {x, y: 1}
-    pubsub.emit('spawn', pickup)
+    pickup = {
+      frequency: content.demo.falls.audio.frequencies.choose(engine.fn.lerp(0.7, 0.9, Math.random())),
+      x,
+      y: 1,
+    }
   }
 
   function update() {
@@ -62,7 +65,7 @@ content.demo.falls.pickups = (() => {
 
     // Pickup by player
     if (pickup.x == playerX && pickup.y <= threshold) {
-      pubsub.emit('collect', pickup)
+      pubsub.emit('collect', {pickup})
 
       cooldown = 30
       pickup = undefined
@@ -82,7 +85,7 @@ content.demo.falls.pickups = (() => {
     const enemy = content.demo.falls.enemies.get(pickup.x)
 
     if (enemy && pickup.y >= enemy.y && enemy.y + enemy.height >= pickup.y) {
-      pubsub.emit('destroy', pickup)
+      pubsub.emit('destroy', {pickup})
 
       cooldown = 5
       pickup = undefined
@@ -95,7 +98,7 @@ content.demo.falls.pickups = (() => {
 
     for (const projectile of projectiles) {
       if (projectile.x == pickup.x && projectile.y >= pickup.y) {
-        pubsub.emit('collect', pickup)
+        pubsub.emit('collect', {pickup})
 
         cooldown = 30
         pickup = undefined
@@ -125,7 +128,7 @@ content.demo.falls.pickups = (() => {
         const x = engine.fn.wrap(playerX + i, 0, size)
 
         if (pickup.x == x) {
-          return pickup
+          return [pickup]
         }
       }
     },
