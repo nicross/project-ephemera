@@ -1,5 +1,5 @@
 content.demo.heights.video.terrain = (() => {
-  const maxParticles = 10000
+  const maxParticles = 15000
   let particles = []
 
   const fragmentShader = `#version 300 es
@@ -69,7 +69,7 @@ void main(void) {
       Math.max(0, maxParticles - particles.length)
     )
 
-    const drawDistance = content.demo.heights.camera.drawDistance() / 8,
+    const drawDistance = content.demo.heights.camera.drawDistance() / 4,
       position = engine.position.getVector()
 
     for (let i = 0; i < count; i += 1) {
@@ -164,9 +164,9 @@ void main(void) {
 
       // Bind mesh
       const mesh = content.gl.createQuad({
-        height: 1/64,
+        height: 1/48,
         quaternion: content.demo.heights.camera.quaternion(),
-        width: 1/64,
+        width: 1/48,
       })
 
       gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
