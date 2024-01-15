@@ -96,7 +96,7 @@ content.demo.falls.audio.pickups.synth.prototype = {
     const enemy = content.demo.falls.enemies.get(this.pickup.x)
 
     let color = engine.fn.lerp(6, 0.75, Math.abs(relative.x))
-      * engine.fn.lerp(1, 0.5, this.occlusion)
+      * engine.fn.lerp(1, 0.25, this.occlusion)
 
     color = engine.fn.lerp(0.25, color, aheadRatio * behindRatio * (1 - content.demo.falls.player.isDeadAccelerated()))
 
@@ -105,7 +105,7 @@ content.demo.falls.audio.pickups.synth.prototype = {
     // AM
     engine.fn.setParam(
       this.synth.param.amod.frequency,
-      engine.fn.lerpExp(16, 1, engine.fn.clamp(this.pickup.y), 0.5) * engine.fn.lerp(1, 0.5, relative.x)
+      engine.fn.lerpExp(16, 1, engine.fn.clamp(this.pickup.y), 0.5) * engine.fn.lerp(1, 0.5, Math.abs(relative.x))
     )
 
     // FM
@@ -132,25 +132,33 @@ content.demo.falls.audio.pickups.synth.prototype = {
     const slope = engine.fn.clamp(this.pickup.y) / engine.fn.clamp(relativeX / 8, -1, 1)
 
     return content.demo.falls.enemies.nearby(8).reduce((value, enemy) => {
+      const enemyX = content.demo.falls.player.toRelativeX(enemy.x)
+
       // Filter out enemies that aren't between player and pickup
-      const isBetween = engine.fn.between(content.demo.falls.player.toRelativeX(enemy.x), 0, relativeX)
+      const isBetween = engine.fn.between(enemyX, 0, relativeX)
 
       if (!isBetween || value == 1) {
         return value
       }
 
       // Calculate the projected y-value at x
-      const projection = engine.fn.clamp(content.demo.falls.player.toRelativeX(enemy.x) / 8, -1, 1) * slope
+      const projection = engine.fn.clamp(enemyX / 8, -1, 1) * slope
 
       // Skip ahead if fully occluded
       if (engine.fn.between(projection, enemy.y + threshold/2, enemy.y + enemy.height - threshold/2)) {
         return 1
       }
 
+      // Apply some attenuation based on area on screen
+      const enemyAmount = (engine.fn.clamp(enemy.y + enemy.height) - engine.fn.clamp(enemy.y))
+        * (1 - engine.fn.clamp(enemy.y))
+        * (enemy.y > this.pickup.y ? 0 : 1)
+
       // Occlusion from bottom
       if (engine.fn.between(projection, enemy.y, enemy.y + threshold/2)) {
         return Math.max(
           value,
+          enemyAmount,
           engine.fn.scale(projection, enemy.y, enemy.y + threshold/2, 0, 1),
         )
       }
@@ -159,12 +167,13 @@ content.demo.falls.audio.pickups.synth.prototype = {
       if (engine.fn.between(projection, enemy.y + enemy.height - threshold/2, enemy.y + enemy.height)) {
         return Math.max(
           value,
+          enemyAmount,
           engine.fn.scale(projection, enemy.y + enemy.height - threshold/2, enemy.y + enemy.height, 1, 0),
         )
       }
 
       // Not occluded, use previous value
-      return value
+      return Math.max(value, enemyAmount)
     }, 0)
   },
 }
