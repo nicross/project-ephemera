@@ -50,7 +50,7 @@ content.demo.heights.audio.trail.sound = engine.sound.extend({
       gain = engine.fn.fromDb(-15),
       now = engine.time()
 
-    this.synth.filter.frequency.linearRampToValueAtTime(this.rootFrequency * 2, now + 1/64)
+    this.synth.filter.frequency.linearRampToValueAtTime(this.rootFrequency * 2, now + 1/32)
     this.synth.filter.frequency.linearRampToValueAtTime(this.rootFrequency * 1.5, now + duration)
 
     this.synth.param.width.linearRampToValueAtTime(engine.fn.randomFloat(1/8, 7/8), now + duration)
