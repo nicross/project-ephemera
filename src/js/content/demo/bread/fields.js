@@ -17,6 +17,9 @@ content.demo.bread.fields = (() => {
       octaves: 8,
       transform: (value) => content.demo.bread.frequency.get(value),
       tScale: 0,
+      xScale: 3/4,
+      yScale: 3/4,
+      zScale: 3/4,
     },
     {
       key: 'carrierType',
