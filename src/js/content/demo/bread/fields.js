@@ -39,7 +39,7 @@ content.demo.bread.fields = (() => {
     },
     {
       key: 'amFrequency',
-      transform: (value) => engine.fn.lerpExp(1/8, 8, abs(value), 2),
+      transform: (value) => engine.fn.lerpExp(1/8, 8, abs(value), 4),
     },
     {
       key: 'buzzStrong',
@@ -63,7 +63,7 @@ content.demo.bread.fields = (() => {
     },
     {
       key: 'colorFrequency',
-      transform: (value) => engine.fn.lerpExp(1/8, 8, abs(value), 2),
+      transform: (value) => engine.fn.lerpExp(1/8, 8, abs(value), 4),
     },
     {
       key: 'fmDepth',
@@ -83,7 +83,7 @@ content.demo.bread.fields = (() => {
     },
     {
       key: 'pwmFrequency',
-      transform: (value) => engine.fn.lerp(1/8, 8, abs(value), 2),
+      transform: (value) => engine.fn.lerp(1/8, 8, abs(value), 4),
     },
     {
       key: 'vibratoDepth',
@@ -91,7 +91,7 @@ content.demo.bread.fields = (() => {
     },
     {
       key: 'vibratoFrequency',
-      transform: (value) => engine.fn.lerp(1/8, 8, abs(value), 2),
+      transform: (value) => engine.fn.lerp(1/8, 8, abs(value), 4),
     },
     {
       key: 'width',
