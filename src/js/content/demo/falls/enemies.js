@@ -44,10 +44,17 @@ content.demo.falls.enemies = (() => {
 
   function spawn() {
     const available = [],
+      pickup = content.demo.falls.pickups.get(),
+      pickupThreshold = content.demo.falls.pickups.threshold(),
       size = content.demo.falls.const.stageSize
 
     for (let x = 0; x < size; x += 1) {
       if (cooldowns.has(x) || enemies.has(x)) {
+        continue
+      }
+
+      // Give distance between pickups
+      if (pickup && pickup.x == x && pickup.y >= 1 - pickupThreshold) {
         continue
       }
 

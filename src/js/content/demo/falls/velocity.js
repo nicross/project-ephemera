@@ -27,7 +27,7 @@ content.demo.falls.velocity = (() => {
       value = engine.fn.accelerateValue(value, target, 16)
 
       velocity = engine.fn.lerpExp(
-        1/64,
+        1/60,
         1,
         value,
         2
@@ -41,6 +41,6 @@ content.demo.falls.velocity = (() => {
 
 engine.ready(() => {
   content.demo.falls.player.on('kill', () => content.demo.falls.velocity.multiply(0))
-  content.demo.falls.pickups.on('destroy', () => content.demo.falls.velocity.multiply(1.25))
-  content.demo.falls.pickups.on('pickup', () => content.demo.falls.velocity.multiply(0.75))
+  content.demo.falls.pickups.on('destroy', () => content.demo.falls.velocity.multiply(7/6))
+  content.demo.falls.pickups.on('pickup', () => content.demo.falls.velocity.multiply(5/6))
 })

@@ -125,7 +125,7 @@ content.demo.falls.pickups.on('destroy', (pickup) => {
     content.demo.falls.video.particles.spawn({
       life: 1,
       offset: {x: engine.fn.randomFloat(-radius, radius), y: 0},
-      radius: engine.fn.randomFloat(0, 2) ** 2,
+      radius: engine.fn.randomFloat(0, 1.5) ** 2,
       rate: engine.fn.randomFloat(1, 2),
       velocity: {x: velocity * engine.fn.randomFloat(-1, 1), y: velocity * engine.fn.randomFloat(-1, 0)},
       x: pickup.x,
@@ -152,7 +152,7 @@ content.demo.falls.pickups.on('pickup', (pickup) => {
     content.demo.falls.video.particles.spawn({
       life: 1,
       offset: {x: engine.fn.randomFloat(-radius, radius), y: engine.fn.randomFloat(-radius, radius)},
-      radius: engine.fn.randomFloat(0, 2) ** 2,
+      radius: engine.fn.randomFloat(0, 1.5) ** 2,
       rate: engine.fn.randomFloat(1, 2),
       velocity: {x: velocity * engine.fn.randomFloat(-1, 1), y: velocity * engine.fn.randomFloat(-1, 1)},
       x: pickup.x,

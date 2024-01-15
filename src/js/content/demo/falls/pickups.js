@@ -1,6 +1,6 @@
 content.demo.falls.pickups = (() => {
   const pubsub = engine.tool.pubsub.create(),
-    threshold = 600/800/17/2
+    threshold = 600/800/17
 
   let cooldown = 0,
     pickup
@@ -10,18 +10,48 @@ content.demo.falls.pickups = (() => {
       return
     }
 
-    const playerX = content.demo.falls.player.x()
+    const playerX = content.demo.falls.player.x(),
+      size = content.demo.falls.const.stageSize
 
-    const enemies = content.demo.falls.enemies.all()
-      .filter((enemy) => enemy.y + enemy.height < (1 - (threshold * 2)) && enemy.x != playerX)
+    // Build hash for avoiding projectiles
+    const projectiles = {}
 
-    if (!enemies.length) {
+    for (const projectile of content.demo.falls.projectiles.all()) {
+      projectiles[projectile.x] = true
+    }
+
+    // Find available splots
+    const available = []
+
+    for (let x = 0; x < size; x += 1) {
+      // Avoid player
+      if (x == playerX) {
+        continue
+      }
+
+      // Avoid projectiles
+      if (projectiles[x]) {
+        continue
+      }
+
+      // Avoid middle of enemies
+      const enemy = content.demo.falls.enemies.get(x)
+
+      if (enemy && enemy.y + enemy.height > (1 - (threshold * 2))) {
+        continue
+      }
+
+      available.push(x)
+    }
+
+    if (!available.length) {
       return
     }
 
-    const enemy = engine.fn.choose(enemies, Math.random())
+    // Spawn in random spot
+    const x = engine.fn.choose(available, Math.random())
 
-    pickup = {x: enemy.x, y: 1}
+    pickup = {x, y: 1}
     pubsub.emit('spawn', pickup)
   }
 
@@ -99,6 +129,7 @@ content.demo.falls.pickups = (() => {
         }
       }
     },
+    threshold: () => threshold,
     unload: function () {
       cooldown = 0
       pickup = undefined
