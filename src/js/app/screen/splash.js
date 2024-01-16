@@ -5,8 +5,8 @@ app.screen.splash = app.screenManager.invent({
   rootSelector: '.a-splash',
   transitions: {
     interact: function () {
-      // Skip boot sequence into demo
-      if (app.debug && true) {
+      // XXX: Skip boot sequence into demo
+      if (app.debug && false) {
         return this.change('game', {
           demo: content.demo.falls,
         })
