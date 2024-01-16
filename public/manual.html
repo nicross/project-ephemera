@@ -5,6 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="./favicon.png" />
     <style>
+      @font-face {
+        font-family: BlockedRegular;
+        font-style: normal;
+        font-weight: 400;
+        src: url('font/blocked-regular.woff') format('woff');
+      }
+      @font-face {
+        font-family: FiraCodeLight;
+        font-style: normal;
+        font-weight: 300;
+        src: url('font/firacode-light.woff') format('woff');
+      }
+      @font-face {
+        font-family: FiraCodeMedium;
+        font-style: normal;
+        font-weight: 500;
+        src: url('font/firacode-medium.woff') format('woff');
+      }
+      @font-face {
+        font-family: FiraCodeRegular;
+        font-style: normal;
+        font-weight: 400;
+        src: url('font/firacode-regular.woff') format('woff');
+      }
+      @font-face {
+        font-family: ForcedSquareRegular;
+        font-style: normal;
+        font-weight: 400;
+        src: url('font/forcedsquare-regular.woff') format('woff');
+      }
+      @font-face {
+        font-family: RobotoBold;
+        font-style: normal;
+        font-weight: 700;
+        src: url('font/roboto-bold.woff') format('woff');
+      }
+      @font-face {
+        font-family: RobotoLight;
+        font-style: normal;
+        font-weight: 300;
+        src: url('font/roboto-light.woff') format('woff');
+      }
+      @font-face {
+        font-family: RobotoRegular;
+        font-style: normal;
+        font-weight: 400;
+        src: url('font/roboto-regular.woff') format('woff');
+      }
+      @font-face {
+        font-family: RobotoRegularItalic;
+        font-style: italic;
+        font-weight: 400;
+        src: url('font/roboto-italic.woff') format('woff');
+      }
+
       *, *::after, *::before {
         background: transparent;
         border: 0;
@@ -17,7 +72,7 @@
 
       :root {
         background-color: #FFFFFF;
-        font-family: sans-serif;
+        font-family: RobotoRegular, sans-serif;
         font-size: 16px;
         font-weight: 400;
         line-height: 1.5;
@@ -44,7 +99,7 @@
       }
 
       em {
-        font-family: sans-serif;
+        font-family: RobotoRegularItalic, sans-serif;
         font-style: italic;
       }
 
@@ -71,7 +126,7 @@
       }
 
       strong, th {
-        font-family: sans-serif;
+        font-family: RobotoBold, sans-serif;
         font-weight: 700;
       }
 
@@ -129,7 +184,7 @@
           margin-top: 2em;
         }
         .hero--logo {
-          font-family: monospace;
+          font-family: BlockedRegular, monospace;
           font-size: 3em;
           text-transform: uppercase;
         }
@@ -167,6 +222,9 @@
     <main>
       <section>
         <h2>Introduction</h2>
+        <p><strong>Project Ephemera</strong> was the codename of an experimental console developed by digital synthesizer manufacturers in the early 1990s. Although it never reached production, a handful of prototypes have survived the test of time.</p>
+        <p>This image was cloned from a demonstration unit meant for retail displays, which boasted a trio of minigames to show off its audio synthesis and vector graphics capabilities. It was then restored and enhanced for modern systems to complete this definitive experience of the forgotten console.</p>
+        <p>Face the thrilling action of <em>Harmony Falls</em>! Take in the meditative ambiance of <em>Melody Heights</em>! And indulge your creativity with <em>Secret Bread</em>! Inside <strong>Project Ephemera</strong> there is ephemera for everybody!</p>
       </section>
 
       <section>
@@ -204,22 +262,258 @@
 
       <section>
         <h2>How to Play</h2>
-      </section>
+        <p>Power on the console to browse its playable demos. Each demo offers a unique experience which pushed the retro hardware to its limits.<p>
 
-      <section>
-        <h2>Controls</h2>
+        <h3>Harmony Falls</h3>
+        <p><strong>Harmony Falls</strong> can be best described as an endless runner shooter. Press <kbd>Left</kbd> and <kbd>Right</kbd> to dodge obstacles at increasing speeds. Press <kbd>Shoot</kbd> to push and destroy obstacles. Shoot or collect power-ups to slow time, or crush them with obstacles to speed time up. Beware that the game ends when obstacles are touched.<p>
+
+        <h4>Keyboard Controls</h4>
         <div class="scrollable">
           <table>
             <thead>
               <tr>
-                <th>Action</th>
-                <th>Button</th>
+                <th scope="col">Action</th>
+                <th scope="col" colspan="4">Buttons</th>
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <th scope="row">Left</th>
+                <td>A</td>
+                <td>Left Arrow</td>
+                <td colspan="2">Numpad 4</td>
+              </tr>
+              <tr>
+                <th scope="row">Right</th>
+                <td>D</td>
+                <td>Right Arrow</td>
+                <td colspan="2">Numpad 6</td>
+              </tr>
+              <tr>
+                <th scope="row">Shoot</th>
+                <td>W</td>
+                <td>Up Arrow</td>
+                <td>Numpad 8</td>
+                <td>Space</td>
+              </tr>
+              <tr>
+                <th scope="row">Exit Demo</th>
+                <td>Escape</td>
+                <td colspan="3">Backspace</td>
+              </tr>
             </tbody>
           </table>
         </div>
+
+        <h4>Mouse Controls</h4>
+        <div class="scrollable">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Action</th>
+                <th scope="col">Button</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Shoot</th>
+                <td>Mouse 0 (Primary)</td>
+              </tr>
+              <tr>
+                <th scope="row">Exit Demo</th>
+                <td>Mouse 3 (Back)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Gamepad Controls</h4>
+        <div class="scrollable">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Action</th>
+                <th scope="col" colspan="3">Buttons</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Left</th>
+                <td>Any Stick</td>
+                <td colspan="2">D-Pad Left</td>
+              </tr>
+              <tr>
+                <th scope="row">Right</th>
+                <td>Any Stick</td>
+                <td colspan="2">D-Pad Right</td>
+              </tr>
+              <tr>
+                <th scope="row">Shoot</th>
+                <td>A</td>
+                <td>D-Pad Up</td>
+                <td>Any Trigger</td>
+              </tr>
+              <tr>
+                <th scope="row">Exit Demo</th>
+                <td>Start</td>
+                <td colspan="2">Select</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Melody Heights</h3>
+        <p><strong>Harmony Falls</strong> can be best described as a walking simulator. Freely explore a mountainside with <kbd>Move</kbd>, <kbd>Turn</kbd>, <kbd>Look</kbd>, and <kbd>Jump</kbd> controls. The experience is unrestricted and open to interpretation.</p>
+
+        <h4>Keyboard Controls</h4>
+        <div class="scrollable">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Action</th>
+                <th scope="col" colspan="3">Buttons</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Move Forward</th>
+                <td colspan="2">W</td>
+                <td>Numpad 8</td>
+              </tr>
+              <tr>
+                <th scope="row">Move Backward</th>
+                <td colspan="2">S</td>
+                <td>Numpad 5</td>
+              </tr>
+              <tr>
+                <th scope="row">Strafe Left</th>
+                <td colspan="2">A</td>
+                <td>Numpad 4</td>
+              </tr>
+              <tr>
+                <th scope="row">Strafe Right</th>
+                <td colspan="2">D</td>
+                <td>Numpad 6</td>
+              </tr>
+              <tr>
+                <th scope="row">Turn Left</th>
+                <td>Q</td>
+                <td>Left Arrow</td>
+                <td>Numpad 7</td>
+              </tr>
+              <tr>
+                <th scope="row">Turn Right</th>
+                <td>E</td>
+                <td>Right Arrow</td>
+                <td>Numpad 9</td>
+              </tr>
+              <tr>
+                <th scope="row">Look Up</th>
+                <td>Page Up</td>
+                <td colspan="2">Up Arrow</td>
+              </tr>
+              <tr>
+                <th scope="row">Look Down</th>
+                <td>Page Down</td>
+                <td colspan="2">Down Arrow</td>
+              </tr>
+              <tr>
+                <th scope="row">Jump</th>
+                <td>Space</td>
+                <td colspan="2">Enter</td>
+              </tr>
+              <tr>
+                <th scope="row">Exit Demo</th>
+                <td>Escape</td>
+                <td colspan="2">Backspace</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Mouse Controls</h4>
+        <div class="scrollable">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Action</th>
+                <th scope="col">Button</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Move Forward</th>
+                <td>Mouse 2 (Secondary)</td>
+              </tr>
+              <tr>
+                <th scope="row">Turn / Look</th>
+                <td>Mouse Move</td>
+              </tr>
+              <tr>
+                <th scope="row">Jump</th>
+                <td>Mouse 0 (Primary)</td>
+              </tr>
+              <tr>
+                <th scope="row">Exit Demo</th>
+                <td>Mouse 3 (Back)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Gamepad Controls</h4>
+        <div class="scrollable">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Action</th>
+                <th scope="col" colspan="2">Buttons</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Move / Strafe</th>
+                <td>Left Stick</td>
+                <td colspan="2">D-Pad</td>
+              </tr>
+              <tr>
+                <th scope="row">Look / Turn</th>
+                <td colspan="2">Right Stick</td>
+              </tr>
+              <tr>
+                <th scope="row">Jump</th>
+                <td>A</td>
+                <td>Any Bumper</td>
+              </tr>
+              <tr>
+                <th scope="row">Exit Demo</th>
+                <td>Start</td>
+                <td>Select</td>
+              </tr>
+            </tbody>
+          </table>
+          </table>
+        </div>
+
+        <h3>Secret Bread</h3>
+        <p><strong>Secret Bread</strong> can be best described as a virtual instrument. Inspect it with various controls to produce a spectrum of complex evolving drones. The instrument can be toggled between four scales with support for up to eight simultaneous voices.</p>
+
+        <h4>Keyboard Controls</h4>
+        <p>Press any of the letter, number, or punctuation keys to inspect the object. Hold shift to inspect deeper. Switch the active scale with the arrow keys.</p>
+
+        <h4>Mouse Controls</h4>
+        <p>Click to inspect the front of the object.</p>
+
+        <h4>Gamepad Controls</h4>
+        <p>Press the bumpers or hold the triggers to inspect the object. Reposition dualing voices with the thumbsticks. Switch the active scale with the directional pad.</p>
+      </section>
+
+      <section>
+        <h2>Accessibility</h2>
+        <p>Project Ephemera is developed in accordance with WCAG (Web Content Accessibility Guidelines) 2.1 at Level AA conformance. Its menus are fully operable with a keyboard and screen readers such as NVDA.</p>
+
+        <h3>Photosensitivity Warning</h3>
+        <p>Certain scenes may produce strobing lights or patterns. The graphics may be deactivated from the settings screen.</p>
       </section>
 
       <section>
